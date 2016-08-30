@@ -12,7 +12,7 @@
         android:name="com.maxplus.sostudy.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
-    <!--Required 一些系统要求的权限，如访问网络等-->
+    <!-- Required 一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="com.maxplus.sostudy.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -23,20 +23,20 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
-    <!-- JMessage Demo required for record audio-->
+    <!-- JMessage Demo required for record audio -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <!-- Optional for location -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:name=".application.JChatDemoApplication"
@@ -44,10 +44,10 @@
         android:configChanges="fontScale"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/noTitle"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/noTitle">
 
-        <!-- Required Push SDK核心功能-->
+        <!-- Required Push SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -61,13 +61,14 @@
             </intent-filter>
         </service>
 
-        <!-- Required Push SDK核心功能-->
+        <!-- Required Push SDK核心功能 -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />  <!--Required  显示通知栏 -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+                <!-- Required  显示通知栏 -->
                 <category android:name="com.maxplus.sostudy" />
             </intent-filter>
             <intent-filter>
@@ -87,8 +88,8 @@
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-	    android:exported="false">
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
@@ -102,9 +103,11 @@
             android:enabled="true"
             android:exported="false" />
         <!-- Required Push SDK核心功能 -->
-        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
 
-        <!-- IM Required IM SDK核心功能-->
+        <!-- IM Required IM SDK核心功能 -->
         <receiver
             android:name="cn.jpush.im.android.helpers.IMReceiver"
             android:enabled="true"
@@ -125,9 +128,9 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
+
                 <category android:name="com.maxplus.sostudy" />
             </intent-filter>
-
         </service>
 
         <!-- Required. Enable it you can get statistics data with channel -->
@@ -137,85 +140,80 @@
         <!-- Required. AppKey copied from Portal -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="2bdab07bc2fb1cfd8654bff5" /><!--  </>值来自开发者平台取得的AppKey-->
+            android:value="2bdab07bc2fb1cfd8654bff5" />
+        <!-- </>值来自开发者平台取得的AppKey -->
 
         <activity
             android:name=".activity.BaseActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
-            android:theme="@style/noTitle"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+            android:theme="@style/noTitle"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".activity.MeInfoActivity" />
+        <activity android:name=".activity.MeInfoActivity" />
         <activity
             android:name=".chatting.ChatActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.ReloginActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
-        <activity
-            android:name=".activity.ChatDetailActivity" />
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity android:name=".activity.ChatDetailActivity" />
         <activity
             android:name=".activity.GroupSettingActivity"
             android:theme="@style/group_setting_dialog" />
-        <activity
-            android:name=".activity.FriendInfoActivity" />
-        <activity
-            android:name=".activity.CreateGroupActivity" />
-        <activity
-            android:name=".activity.PickPictureTotalActivity" />
-        <activity
-            android:name=".activity.PickPictureActivity" />
-        <activity
-            android:name=".activity.BrowserViewPagerActivity" />
-        <activity
-            android:name=".activity.SettingActivity" />
-        <activity
-            android:name=".activity.NotificationSettingActivity" />
-        <activity
-            android:name=".activity.DisturbSettingActivity" />
+        <activity android:name=".activity.FriendInfoActivity" />
+        <activity android:name=".activity.CreateGroupActivity" />
+        <activity android:name=".activity.PickPictureTotalActivity" />
+        <activity android:name=".activity.PickPictureActivity" />
+        <activity android:name=".activity.BrowserViewPagerActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.NotificationSettingActivity" />
+        <activity android:name=".activity.DisturbSettingActivity" />
         <activity
             android:name=".activity.ResetPasswordActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
         <activity
             android:name=".activity.FixProfileActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
         <activity
             android:name=".activity.ResetNickNameActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
         <activity
             android:name=".activity.SelectAreaActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
         <activity
             android:name=".activity.EditSignatureActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
-        <activity
-            android:name=".activity.EditNoteNameActivity" />
-        <activity
-            android:name=".activity.AboutActivity" />
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+        <activity android:name=".activity.EditNoteNameActivity" />
+        <activity android:name=".activity.AboutActivity" />
         <activity
             android:name=".activity.SelectFriendActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity
-            android:name=".activity.MembersInChatActivity" />
-        <activity
-            android:name=".activity.CropImageActivity" />
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.MembersInChatActivity" />
+        <activity android:name=".activity.CropImageActivity" />
+        <activity android:name=".activity.SplashActivity"
+            android:configChanges="keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>/>
+        </activity>
+        <activity android:name=".activity.GuideActivity"></activity>
     </application>
 
 </manifest>
