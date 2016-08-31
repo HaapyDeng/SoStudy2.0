@@ -318,5 +318,9 @@
     <string name="jmui_sdk_87x_871506">imei无效</string>
     <string name="jmui_sdk_87x_871201">请求超时，请检查您的网络</string>
 
+
+    <!--以下自行添加-->
+    <string name="isNotNetWork">网络连接错误，请检查手机网络再试！</string>
+
 </resources>
 

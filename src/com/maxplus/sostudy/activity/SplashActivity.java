@@ -1,15 +1,20 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Toast;
 
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.tools.NetworkUtils;
+import com.squareup.picasso.OkHttpDownloader;
 
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.OkHttpClient;
 
 public class SplashActivity extends Activity {
     boolean isFirstIn = false;
@@ -20,6 +25,10 @@ public class SplashActivity extends Activity {
     private static final long SPLASH_DELAY_MILLIS = 3000;
 
     private static final String SHAREDPREFERENCES_NAME = "first_pref";
+
+    private String userName, password;
+    private String service = "moodle_mobile_app";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +74,7 @@ public class SplashActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case GO_HOME:
-                    goHome();
+                    goLogin();
                     break;
                 case GO_GUIDE:
                     goGuide();
@@ -82,6 +91,29 @@ public class SplashActivity extends Activity {
 
 
 
-    private void goHome() {
+    private void goLogin() {
+        SharedPreferences sp = getSharedPreferences("userInfo",
+                Context.MODE_PRIVATE);
+        userName = sp.getString("USER_NAME", "");
+        password = sp.getString("PASSWORD", "");
+        if (!NetworkUtils.checkNetWork(SplashActivity.this)) {
+            Toast.makeText(SplashActivity.this, R.string.isNotNetWork,
+                    Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            SplashActivity.this.startActivity(intent);
+            SplashActivity.this.finish();
+        }
+        if (sp.getBoolean("ISCHECK", false) && (userName != "")
+                && (password != "")) {
+            // 记住用户名和密码自动登录
+            doLoginPost(userName, password, service);
+        } else {
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            SplashActivity.this.startActivity(intent);
+            SplashActivity.this.finish();
+        }
+
+    }
+    public void doLoginPost(String userName,String password,String service){
     }
 }
