@@ -20,15 +20,10 @@ import com.maxplus.sostudy.activity.LoginActivity;
 
 /**
  * 
- * @{# ViewPagerAdapter.java Create on 2013-5-2 下午11:03:39
+ *
+ *  引导页面适配器
  * 
- *     class desc: 引导页面适配器
- * 
- *     <p>
- *     Copyright: Copyright(c) 2013
- *     </p>
- * @Version 1.0
- * @Author <a href="mailto:gaolei_xj@163.com">Leo</a>
+ * @Author djz
  * 
  * 
  */

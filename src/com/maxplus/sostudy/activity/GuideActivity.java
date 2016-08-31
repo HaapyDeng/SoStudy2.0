@@ -20,15 +20,11 @@ import android.widget.LinearLayout;
 
 /**
  *
- * @{# GuideActivity.java Create on 2013-5-2 下午10:59:08
+ *
  *
  *     class desc: 引导界面
  *
- *     <p>
- *     Copyright: Copyright(c) 2013
- *     </p>
- * @Version 1.0
- * @Author <a href="mailto:gaolei_xj@163.com">Leo</a>
+ * @Author djz
  *
  *
  */

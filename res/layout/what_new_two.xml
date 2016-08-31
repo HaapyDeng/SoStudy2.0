@@ -10,6 +10,6 @@
         android:adjustViewBounds="false"
         android:focusable="true"
         android:scaleType="centerCrop"
-        android:background="@drawable/second" />
+        android:background="@drawable/ydy2" />
 
 </RelativeLayout>
