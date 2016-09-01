@@ -154,9 +154,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RegisterActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -201,19 +199,22 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.MembersInChatActivity" />
         <activity android:name=".activity.CropImageActivity" />
-        <activity android:name=".activity.SplashActivity"
+        <activity
+            android:name=".activity.SplashActivity"
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            />
         </activity>
-        <activity android:name=".activity.GuideActivity"></activity>
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.ForgetPassword"></activity>
     </application>
 
 </manifest>

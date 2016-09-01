@@ -83,4 +83,17 @@
 	<color name="white">#FFFFFF</color>
     
     <color name="light_blue">#8CA4FF</color>
+
+    <!-- 获取验证码颜色-->
+    <color name="get_verify_code">#71d359</color>
+
+    <!-- 账号字体颜色 -->
+    <color name="font">#d4d4d4</color>
+
+    <!-- 忘记密码字体颜色 -->
+    <color name="forget_font">#646464</color>
+
+    <!-- 登录按钮颜色-->
+    <color name="login">#41a1f0</color>
+
 </resources>
