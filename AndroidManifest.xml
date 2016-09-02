@@ -150,14 +150,14 @@
             android:name=".activity.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/noTitle"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.RegisterActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".activity.StudentRegisterActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.MeInfoActivity" />
         <activity
             android:name=".chatting.ChatActivity"

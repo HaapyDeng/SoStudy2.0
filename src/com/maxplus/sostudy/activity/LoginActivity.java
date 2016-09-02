@@ -29,7 +29,7 @@ public class LoginActivity extends Activity implements OnClickListener {
         switch (v.getId()){
             case R.id.tv_regist:
                 Intent intent = new Intent();
-                intent.setClass(this,RegisterActivity.class);
+                intent.setClass(this,StudentRegisterActivity.class);
                 startActivity(intent);
                 break;
             case R.id.forg_password:
