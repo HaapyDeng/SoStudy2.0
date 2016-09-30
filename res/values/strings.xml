@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">极光IM</string>
     <string name="username_hit">用户名</string>
     <string name="password_hit">用户密码</string>
     <!-- ReLogin/login/register界面中使用到的字符串 -->
@@ -340,6 +339,6 @@
     <string name="input_name">请输入您的姓名</string>
     <string name="input_email">请输入邮箱</string>
     <string name="input_email_verify_code">请输入邮箱验证码</string>
-
+    <string name="app_name">好学升</string>
 </resources>
 

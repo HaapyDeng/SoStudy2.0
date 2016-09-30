@@ -248,10 +248,10 @@
             android:background="@color/white"
             android:hint="@string/input_email"
             android:paddingLeft="10dp"
-            android:phoneNumber="true"
             android:singleLine="true"
             android:textColor="#646464"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            />
 
         <TextView
             android:id="@+id/tv_getCode"

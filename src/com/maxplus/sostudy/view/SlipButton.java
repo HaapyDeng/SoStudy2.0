@@ -15,6 +15,8 @@ import android.view.View.OnTouchListener;
 
 import com.maxplus.sostudy.R;
 
+import java.net.NetworkInterface;
+
 public class SlipButton extends View implements OnTouchListener {
     private boolean mEnabled = true;
     public boolean flag = true;//设置初始化状态
