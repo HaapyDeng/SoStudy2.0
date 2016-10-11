@@ -33,6 +33,7 @@
 
     <!--聊天相关-->
     <string name="network_disconnected_hint">当前网络不可用, 请检查你的网络设置</string>
+    <string name="network_little_hint">当前网络请求失败，请稍后再试</string>
     <string name="actionbar_home">首页</string>
     <string name="cross_app_key">跨应用</string>
     <string name="actionbar_conversation">微聊</string>
