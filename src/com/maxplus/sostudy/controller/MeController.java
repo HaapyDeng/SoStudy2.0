@@ -58,28 +58,28 @@ public class MeController implements OnClickListener {
                 mContext.StartSettingActivity();
                 break;
 //			//退出登录 清除Notification，清除缓存
-            case R.id.logout_rl:
-                listener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        switch (view.getId()) {
-                            case R.id.jmui_cancel_btn:
-                                mDialog.cancel();
-                                break;
-                            case R.id.jmui_commit_btn:
-                                mContext.Logout();
-                                mContext.cancelNotification();
-                                NativeImageLoader.getInstance().releaseCache();
-                                mContext.getActivity().finish();
-                                mDialog.cancel();
-                                break;
-                        }
-                    }
-                };
-                mDialog = DialogCreator.createLogoutDialog(mContext.getActivity(), listener);
-                mDialog.getWindow().setLayout((int) (0.8 * mWidth), WindowManager.LayoutParams.WRAP_CONTENT);
-                mDialog.show();
-                break;
+//            case R.id.logout_rl:
+//                listener = new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        switch (view.getId()) {
+//                            case R.id.jmui_cancel_btn:
+//                                mDialog.cancel();
+//                                break;
+//                            case R.id.jmui_commit_btn:
+//                                mContext.Logout();
+//                                mContext.cancelNotification();
+//                                NativeImageLoader.getInstance().releaseCache();
+//                                mContext.getActivity().finish();
+//                                mDialog.cancel();
+//                                break;
+//                        }
+//                    }
+//                };
+//                mDialog = DialogCreator.createLogoutDialog(mContext.getActivity(), listener);
+//                mDialog.getWindow().setLayout((int) (0.8 * mWidth), WindowManager.LayoutParams.WRAP_CONTENT);
+//                mDialog.show();
+//                break;
 //		case R.id.birthday:
 //			Calendar calendar = Calendar.getInstance();
 //			String dateStr = mBirthday.getText().toString().trim();

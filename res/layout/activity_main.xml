@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/menu_bar_border">
 
         <FrameLayout
             android:layout_width="0dp"
@@ -19,10 +20,10 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/actionbar_msg_btn"
+                android:id="@+id/actionbar_home_btn"
                 style="@style/ActionBarItem"
                 android:drawableTop="@drawable/actionbar_msg_drawable_bg"
-                android:text="@string/actionbar_msg" />
+                android:text="@string/actionbar_home" />
 
             <!--
 
@@ -43,10 +44,23 @@
             android:layout_weight="1">
 
             <Button
+                android:id="@+id/actionbar_talk_btn"
+                style="@style/ActionBarItem"
+                android:drawableTop="@drawable/actionbar_talk_drawable_bg"
+                android:text="@string/actionbar_talk" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <Button
                 android:id="@+id/actionbar_contact_btn"
                 style="@style/ActionBarItem"
                 android:drawableTop="@drawable/actionbar_contact_drawable_bg"
-                android:text="@string/actionbar_contact" />
+                android:text="@string/actionbar_course" />
 
         </FrameLayout>
 

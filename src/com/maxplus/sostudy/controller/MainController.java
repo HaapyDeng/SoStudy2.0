@@ -10,14 +10,18 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
+
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.ContactsFragment;
 import com.maxplus.sostudy.activity.ConversationListFragment;
+import com.maxplus.sostudy.activity.HomeFragment;
 import com.maxplus.sostudy.activity.MainActivity;
 import com.maxplus.sostudy.activity.MeFragment;
 import com.maxplus.sostudy.adapter.ViewPagerAdapter;
@@ -49,10 +53,13 @@ public class MainController implements OnClickListener, OnPageChangeListener {
         // init Fragment
         mConvListFragment = new ConversationListFragment();
         ContactsFragment contactsActivity = new ContactsFragment();
+        HomeFragment homeActivity = new HomeFragment();
         mMeActivity = new MeFragment();
+        fragments.add(homeActivity);
         fragments.add(mConvListFragment);
         fragments.add(contactsActivity);
         fragments.add(mMeActivity);
+
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mContext.getSupportFragmentManger(),
                 fragments);
         mMainView.setViewPagerAdapter(viewPagerAdapter);
@@ -62,14 +69,17 @@ public class MainController implements OnClickListener, OnPageChangeListener {
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-            case R.id.actionbar_msg_btn:
+            case R.id.actionbar_home_btn:
                 mMainView.setCurrentItem(0);
                 break;
-            case R.id.actionbar_contact_btn:
+            case R.id.actionbar_talk_btn:
                 mMainView.setCurrentItem(1);
                 break;
-            case R.id.actionbar_me_btn:
+            case R.id.actionbar_contact_btn:
                 mMainView.setCurrentItem(2);
+                break;
+            case R.id.actionbar_me_btn:
+                mMainView.setCurrentItem(3);
                 break;
         }
     }
@@ -113,8 +123,8 @@ public class MainController implements OnClickListener, OnPageChangeListener {
                 if (status == 0) {
                     Log.i(TAG, "Update avatar succeed path " + path);
                     loadUserAvatar(path);
-                //如果头像上传失败，删除剪裁后的文件
-                }else {
+                    //如果头像上传失败，删除剪裁后的文件
+                } else {
                     HandleResponseCode.onHandle(mContext, status, false);
                     File file = new File(path);
                     if (file.delete()) {

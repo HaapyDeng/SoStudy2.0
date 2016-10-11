@@ -2,6 +2,8 @@ package com.maxplus.sostudy.application;
 
 import android.app.Application;
 import android.util.Log;
+
+import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import com.maxplus.sostudy.receiver.NotificationClickEventReceiver;
 import com.maxplus.sostudy.chatting.utils.SharePreferenceManager;
@@ -48,6 +50,7 @@ public class JChatDemoApplication extends Application {
         //初始化JMessage-sdk
         JMessageClient.init(getApplicationContext());
         SharePreferenceManager.init(getApplicationContext(), JCHAT_CONFIGS);
+        JPushInterface.setDebugMode(true);// 设置开启日志
         //设置Notification的模式
         JMessageClient.setNotificationMode(JMessageClient.NOTI_MODE_DEFAULT);
         //注册Notification点击的接收器

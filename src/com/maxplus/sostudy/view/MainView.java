@@ -26,10 +26,10 @@ public class MainView extends RelativeLayout {
 
     public void initModule() {
         mBtnListID = new int[]{
-                R.id.actionbar_msg_btn, R.id.actionbar_contact_btn, R.id.actionbar_me_btn
+                R.id.actionbar_home_btn,R.id.actionbar_talk_btn, R.id.actionbar_contact_btn, R.id.actionbar_me_btn
         };
-        mBtnList = new Button[3];
-        for (int i = 0; i < 3; i++) {
+        mBtnList = new Button[4];
+        for (int i = 0; i < 4; i++) {
             mBtnList[i] = (Button) findViewById(mBtnListID[i]);
         }
 //        mMsgUnreadiv = (ImageView) findViewById(R.id.msg_unread_iv);
@@ -57,7 +57,7 @@ public class MainView extends RelativeLayout {
     }
 
     public void setButtonColor(int index) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             if (index == i) {
                 mBtnList[i].setSelected(true);
                 mBtnList[i].setTextColor(getResources().getColor(R.color.actionbar_pres_color));

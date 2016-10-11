@@ -21,7 +21,7 @@ public class ContactsView extends LinearLayout{
 	
 	public void initModule(){
         mTitle = (TextView) findViewById(R.id.title_bar_title);
-        mTitle.setText(mContext.getString(R.string.actionbar_contact));
+        mTitle.setText(mContext.getString(R.string.actionbar_course));
 	}
 
 }

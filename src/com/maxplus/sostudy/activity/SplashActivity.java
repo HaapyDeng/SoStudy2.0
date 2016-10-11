@@ -97,26 +97,26 @@ public class SplashActivity extends Activity {
 
 
     private void goLogin() {
-        SharedPreferences sp = getSharedPreferences("userInfo",
-                Context.MODE_PRIVATE);
-        userName = sp.getString("USER_NAME", "");
-        password = sp.getString("PASSWORD", "");
-        if (!NetworkUtils.checkNetWork(SplashActivity.this)) {
-            Toast.makeText(SplashActivity.this, R.string.isNotNetWork,
-                    Toast.LENGTH_LONG).show();
+//        SharedPreferences sp = getSharedPreferences("userInfo",
+//                Context.MODE_PRIVATE);
+//        userName = sp.getString("USER_NAME", "");
+//        password = sp.getString("PASSWORD", "");
+//        if (!NetworkUtils.checkNetWork(SplashActivity.this)) {
+//            Toast.makeText(SplashActivity.this, R.string.isNotNetWork,
+//                    Toast.LENGTH_LONG).show();
+//            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+//            SplashActivity.this.startActivity(intent);
+//            SplashActivity.this.finish();
+//        }
+//        if (sp.getBoolean("ISCHECK", false) && (userName != "")
+//                && (password != "")) {
+//            // 记住用户名和密码自动登录
+//            doLoginPost(userName,password);
+//        } else {
             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
             SplashActivity.this.startActivity(intent);
             SplashActivity.this.finish();
-        }
-        if (sp.getBoolean("ISCHECK", false) && (userName != "")
-                && (password != "")) {
-            // 记住用户名和密码自动登录
-            doLoginPost(userName,password);
-        } else {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            SplashActivity.this.startActivity(intent);
-            SplashActivity.this.finish();
-        }
+//        }
 
     }
 

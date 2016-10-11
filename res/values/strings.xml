@@ -33,10 +33,11 @@
 
     <!--聊天相关-->
     <string name="network_disconnected_hint">当前网络不可用, 请检查你的网络设置</string>
-    <string name="actionbar_msg">聊天</string>
+    <string name="actionbar_home">首页</string>
     <string name="cross_app_key">跨应用</string>
-    <string name="actionbar_conversation">会话</string>
-    <string name="actionbar_contact">通讯录</string>
+    <string name="actionbar_conversation">微聊</string>
+    <string name="actionbar_course">课程</string>
+    <string name="actionbar_talk">微聊</string>
     <string name="actionbar_me">我</string>
     <string name="search_friend_hit">邮箱/用户名/ID</string>
     <string name="search">搜索...</string>
@@ -340,5 +341,9 @@
     <string name="input_email">请输入邮箱</string>
     <string name="input_email_verify_code">请输入邮箱验证码</string>
     <string name="app_name">好学升</string>
+    <string name="my_info">我的信息</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 

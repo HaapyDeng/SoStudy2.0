@@ -51,7 +51,7 @@ public class MeView extends LinearLayout {
         mUserInfoRl = (RelativeLayout) findViewById(R.id.user_info_rl);
         mUserNameTv = (TextView) findViewById(R.id.user_name_tv);
         mSettingRl = (RelativeLayout) findViewById(R.id.setting_rl);
-        mLogoutRl = (RelativeLayout) findViewById(R.id.logout_rl);
+//        mLogoutRl = (RelativeLayout) findViewById(R.id.logout_rl);
         mWidth = width;
         mHeight = (int) (190 * density);
         if (userInfo != null) {
@@ -68,7 +68,7 @@ public class MeView extends LinearLayout {
         mTakePhotoBtn.setOnClickListener(onClickListener);
         mUserInfoRl.setOnClickListener(onClickListener);
         mSettingRl.setOnClickListener(onClickListener);
-        mLogoutRl.setOnClickListener(onClickListener);
+//        mLogoutRl.setOnClickListener(onClickListener);
         mAvatarIv.setOnClickListener(onClickListener);
     }
 

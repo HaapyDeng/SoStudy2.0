@@ -24,9 +24,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import cn.jpush.android.JPushConstants;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
 
 public class LoginActivity extends Activity implements OnClickListener {
-    private String userName, password;
+    public String userName, password;
     EditText edt_userName, edt_password;
     TextView tv_forg_password, tv_regist;
     Button btn_login;
@@ -53,6 +58,52 @@ public class LoginActivity extends Activity implements OnClickListener {
                 startActivity(intent2);
                 break;
             case R.id.btn_login:
+//                userName = edt_userName.getText().toString();
+//                password = edt_password.getText().toString();
+//                JMessageClient.login(userName, password, new BasicCallback() {
+//                    @Override
+//                    public void gotResult(int i, String s) {
+//                        if (i == 0) {
+//                            Intent intent3 = new Intent();
+//                            intent3.setClass(LoginActivity.this, MainActivity.class);
+//                            startActivity(intent3);
+//                            finish();
+//                        } else {
+//                            JMessageClient.register(userName, password, new BasicCallback() {
+//                                @Override
+//                                public void gotResult(int i, String s) {
+//                                    if (i == 0) {
+//                                        JMessageClient.login(userName, password, new BasicCallback() {
+//                                            @Override
+//                                            public void gotResult(int i, String s) {
+//                                                Intent intent3 = new Intent();
+//                                                intent3.setClass(LoginActivity.this, MainActivity.class);
+//                                                startActivity(intent3);
+//                                                finish();
+//
+//                                            }
+//                                        });
+//                                    }
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
+//                JMessageClient.register(userName, password, new BasicCallback() {
+//                    @Override
+//                    public void gotResult(int i, String s) {
+//                        if (i == 0) {
+//                            JMessageClient.login(userName, password, new BasicCallback() {
+//                                @Override
+//                                public void gotResult(int i, String s) {
+//
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
+//                register("12345678", "12345678" );
+
                 doLoginPost();
 
                 break;
@@ -60,20 +111,59 @@ public class LoginActivity extends Activity implements OnClickListener {
 
     }
 
+
     public void doLoginPost() {
-        final String url = "http://aookie.6655.la/api/login";
+        final String url = "http://101.201.197.73/api/login";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        params.put("username", "18008013983");
-        params.put("password", "12345678");
+        userName = edt_userName.getText().toString();
+        password = edt_password.getText().toString();
         client.post(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-                try {
-                    Toast.makeText(LoginActivity.this, json.getString("userID")+json.getString("userType")+statusCode, Toast.LENGTH_LONG).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Log.d("statuCode==>",""+statusCode);
+                JMessageClient.login(userName, password, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        if (i == 0) {
+                            Intent intent3 = new Intent();
+                            intent3.setClass(LoginActivity.this, MainActivity.class);
+                            startActivity(intent3);
+                            finish();
+                        } else {
+                            JMessageClient.register(userName, password, new BasicCallback() {
+                                @Override
+                                public void gotResult(int i, String s) {
+                                    if (i == 0) {
+                                        JMessageClient.login(userName, password, new BasicCallback() {
+                                            @Override
+                                            public void gotResult(int i, String s) {
+                                                Intent intent3 = new Intent();
+                                                intent3.setClass(LoginActivity.this, MainActivity.class);
+                                                startActivity(intent3);
+                                                finish();
+
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+                JMessageClient.register(userName, password, new BasicCallback() {
+                    @Override
+                    public void gotResult(int i, String s) {
+                        if (i == 0) {
+                            JMessageClient.login(userName, password, new BasicCallback() {
+                                @Override
+                                public void gotResult(int i, String s) {
+
+                                }
+                            });
+                        }
+                    }
+                });
             }
 
 
@@ -84,11 +174,10 @@ public class LoginActivity extends Activity implements OnClickListener {
         });
     }
 
-    private void initView() {
+    public void initView() {
         edt_userName = (EditText) findViewById(R.id.edt_username);
         edt_password = (EditText) findViewById(R.id.edt_password);
-        userName = edt_userName.toString();
-        password = edt_password.toString();
+
         tv_forg_password = (TextView) findViewById(R.id.forg_password);
         tv_forg_password.setOnClickListener(this);
         tv_regist = (TextView) findViewById(R.id.tv_regist);

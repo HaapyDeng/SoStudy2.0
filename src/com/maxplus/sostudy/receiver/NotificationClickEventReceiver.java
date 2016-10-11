@@ -10,6 +10,7 @@ import cn.jpush.im.android.api.enums.ConversationType;
 import cn.jpush.im.android.api.event.NotificationClickEvent;
 import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
+
 import com.maxplus.sostudy.chatting.ChatActivity;
 import com.maxplus.sostudy.application.JChatDemoApplication;
 
@@ -26,6 +27,7 @@ public class NotificationClickEventReceiver {
 
     /**
      * 收到消息处理
+     *
      * @param notificationClickEvent 通知点击事件
      */
     public void onEvent(NotificationClickEvent notificationClickEvent) {

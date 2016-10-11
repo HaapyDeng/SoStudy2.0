@@ -89,7 +89,7 @@ public class MeFragment extends BaseFragment {
             //用户由于某种原因导致登出,跳转到重新登录界面
             } else {
                 Intent intent = new Intent();
-                intent.setClass(mContext, ReloginActivity.class);
+                intent.setClass(mContext, LoginActivity.class);
                 startActivity(intent);
             }
         }
