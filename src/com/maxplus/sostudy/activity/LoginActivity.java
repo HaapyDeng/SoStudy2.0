@@ -1,6 +1,7 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,9 +24,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Set;
 
 import cn.jpush.android.JPushConstants;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
@@ -112,6 +115,22 @@ public class LoginActivity extends Activity implements OnClickListener {
     }
 
 
+    public void setAlias(String alias) {
+        JPushInterface.setAlias(LoginActivity.this, alias, new TagAliasCallback() {
+
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+                if (i == 0) {
+                    Log.d("setAlias","setAlias==>>"+s);
+                } else {
+                    Toast.makeText(LoginActivity.this, R.string.network_little_hint, Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        });
+    }
+
+
     public void doLoginPost() {
         final String url = "http://101.201.197.73/api/login";
         AsyncHttpClient client = new AsyncHttpClient();
@@ -121,7 +140,8 @@ public class LoginActivity extends Activity implements OnClickListener {
         client.post(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-                Log.d("statuCode==>",""+statusCode);
+                Log.d("statuCode==>", "" + statusCode);
+                setAlias(userName);
                 JMessageClient.login(userName, password, new BasicCallback() {
                     @Override
                     public void gotResult(int i, String s) {
