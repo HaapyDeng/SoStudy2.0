@@ -328,6 +328,7 @@
     <string name="find_password">找回密码</string>
     <string name="input_phone_number">请输入手机号</string>
     <string name="input_verify_code">请输入验证码</string>
+    <string name="input_phone_verify_code">请输入手机验证码</string>
     <string name="input_new_password">请输入新密码(至少8位数)</string>
     <string name="commit_button">提交</string>
     <string name="get_verify_code">获取验证码</string>
@@ -335,10 +336,14 @@
     <string name="teacher">老师</string>
     <string name="parent">家长</string>
     <string name="choose_school">请选择您的学校</string>
+    <string name="choose_child_school">请选择您孩子的学校</string>
     <string name="choose_grade">请选择您的年级</string>
+    <string name="choose_child_grade">请选择您孩子的年级</string>
     <string name="choose_class">请选择您的班级</string>
+    <string name="choose_child_class">请选择您孩子的班级</string>
     <string name="input_user_name">请输入您的用户名</string>
     <string name="input_name">请输入您的姓名</string>
+    <string name="input_child_name">请输入您孩子的姓名</string>
     <string name="input_email">请输入邮箱</string>
     <string name="input_email_verify_code">请输入邮箱验证码</string>
     <string name="app_name">好学升</string>
