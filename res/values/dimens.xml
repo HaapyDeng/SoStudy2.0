@@ -36,4 +36,9 @@
     <dimen name="drop_down_list_header_release_min_distance">0dp</dimen>
     <dimen name="drop_down_list_header_progress_bar_height">36dp</dimen>
 
+    <!--当前被选中的RadioButton距离左侧的距离-->
+    <dimen name="tv_student">0dp</dimen>
+    <dimen name="tv_teacher">100dp</dimen>
+    <dimen name="tv_parent">200dp</dimen>
+
 </resources>

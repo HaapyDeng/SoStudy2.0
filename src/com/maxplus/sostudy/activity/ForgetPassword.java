@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
@@ -17,7 +18,7 @@ public class ForgetPassword extends Activity implements OnClickListener {
     EditText et_phoneNum, et_newPassword, et_verifyCode;
     TextView tv_getCode;
     Button btn_commit;
-    ImageView back_btn;
+    ImageButton back_btn;
 
 
     @Override
@@ -38,7 +39,7 @@ public class ForgetPassword extends Activity implements OnClickListener {
         newPassword = et_newPassword.toString();
         btn_commit = (Button) findViewById(R.id.btn_commit);
         btn_commit.setOnClickListener(this);
-        back_btn = (ImageView) findViewById(R.id.back_Button);
+        back_btn = (ImageButton) findViewById(R.id.back_Button);
         back_btn.setOnClickListener(this);
     }
 

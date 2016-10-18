@@ -95,5 +95,8 @@
 
     <!-- 登录按钮颜色-->
     <color name="login">#41a1f0</color>
-
+<!--家长注册按钮-->
+    <color name="reg_parent">#f07841</color>
+    <!--老师注册按钮-->
+    <color name="reg_teacher">#41a1f0</color>
 </resources>

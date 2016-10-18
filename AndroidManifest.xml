@@ -214,7 +214,10 @@
             />
         </activity>
         <activity android:name=".activity.GuideActivity" />
-        <activity android:name=".activity.ForgetPassword"></activity>
+        <activity android:name=".activity.ForgetPassword" />
+        <activity android:name=".activity.TeacherRegisterActivity" />
+        <activity android:name=".activity.ParentRegisterActivity" />
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>
