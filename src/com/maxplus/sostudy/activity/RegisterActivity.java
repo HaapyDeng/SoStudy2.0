@@ -1,6 +1,8 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.app.LocalActivityManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -16,6 +18,7 @@ import android.widget.RadioGroup;
 import com.maxplus.sostudy.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
@@ -26,7 +29,11 @@ public class RegisterActivity extends Activity implements RadioGroup.OnCheckedCh
     private float mCurrentCheckedRadioLeft;//当前被选中的RadioButton距离左侧的距离
     private HorizontalScrollView mHorizontalScrollView;//上面的水平滚动控件
     private ViewPager mViewPager;    //下方的可横向拖动的控件
-    private ArrayList<View> mViews;//用来存放下方滚动的layout(layout_student,layout_teacher,layout_parent)
+//    private ArrayList<View> mViews;//用来存放下方滚动的layout(layout_student,layout_teacher,layout_parent)
+
+    private List<View> mViews = new ArrayList<View>();
+    private LocalActivityManager manager;
+    private Intent intentStudent, intentTeacher, intentParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,20 @@ public class RegisterActivity extends Activity implements RadioGroup.OnCheckedCh
         setContentView(R.layout.activity_register);
         iniController();//添加上方控制按钮
         iniListener();//添加监听
-        iniVariable();//添加下方页面
+//        iniVariable();//添加下方页面
+        manager = new LocalActivityManager(this, true);
+        manager.dispatchCreate(savedInstanceState);
+        intentStudent = new Intent(RegisterActivity.this, StudentRegisterActivity.class);
+        View tab1 = manager.startActivity(null, intentStudent).getDecorView();
+        intentTeacher = new Intent(RegisterActivity.this, TeacherRegisterActivity.class);
+        View tab2 = manager.startActivity(null, intentTeacher).getDecorView();
+        intentParent = new Intent(RegisterActivity.this, ParentRegisterActivity.class);
+        View tab3 = manager.startActivity(null, intentParent).getDecorView();
+        mViews.add(tab1);//将页面添加到View集合
+        mViews.add(tab2);
+        mViews.add(tab3);
+        mViewPager.setAdapter(new MyPagerAdapter());
+
         tv_regstudent.setChecked(true);
         mViewPager.setCurrentItem(0);
         mCurrentCheckedRadioLeft = getCurrentCheckedRadioLeft();
@@ -60,11 +80,12 @@ public class RegisterActivity extends Activity implements RadioGroup.OnCheckedCh
     }
 
     private void iniVariable() {
-        mViews = new ArrayList<View>();
-        mViews.add(getLayoutInflater().inflate(R.layout.activity_regist_student, null));
-        mViews.add(getLayoutInflater().inflate(R.layout.activity_teacher_register, null));
-        mViews.add(getLayoutInflater().inflate(R.layout.activity_parent_register, null));
-        mViewPager.setAdapter(new MyPagerAdapter());//设置ViewPager的适配器
+//        mViews = new ArrayList<View>();
+//        mViews.add(getLayoutInflater().inflate(R.layout.activity_regist_student, null));
+//        mViews.add(getLayoutInflater().inflate(R.layout.activity_teacher_register, null));
+//        mViews.add(getLayoutInflater().inflate(R.layout.activity_parent_register, null));
+//        mViewPager.setAdapter(new MyPagerAdapter());//设置ViewPager的适配器
+
     }
 
     private void iniListener() {

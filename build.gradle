@@ -3,21 +3,16 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 21
     buildToolsVersion '23.0.2'
-
     defaultConfig {
         applicationId "com.maxplus.sostudy"
-        minSdkVersion getMinSdkVersion()
-        targetSdkVersion getTargetSdkVersion()
-        versionCode getVersionCode()
+        minSdkVersion 8
+        targetSdkVersion 19
         versionName getVersionName()
     }
-
-
     lintOptions {
         abortOnError false
         disable 'MissingTranslation'
     }
-
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -41,6 +36,8 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+    productFlavors {
     }
 }
 
