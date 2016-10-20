@@ -1,14 +1,15 @@
 package com.maxplus.sostudy.activity;
 
-import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,11 +17,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.tools.FragAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegisterActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
+public class RegisterActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
 
     private ImageButton btn_back;
     private RadioGroup mradioGroup;
@@ -34,6 +36,7 @@ public class RegisterActivity extends Activity implements RadioGroup.OnCheckedCh
     private List<View> mViews = new ArrayList<View>();
     private LocalActivityManager manager;
     private Intent intentStudent, intentTeacher, intentParent;
+    private FragAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +45,27 @@ public class RegisterActivity extends Activity implements RadioGroup.OnCheckedCh
         iniController();//添加上方控制按钮
         iniListener();//添加监听
 //        iniVariable();//添加下方页面
-        manager = new LocalActivityManager(this, true);
-        manager.dispatchCreate(savedInstanceState);
-        intentStudent = new Intent(RegisterActivity.this, StudentRegisterActivity.class);
-        View tab1 = manager.startActivity(null, intentStudent).getDecorView();
-        intentTeacher = new Intent(RegisterActivity.this, TeacherRegisterActivity.class);
-        View tab2 = manager.startActivity(null, intentTeacher).getDecorView();
-        intentParent = new Intent(RegisterActivity.this, ParentRegisterActivity.class);
-        View tab3 = manager.startActivity(null, intentParent).getDecorView();
-        mViews.add(tab1);//将页面添加到View集合
-        mViews.add(tab2);
-        mViews.add(tab3);
-        mViewPager.setAdapter(new MyPagerAdapter());
+//        manager = new LocalActivityManager(this, true);
+//        manager.dispatchCreate(savedInstanceState);
+//        StudentRegisterFragment studentRegisterFragment = new StudentRegisterFragment();
+//        intentStudent = new Intent(RegisterActivity.this, studentRegisterFragment.getClass());
+//        View tab1 = manager.startActivity(null, intentStudent).getDecorView();
+//        intentTeacher = new Intent(RegisterActivity.this, TeacherRegisterFargment.class);
+//        View tab2 = manager.startActivity(null, intentTeacher).getDecorView();
+//        intentParent = new Intent(RegisterActivity.this, ParentRegisterActivity.class);
+//        View tab3 = manager.startActivity(null, intentParent).getDecorView();
+//        mViews.add(tab1);//将页面添加到View集合
+//        mViews.add(tab2);
+//        mViews.add(tab3);
 
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        List<Fragment> fragmentList = new ArrayList<Fragment>();
+        fragmentList.add(new StudentRegistFragment());
+        fragmentList.add(new TeacherRegisterFragment());
+        fragmentList.add(new ParentRegisterFragment());
+        adapter = new FragAdapter(getSupportFragmentManager(), fragmentList);
+//        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), fragmentList));
+        mViewPager.setAdapter(adapter);
         tv_regstudent.setChecked(true);
         mViewPager.setCurrentItem(0);
         mCurrentCheckedRadioLeft = getCurrentCheckedRadioLeft();
@@ -80,10 +91,10 @@ public class RegisterActivity extends Activity implements RadioGroup.OnCheckedCh
     }
 
     private void iniVariable() {
-//        mViews = new ArrayList<View>();
-//        mViews.add(getLayoutInflater().inflate(R.layout.activity_regist_student, null));
-//        mViews.add(getLayoutInflater().inflate(R.layout.activity_teacher_register, null));
-//        mViews.add(getLayoutInflater().inflate(R.layout.activity_parent_register, null));
+        mViews = new ArrayList<View>();
+        mViews.add(getLayoutInflater().inflate(R.layout.fragment_regist_student, null));
+        mViews.add(getLayoutInflater().inflate(R.layout.fragment_teacher_register, null));
+        mViews.add(getLayoutInflater().inflate(R.layout.activity_parent_register, null));
 //        mViewPager.setAdapter(new MyPagerAdapter());//设置ViewPager的适配器
 
     }
@@ -202,21 +213,26 @@ public class RegisterActivity extends Activity implements RadioGroup.OnCheckedCh
         }
     }
 
-    private class MyPagerAdapter extends PagerAdapter {
-        @Override
-        public void destroyItem(View v, int position, Object object) {
-            ((ViewPager) v).removeView(mViews.get(position));
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+
+
+        private final List<Fragment> fl;
+
+        public MyPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+            super(fm);
+            this.fl = fragmentList;
         }
+
 
         @Override
         public int getCount() {
-            return mViews.size();
+            return fl.size();
         }
 
+
         @Override
-        public Object instantiateItem(View v, int position) {
-            ((ViewPager) v).addView(mViews.get(position));
-            return mViews.get(position);
+        public Fragment getItem(int i) {
+            return fl.get(i);
         }
 
         @Override

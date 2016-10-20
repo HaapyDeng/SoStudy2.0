@@ -62,7 +62,7 @@ public class ReloginActivity extends BaseActivity {
 
     public void startRegisterActivity() {
         Intent intent = new Intent();
-        intent.setClass(this, StudentRegisterActivity.class);
+        intent.setClass(this, StudentRegistFragment.class);
         startActivity(intent);
     }
 

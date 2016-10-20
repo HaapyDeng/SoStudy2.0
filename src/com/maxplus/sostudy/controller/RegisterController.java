@@ -6,7 +6,7 @@
 //import android.view.View.OnClickListener;
 //import com.maxplus.sostudy.R;
 //import cn.jpush.im.android.api.JMessageClient;
-//import com.maxplus.sostudy.activity.StudentRegisterActivity;
+//import com.maxplus.sostudy.activity.StudentRegisterFragment;
 //import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 //import com.maxplus.sostudy.chatting.utils.SharePreferenceManager;
 //import com.maxplus.sostudy.chatting.utils.DialogCreator;
@@ -17,10 +17,10 @@
 //public class RegisterController implements RegisterView.Listener, OnClickListener {
 //
 //    private RegisterView mRegisterView;
-//    private StudentRegisterActivity mContext;
+//    private StudentRegisterFragment mContext;
 //    private Dialog mLoginDialog;
 //
-//    public RegisterController(RegisterView registerView, StudentRegisterActivity context) {
+//    public RegisterController(RegisterView registerView, StudentRegisterFragment context) {
 //        this.mRegisterView = registerView;
 //        this.mContext = context;
 //

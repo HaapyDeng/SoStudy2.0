@@ -325,6 +325,7 @@
     <string name="fog_password">忘记密码？</string>
     <string name="login">登录</string>
     <string name="regist">注册</string>
+    <string name="sclass">班级:</string>
     <string name="find_password">找回密码</string>
     <string name="input_phone_number">请输入手机号</string>
     <string name="input_verify_code">请输入验证码</string>
