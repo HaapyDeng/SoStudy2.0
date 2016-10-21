@@ -216,13 +216,11 @@
 
         <activity
             android:name=".activity.ParentRegisterActivity"
-            android:launchMode="singleInstance" />
+             />
         <activity
             android:name=".activity.RegisterActivity"
-            android:launchMode="singleInstance" />
-        <activity
-            android:name=".activity.ChooseClassActivity"
-            android:launchMode="singleInstance"></activity>
+            />
+        <activity android:name=".activity.ChooseClassActivity"></activity>
     </application>
 
 </manifest>

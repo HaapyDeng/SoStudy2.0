@@ -19,7 +19,7 @@ public class ChooseClassActivity extends Activity implements View.OnClickListene
     private ImageView add, delete;
     private EditText et_class;
     private TextView tv_schoose_class;
-    int sclass = 0;
+    int sclass = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,8 @@ public class ChooseClassActivity extends Activity implements View.OnClickListene
                 break;
             case R.id.confirm:
                 Intent intent = this.getIntent();
-                Bundle bundle = intent.getExtras();
+//                Bundle bundle =
+                Bundle bundle = new Bundle();
                 bundle.putString("sclass", "" + sclass);//添加要返回给页面1的数据
                 intent.putExtras(bundle);
                 this.setResult(2, intent);//返回页面1
