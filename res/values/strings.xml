@@ -339,6 +339,7 @@
     <string name="choose_school">请选择您的学校</string>
     <string name="choose_child_school">请选择您孩子的学校</string>
     <string name="choose_grade">请选择您的年级</string>
+    <string name="choose_subject">请选择您的学科</string>
     <string name="choose_child_grade">请选择您孩子的年级</string>
     <string name="choose_class">请选择您的班级</string>
     <string name="choose_child_class">请选择您孩子的班级</string>

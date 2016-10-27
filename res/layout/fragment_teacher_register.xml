@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reg_teacher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -14,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/im_choose_school"
+            android:id="@+id/tvt_choose_school"
             android:layout_width="match_parent"
             android:layout_height="50dp"
 
@@ -44,7 +45,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_choose_grade"
+            android:id="@+id/tvt_choose_grade"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -74,7 +75,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_choose_class"
+            android:id="@+id/tvt_choose_subject"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -83,7 +84,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
             android:singleLine="true"
-            android:text="@string/choose_grade"
+            android:text="@string/choose_subject"
             android:textColor="#646464"
             android:textSize="15dp" />
 
@@ -104,7 +105,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/et_input_user"
+            android:id="@+id/ett_input_user"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -134,7 +135,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/et_input_name"
+            android:id="@+id/ett_input_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -162,20 +163,21 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/et_input_email"
+            android:id="@+id/ett_input_phone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="2"
             android:background="@color/white"
             android:hint="@string/input_phone_number"
             android:paddingLeft="10dp"
+            android:phoneNumber="true"
             android:singleLine="true"
             android:textColor="#646464"
             android:textColorHint="#d4d4d4"
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/tv_getCode"
+            android:id="@+id/tvt_getCode"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -199,7 +201,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/et_input_email_code"
+            android:id="@+id/ett_input_phone_code"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -226,7 +228,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/et_input_new_password"
+            android:id="@+id/ett_input_new_password"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="7"
@@ -234,6 +236,7 @@
             android:hint="@string/input_new_password"
             android:maxLength="30"
             android:paddingLeft="10dp"
+            android:password="true"
             android:singleLine="true"
             android:textColor="#646464"
             android:textColorHint="#d4d4d4"
@@ -244,11 +247,13 @@
             android:layout_height="match_parent"
             android:layout_weight="2">
 
-            <ImageView
+            <CheckBox
+                android:id="@+id/showPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/eye_btn_press" />
+                android:background="@drawable/unvisible"
+                android:button="@null" />
         </LinearLayout>
     </LinearLayout>
 

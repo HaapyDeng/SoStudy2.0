@@ -1,22 +1,23 @@
 package com.maxplus.sostudy.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.tools.AlertDialog;
+import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +32,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
     EditText et_userName, et_realName, et_email, et_emailCode, et_password;
     String userName, realName, email, emailCode, password;
     Button commit;
-    ImageView showPassword;
+    CheckBox showPassword;
     private View mRootView;
     private String grade, sclass;
 
@@ -96,6 +97,20 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         password = et_password.getText().toString().trim();
         getCode = (TextView) mRootView.findViewById(R.id.tv_sgetCode);
         getCode.setOnClickListener(this);
+        showPassword = (CheckBox) mRootView.findViewById(R.id.sshow_password);
+        //点击密码可见或隐藏设置
+        showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (showPassword.isChecked()) {
+                    et_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    showPassword.setBackgroundResource(R.drawable.visible);
+                } else {
+                    et_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    showPassword.setBackgroundResource(R.drawable.unvisible);
+                }
+            }
+        });
         commit = (Button) mRootView.findViewById(R.id.btn_scommit);
         commit.setOnClickListener(this);
     }
@@ -134,10 +149,12 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            //选择学校
             case R.id.tv_schoose_school:
                 break;
+            //选择年级
             case R.id.tv_schoose_grade:
-                final AlertDialog dialog = new AlertDialog(getActivity());
+                final RadioButtonAlertDialog dialog = new RadioButtonAlertDialog(getActivity());
 
                 dialog.setOnPositiveListener(new View.OnClickListener() {
                     @Override
@@ -163,14 +180,18 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 dialog.show();
 
                 break;
+            //选择班级
             case R.id.tv_schoose_class:
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), ChooseClassActivity.class);
                 Bundle bundle = new Bundle();
                 startActivityForResult(intent, 10);
                 break;
+            //获取验证码
             case R.id.tv_sgetCode:
                 break;
+
+            //提交注册
             case R.id.btn_scommit:
                 break;
 
@@ -192,6 +213,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         void onFragmentInteraction(Uri uri);
     }
 
+    //跳转并返回数据
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10) {
