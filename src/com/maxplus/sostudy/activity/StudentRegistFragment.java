@@ -151,6 +151,9 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         switch (view.getId()) {
             //选择学校
             case R.id.tv_schoose_school:
+                Intent intent1 =new Intent();
+                intent1.setClass(getActivity(),ChooseSchoolActivity.class);
+                startActivityForResult(intent1,2);
                 break;
             //选择年级
             case R.id.tv_schoose_grade:
@@ -184,7 +187,6 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
             case R.id.tv_schoose_class:
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), ChooseClassActivity.class);
-                Bundle bundle = new Bundle();
                 startActivityForResult(intent, 10);
                 break;
             //获取验证码

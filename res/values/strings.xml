@@ -341,6 +341,7 @@
     <string name="choose_grade">请选择您的年级</string>
     <string name="choose_subject">请选择您的学科</string>
     <string name="choose_child_grade">请选择您孩子的年级</string>
+    <string name="choose_ssq">请选择学校所在的省市区</string>
     <string name="choose_class">请选择您的班级</string>
     <string name="choose_child_class">请选择您孩子的班级</string>
     <string name="input_user_name">请输入您的用户名</string>

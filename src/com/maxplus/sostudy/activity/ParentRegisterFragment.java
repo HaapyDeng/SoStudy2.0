@@ -1,34 +1,37 @@
 package com.maxplus.sostudy.activity;
 
-import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ParentRegisterFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ParentRegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ParentRegisterFragment extends Fragment {
+
+public class ParentRegisterFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private View mRoot;
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private TextView pchoose_school, pchoose_grade, pchoose_class, pget_code;
+    private EditText pinput_phone, pinput_phone_code, pinput_password, pinput_name, pinput_user;
+    private CheckBox pshow_num;
+    private Button pcommit;
+    private String pschool, pgrade, pclass, puser, pname, pphone, pcode, ppassword;
 
     public ParentRegisterFragment() {
         // Required empty public constructor
@@ -55,55 +58,104 @@ public class ParentRegisterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        mRoot = inflater.inflate(R.layout.fragment_parent_register,
+                (ViewGroup) getActivity().findViewById(R.id.regist), false);
+        initViews();
+    }
+
+    private void initViews() {
+        pchoose_school = (TextView) mRoot.findViewById(R.id.im_pchoose_school);
+        pchoose_school.setOnClickListener(this);
+        pchoose_grade = (TextView) mRoot.findViewById(R.id.tv_pchoose_grade);
+        pchoose_grade.setOnClickListener(this);
+        pchoose_class = (TextView) mRoot.findViewById(R.id.tv_pchoose_class);
+        pchoose_class.setOnClickListener(this);
+        pget_code = (TextView) mRoot.findViewById(R.id.tv_pgetCode);
+        pget_code.setOnClickListener(this);
+        pinput_password = (EditText) mRoot.findViewById(R.id.et_pinput_new_password);
+        pshow_num = (CheckBox) mRoot.findViewById(R.id.pshow_password);
+        pshow_num.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (pshow_num.isChecked()) {
+                    pinput_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    pinput_password.setBackgroundResource(R.drawable.visible);
+                } else {
+                    pinput_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    pinput_password.setBackgroundResource(R.drawable.unvisible);
+                }
+            }
+        });
+        pcommit = (Button) mRoot.findViewById(R.id.btn_pcommit);
+        pcommit.setOnClickListener(this);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_parent_register, container, false);
+        return mRoot;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.im_pchoose_school:
+                break;
+            //选择孩子年级
+            case R.id.tv_pchoose_grade:
+                final RadioButtonAlertDialog dialog = new RadioButtonAlertDialog(getActivity());
+
+                dialog.setOnPositiveListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final RadioButton radioButton;
+                        radioButton = (RadioButton) dialog.retunGrade();
+                        if (radioButton == null) {
+                            dialog.dismiss();
+                        } else {
+                            pgrade = radioButton.getText().toString();
+                            pchoose_grade.setText(pgrade);
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                dialog.setOnNegativeListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+
+                break;
+            case R.id.tv_pchoose_class:
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), ChooseClassActivity.class);
+                Bundle bundle = new Bundle();
+                startActivityForResult(intent, 10);
+                break;
+            case R.id.tv_pgetCode:
+                break;
+            case R.id.btn_pcommit:
+                break;
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
+    //跳转并返回数据
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 10) {
+            if (resultCode == 2) {
+                Bundle bundle = data.getExtras();
+                pchoose_class.setText(bundle.getString("sclass") + "班");
+            }
+        }
     }
 }
+
+
