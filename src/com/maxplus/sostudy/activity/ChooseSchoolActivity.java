@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
     private List<Pickers> list; // 滚动选择器数据
     private String[] id;
     private String[] name;
-
+    private ImageButton bback_Button;
     private Button bt_yes; // 确定按钮
     private RelativeLayout picker_rel; // 选择器布局
 
@@ -60,7 +61,10 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
     }
 
     private void initView() {
+        bback_Button = (ImageButton)findViewById(R.id.bback_Button);
+        bback_Button.setOnClickListener(this);
         choose_city = (TextView) findViewById(R.id.tv_choose_city);
+        choose_city.setOnClickListener(this);
         cityPicker = (CityPicker) findViewById(R.id.citypicker);
         choose_school = (TextView) findViewById(R.id.choose_school);
         picker_rel = (RelativeLayout) findViewById(R.id.picker_rel);
@@ -77,6 +81,12 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bback_Button:
+                finish();
+                break;
+            case R.id.tv_choose_city:
+                cityPicker.setVisibility(View.VISIBLE);
+                break;
             case R.id.choose_school:
                 picker_rel.setVisibility(View.VISIBLE);
                 break;
