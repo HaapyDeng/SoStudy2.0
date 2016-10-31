@@ -44,19 +44,6 @@ public class RegisterActivity extends FragmentActivity implements RadioGroup.OnC
         setContentView(R.layout.activity_register);
         iniController();//添加上方控制按钮
         iniListener();//添加监听
-//        iniVariable();//添加下方页面
-//        manager = new LocalActivityManager(this, true);
-//        manager.dispatchCreate(savedInstanceState);
-//        StudentRegisterFragment studentRegisterFragment = new StudentRegisterFragment();
-//        intentStudent = new Intent(RegisterActivity.this, studentRegisterFragment.getClass());
-//        View tab1 = manager.startActivity(null, intentStudent).getDecorView();
-//        intentTeacher = new Intent(RegisterActivity.this, TeacherRegisterFargment.class);
-//        View tab2 = manager.startActivity(null, intentTeacher).getDecorView();
-//        intentParent = new Intent(RegisterActivity.this, ParentRegisterActivity.class);
-//        View tab3 = manager.startActivity(null, intentParent).getDecorView();
-//        mViews.add(tab1);//将页面添加到View集合
-//        mViews.add(tab2);
-//        mViews.add(tab3);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         List<Fragment> fragmentList = new ArrayList<Fragment>();
@@ -94,7 +81,7 @@ public class RegisterActivity extends FragmentActivity implements RadioGroup.OnC
         mViews = new ArrayList<View>();
         mViews.add(getLayoutInflater().inflate(R.layout.fragment_regist_student, null));
         mViews.add(getLayoutInflater().inflate(R.layout.fragment_teacher_register, null));
-        mViews.add(getLayoutInflater().inflate(R.layout.activity_parent_register, null));
+        mViews.add(getLayoutInflater().inflate(R.layout.fragment_parent_register, null));
 //        mViewPager.setAdapter(new MyPagerAdapter());//设置ViewPager的适配器
 
     }

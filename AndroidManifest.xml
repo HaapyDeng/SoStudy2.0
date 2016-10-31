@@ -212,7 +212,6 @@
         </activity>
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".activity.ForgetPassword" />
-        <activity android:name=".activity.ParentRegisterActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ChooseClassActivity" />
         <activity android:name=".activity.ChooseSchoolActivity"></activity>

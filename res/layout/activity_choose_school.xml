@@ -38,7 +38,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_pchoose_grade"
+            android:id="@+id/tv_choose_city"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -69,7 +69,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/pchoose_school"
+            android:id="@+id/choose_school"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -122,5 +122,13 @@
         android:background="@color/grey" />
 
 
+    <com.maxplus.sostudy.tools.CityPicker
+        android:id="@+id/citypicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv6"
+        android:layout_gravity="center"
+        android:gravity="center"></com.maxplus.sostudy.tools.CityPicker>
+    <include layout="@layout/picker_layout" />
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.maxplus.sostudy.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -158,6 +159,9 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
         switch (view.getId()) {
             //选择学校
             case R.id.tvt_choose_school:
+                Intent intent1 = new Intent();
+                intent1.setClass(getActivity(), ChooseSchoolActivity.class);
+                startActivityForResult(intent1, 2);
                 break;
             //选择年级
             case R.id.tvt_choose_grade:
@@ -483,5 +487,16 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    //跳转并返回数据
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2) {
+            if (resultCode == 2) {
+                Bundle bundle = data.getExtras();
+                tchoose_school.setText(bundle.getString("school"));
+            }
+        }
     }
 }

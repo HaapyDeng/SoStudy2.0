@@ -104,6 +104,9 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.im_pchoose_school:
+                Intent intent1 = new Intent();
+                intent1.setClass(getActivity(), ChooseSchoolActivity.class);
+                startActivityForResult(intent1, 2);
                 break;
             //选择孩子年级
             case R.id.tv_pchoose_grade:
@@ -153,6 +156,11 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
                 pchoose_class.setText(bundle.getString("sclass") + "班");
+            }
+        } else if (requestCode == 2) {
+            if (resultCode == 2) {
+                Bundle bundle = data.getExtras();
+                pchoose_school.setText(bundle.getString("school"));
             }
         }
     }
