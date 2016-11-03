@@ -3,6 +3,7 @@ package com.maxplus.sostudy.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -15,9 +16,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +40,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
     Button commit;
     CheckBox showPassword;
     private View mRootView;
-    private String grade, sclass;
+    private String school, grade, sclass;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,16 +91,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         choose_grade.setOnClickListener(this);
         choose_class = (TextView) mRootView.findViewById(R.id.tv_schoose_class);
         choose_class.setOnClickListener(this);
-        et_userName = (EditText) mRootView.findViewById(R.id.et_sinput_user);
-        userName = et_userName.getText().toString().trim();
-        et_realName = (EditText) mRootView.findViewById(R.id.et_sinput_name);
-        realName = et_realName.getText().toString().trim();
-        et_email = (EditText) mRootView.findViewById(R.id.et_sinput_email);
-        email = et_email.getText().toString().trim();
-        et_emailCode = (EditText) mRootView.findViewById(R.id.et_sinput_email_code);
-        emailCode = et_emailCode.getText().toString().trim();
-        et_password = (EditText) mRootView.findViewById(R.id.et_sinput_new_password);
-        password = et_password.getText().toString().trim();
+
         getCode = (TextView) mRootView.findViewById(R.id.tv_sgetCode);
         getCode.setOnClickListener(this);
         showPassword = (CheckBox) mRootView.findViewById(R.id.sshow_password);
@@ -191,14 +188,92 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 break;
             //获取验证码
             case R.id.tv_sgetCode:
+                et_email = (EditText) mRootView.findViewById(R.id.et_sinput_email);
+                email = et_email.getText().toString().trim();
+                if (email.equals("")) {
+                    Toast.makeText(getActivity(), R.string.input_email, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (NetworkUtils.isEmail(email) == true) {
+                    timer.start();
+                } else {
+                    Toast.makeText(getActivity(), R.string.pl_right_email, Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             //提交注册
             case R.id.btn_scommit:
+                et_userName = (EditText) mRootView.findViewById(R.id.et_sinput_user);
+                userName = et_userName.getText().toString().trim();
+                et_realName = (EditText) mRootView.findViewById(R.id.et_sinput_name);
+                realName = et_realName.getText().toString().trim();
+                et_email = (EditText) mRootView.findViewById(R.id.et_sinput_email);
+                email = et_email.getText().toString().trim();
+                et_emailCode = (EditText) mRootView.findViewById(R.id.et_sinput_email_code);
+                emailCode = et_emailCode.getText().toString().trim();
+                et_password = (EditText) mRootView.findViewById(R.id.et_sinput_new_password);
+                password = et_password.getText().toString().trim();
+                if (school == null || school == "") {
+                    Toast.makeText(getActivity(), R.string.choose_school, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (grade == null || grade == "") {
+                    Toast.makeText(getActivity(), R.string.choose_grade, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (sclass == null || sclass == "") {
+                    Toast.makeText(getActivity(), R.string.choose_class, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (userName.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_user_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (realName.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (email.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_email, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (emailCode.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_email_verify_code, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (password.length() < 8) {
+                    Toast.makeText(getActivity(), R.string.input_new_password, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (NetworkUtils.checkNetWork(getActivity()) == false) {
+                    Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+                }
+
+
                 break;
 
         }
     }
+
+    /**
+     * 倒计时功能
+     */
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if ((millisUntilFinished / 1000) < 60) {
+                getCode.setEnabled(false);
+            }
+            getCode.setText((millisUntilFinished / 1000) + "秒后可重发");
+        }
+
+        @Override
+        public void onFinish() {
+            getCode.setEnabled(true);
+            getCode.setText("获取验证码");
+        }
+    };
 
     /**
      * This interface must be implemented by activities that contain this
@@ -221,11 +296,13 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         if (requestCode == 10) {
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
+                sclass = bundle.getString("sclass");
                 choose_class.setText(bundle.getString("sclass") + "班");
             }
         } else if (requestCode == 2) {
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
+                school = bundle.getString("school");
                 choose_school.setText(bundle.getString("school"));
             }
         }

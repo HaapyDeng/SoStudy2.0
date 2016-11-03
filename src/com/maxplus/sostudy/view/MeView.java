@@ -12,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import java.lang.ref.WeakReference;
+
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
+
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.chatting.CircleImageView;
 import com.maxplus.sostudy.chatting.utils.BitmapLoader;
@@ -69,7 +72,7 @@ public class MeView extends LinearLayout {
         mUserInfoRl.setOnClickListener(onClickListener);
         mSettingRl.setOnClickListener(onClickListener);
 //        mLogoutRl.setOnClickListener(onClickListener);
-        mAvatarIv.setOnClickListener(onClickListener);
+//        mAvatarIv.setOnClickListener(onClickListener);
     }
 
     public void setOnTouchListener(OnTouchListener listener) {
@@ -130,11 +133,11 @@ public class MeView extends LinearLayout {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             MeView meView = mMeView.get();
-            if (null != meView) {
-                Bitmap bitmap = (Bitmap) msg.obj;
-                meView.mAvatarIv.setImageBitmap(bitmap);
-                meView.mAvatarIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            }
+//            if (null != meView) {
+//                Bitmap bitmap = (Bitmap) msg.obj;
+//                meView.mAvatarIv.setImageBitmap(bitmap);
+//                meView.mAvatarIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            }
         }
     }
 }

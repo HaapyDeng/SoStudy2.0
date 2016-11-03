@@ -2,6 +2,7 @@ package com.maxplus.sostudy.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -15,8 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
 
 
@@ -143,11 +146,93 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                 startActivityForResult(intent, 10);
                 break;
             case R.id.tv_pgetCode:
+                pinput_phone = (EditText) mRoot.findViewById(R.id.et_pinput_num);
+                pphone = pinput_phone.getText().toString().trim();
+                if (pphone.equals("")) {
+                    Toast.makeText(getActivity(), R.string.input_phone_number, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (NetworkUtils.isMobileNO(pphone) == true) {
+                    timer.start();
+                } else {
+                    Toast.makeText(getActivity(), R.string.pl_right_phone, Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btn_pcommit:
+                pinput_user = (EditText) mRoot.findViewById(R.id.et_pinput_user);
+                puser = pinput_user.getText().toString().trim();
+
+                pinput_name = (EditText) mRoot.findViewById(R.id.et_pinput_name);
+                pname = pinput_name.getText().toString().trim();
+
+                pinput_phone = (EditText) mRoot.findViewById(R.id.et_pinput_num);
+                pphone = pinput_phone.getText().toString().trim();
+
+                pinput_phone_code = (EditText) mRoot.findViewById(R.id.et_pinput_phone_code);
+                pcode = pinput_phone_code.getText().toString().trim();
+
+                pinput_password = (EditText) mRoot.findViewById(R.id.et_pinput_new_password);
+                ppassword = pinput_password.getText().toString().trim();
+
+                if (pschool == null || pschool == "") {
+                    Toast.makeText(getActivity(), R.string.choose_child_school, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pgrade == null || pgrade == "") {
+                    Toast.makeText(getActivity(), R.string.choose_child_grade, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pclass == null || pclass == "") {
+                    Toast.makeText(getActivity(), R.string.choose_child_class, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (puser.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_user_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pname.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_child_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pphone.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_phone_number, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pcode.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_phone_verify_code, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (ppassword.length() < 8) {
+                    Toast.makeText(getActivity(), R.string.input_new_password, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (NetworkUtils.checkNetWork(getActivity()) == false) {
+                    Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 break;
         }
     }
+
+    /**
+     * 倒计时功能
+     */
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if ((millisUntilFinished / 1000) < 60) {
+                pget_code.setEnabled(false);
+            }
+            pget_code.setText((millisUntilFinished / 1000) + "秒后可重发");
+        }
+
+        @Override
+        public void onFinish() {
+            pget_code.setEnabled(true);
+            pget_code.setText("获取验证码");
+        }
+    };
 
     //跳转并返回数据
     @Override
@@ -155,11 +240,13 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
         if (requestCode == 10) {
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
+                pclass = bundle.getString("sclass");
                 pchoose_class.setText(bundle.getString("sclass") + "班");
             }
         } else if (requestCode == 2) {
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
+                pschool = bundle.getString("school");
                 pchoose_school.setText(bundle.getString("school"));
             }
         }

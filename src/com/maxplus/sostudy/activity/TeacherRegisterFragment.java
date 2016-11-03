@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -20,8 +21,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.tools.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +58,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
     CheckBox showPassword;
     List<CheckBox> checkBox = new ArrayList<CheckBox>();
     private View mRootView;
-    private String tgrade = "", tsubject = "";
+    private String tschool = "", tgrade = "", tsubject = "";
 
 
     public TeacherRegisterFragment() {
@@ -96,13 +99,8 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
         tchoose_grade.setOnClickListener(this);
         tchoose_subject = (TextView) mRootView.findViewById(R.id.tvt_choose_subject);
         tchoose_subject.setOnClickListener(this);
-        ett_userName = (EditText) mRootView.findViewById(R.id.ett_input_user);
-        ett_realName = (EditText) mRootView.findViewById(R.id.ett_input_name);
-        ett_phone = (EditText) mRootView.findViewById(R.id.ett_input_phone);
         tgetCode = (TextView) mRootView.findViewById(R.id.tvt_getCode);
         tgetCode.setOnClickListener(this);
-        ett_phoneCode = (EditText) mRootView.findViewById(R.id.ett_input_phone_code);
-        ett_password = (EditText) mRootView.findViewById(R.id.ett_input_new_password);
         showPassword = (CheckBox) mRootView.findViewById(R.id.showPassword);
         showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -421,6 +419,18 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
 //                break;
             //获取手机验证码
             case R.id.tvt_getCode:
+                ett_phone = (EditText) mRootView.findViewById(R.id.ett_input_phone);
+                phone = ett_phone.getText().toString().trim();
+                if (phone.equals("")) {
+                    Toast.makeText(getActivity(), R.string.input_phone_number, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (NetworkUtils.isMobileNO(phone) == true) {
+                    timer.start();
+                } else {
+                    Toast.makeText(getActivity(), R.string.pl_right_phone, Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 //            //输入手机验证码
 //            case R.id.ett_input_phone_code:
@@ -430,11 +440,77 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
 //                break;
             //提交注册
             case R.id.btn_commit:
+                ett_userName = (EditText) mRootView.findViewById(R.id.ett_input_user);
+                userName = ett_userName.getText().toString().trim();
+                ett_realName = (EditText) mRootView.findViewById(R.id.ett_input_name);
+                realName = ett_realName.getText().toString().trim();
+                ett_phone = (EditText) mRootView.findViewById(R.id.ett_input_phone);
+                phone = ett_phone.getText().toString().trim();
+                ett_phoneCode = (EditText) mRootView.findViewById(R.id.ett_input_phone_code);
+                phoneCode = ett_phoneCode.getText().toString().trim();
+                ett_password = (EditText) mRootView.findViewById(R.id.ett_input_new_password);
+                password = ett_password.getText().toString().trim();
+                if (tschool == null || tschool == "") {
+                    Toast.makeText(getActivity(), R.string.choose_school, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (tgrade == null || tgrade == "") {
+                    Toast.makeText(getActivity(), R.string.choose_grade, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (tsubject == null || tsubject == "") {
+                    Toast.makeText(getActivity(), R.string.choose_subject, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (userName.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_user_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (realName.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (phone.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_phone_number, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (phoneCode.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_phone_verify_code, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (password.length() < 8) {
+                    Toast.makeText(getActivity(), R.string.input_new_password, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (NetworkUtils.checkNetWork(getActivity()) == false) {
+                    Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 break;
 
         }
 
     }
+
+    /**
+     * 倒计时功能
+     */
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            if ((millisUntilFinished / 1000) < 60) {
+                tgetCode.setEnabled(false);
+            }
+            tgetCode.setText((millisUntilFinished / 1000) + "秒后可重发");
+        }
+
+        @Override
+        public void onFinish() {
+            tgetCode.setEnabled(true);
+            tgetCode.setText("获取验证码");
+        }
+    };
 
     //选择学科的点击事件实现
     private class MyOnClieckListener implements View.OnClickListener {
@@ -495,6 +571,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
         if (requestCode == 2) {
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
+                tschool = bundle.getString("school");
                 tchoose_school.setText(bundle.getString("school"));
             }
         }

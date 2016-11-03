@@ -1,25 +1,34 @@
 package com.maxplus.sostudy.activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.File;
+
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
+
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.application.JChatDemoApplication;
 import com.maxplus.sostudy.controller.MeController;
@@ -41,6 +50,8 @@ public class MeFragment extends BaseFragment {
     private String mPath;
     private boolean mIsShowAvatar = false;
     private boolean mIsGetAvatar = false;
+    private ImageView nick_name;
+    private TextView tv_nickname;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +65,32 @@ public class MeFragment extends BaseFragment {
         mMeView.initModule(mDensity, mWidth);
         mMeController = new MeController(mMeView, this, mWidth);
         mMeView.setListeners(mMeController);
+        tv_nickname = (TextView) mRootView.findViewById(R.id.nick_name_tv);
+        nick_name = (ImageView) mRootView.findViewById(R.id.iv_edit_nickname);
+        nick_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+
+                    case R.id.iv_edit_nickname:
+                        final EditText inputServer = new EditText(getActivity());
+                        final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                        dialog.setTitle(R.string.edit_nickname);
+                        dialog.setView(inputServer);
+                        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (!inputServer.getText().toString().equals("")) {
+                                    tv_nickname.setText(inputServer.getText().toString());
+                                }
+
+                            }
+                        });
+                        dialog.setNegativeButton("取消", null).show();
+
+                }
+            }
+        });
     }
 
     @Override
@@ -86,7 +123,7 @@ public class MeFragment extends BaseFragment {
                     });
                 }
                 mMeView.showNickName(myInfo.getNickname());
-            //用户由于某种原因导致登出,跳转到重新登录界面
+                //用户由于某种原因导致登出,跳转到重新登录界面
             } else {
                 Intent intent = new Intent();
                 intent.setClass(mContext, LoginActivity.class);

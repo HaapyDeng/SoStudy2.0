@@ -16,8 +16,9 @@
             android:id="@+id/my_avatar_iv"
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:scaleType="centerCrop"
-            android:background="@color/me_no_picture_color" />
+            android:background="@color/white"
+            android:scaleType="centerCrop" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,139 +29,158 @@
                 android:id="@+id/take_photo_iv"
                 android:layout_width="@dimen/me_head_icon_size"
                 android:layout_height="@dimen/me_head_icon_size"
-                android:src="@drawable/take_photo_me"
-                android:layout_gravity="center" />
-
-            <TextView
-                android:id="@+id/nick_name_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:maxWidth="200dp"
-                android:singleLine="true"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:textColor="#fffdfe"
-                android:shadowColor="#000000"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="5"
-                android:textSize="18sp" />
+                android:src="@drawable/take_photo_me" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/nick_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:maxWidth="200dp"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="5"
+                    android:singleLine="true"
+                    android:textColor="#555555"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/iv_edit_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/nick_name_tv"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/fixname_icon" />
+            </RelativeLayout>
         </LinearLayout>
 
     </FrameLayout>
 
-        <ScrollView
-            android:id="@+id/scroll_view"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/me_split_line_color" />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/content_list_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:background="#ffffff"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/content_list_ll"
+            <RelativeLayout
+                android:id="@+id/user_info_rl"
+                style="@style/SettingItemStyle">
+
+                <ImageView
+                    android:id="@+id/jmui_avatar_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/me_man" />
+
+                <TextView
+                    android:id="@+id/user_name_tv"
+                    style="@style/info_left_txt_style"
+                    android:layout_toRightOf="@id/jmui_avatar_iv"
+                    android:text="@string/my_info" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/arrow" />
+            </RelativeLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="#ffffff">
+                android:layout_height="1dp"
+                android:background="@color/me_split_line_color" />
 
-                <RelativeLayout
-                    android:id="@+id/user_info_rl"
-                    style="@style/SettingItemStyle">
+            <RelativeLayout
+                android:id="@+id/setting_rl"
+                style="@style/SettingItemStyle">
 
-                    <ImageView
-                        android:id="@+id/jmui_avatar_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/me_man" />
+                <ImageView
+                    android:id="@+id/setting_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/setting" />
 
-                    <TextView
-                        android:id="@+id/user_name_tv"
-                        style="@style/info_left_txt_style"
-                        android:layout_toRightOf="@id/jmui_avatar_iv"
-                        android:text = "@string/my_info"/>
+                <TextView
+                    style="@style/info_left_txt_style"
+                    android:layout_toRightOf="@id/setting_iv"
+                    android:text="@string/setting" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/arrow" />
-                </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/arrow" />
+            </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/me_split_line_color" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_split_line_color" />
 
-                <RelativeLayout
-                    android:id="@+id/setting_rl"
-                    style="@style/SettingItemStyle">
+            <!--<RelativeLayout-->
+            <!--android:id="@+id/logout_rl"-->
+            <!--style="@style/SettingItemStyle">-->
 
-                    <ImageView
-                        android:id="@+id/setting_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/setting" />
+            <!--<ImageView-->
+            <!--android:id="@+id/exit_iv"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:src="@drawable/exit" />-->
 
-                    <TextView
-                        style="@style/info_left_txt_style"
-                        android:layout_toRightOf="@id/setting_iv"
-                        android:text="@string/setting"/>
+            <!--<TextView-->
+            <!--android:id="@+id/logout_tv"-->
+            <!--style="@style/info_left_txt_style"-->
+            <!--android:layout_toRightOf="@id/exit_iv"-->
+            <!--android:text="@string/login_out"/>-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/arrow" />
-                </RelativeLayout>
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:background="@drawable/arrow" />-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/me_split_line_color" />
+            <!--</RelativeLayout>-->
 
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/logout_rl"-->
-                    <!--style="@style/SettingItemStyle">-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/me_split_line_color" />-->
 
-                    <!--<ImageView-->
-                        <!--android:id="@+id/exit_iv"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:src="@drawable/exit" />-->
+        </LinearLayout>
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/logout_tv"-->
-                        <!--style="@style/info_left_txt_style"-->
-                        <!--android:layout_toRightOf="@id/exit_iv"-->
-                        <!--android:text="@string/login_out"/>-->
-
-                    <!--<ImageView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:background="@drawable/arrow" />-->
-
-                <!--</RelativeLayout>-->
-
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/me_split_line_color" />-->
-
-            </LinearLayout>
-
-        </ScrollView>
+    </ScrollView>
 
 </com.maxplus.sostudy.view.MeView>
