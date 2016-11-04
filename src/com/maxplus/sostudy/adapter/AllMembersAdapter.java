@@ -27,7 +27,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.FriendInfoActivity;
-import com.maxplus.sostudy.activity.MeInfoActivity;
+import com.maxplus.sostudy.activity.MeStudentInfoActivity;
 import com.maxplus.sostudy.activity.MembersInChatActivity;
 import com.maxplus.sostudy.application.JChatDemoApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
@@ -181,7 +181,7 @@ public class AllMembersAdapter extends BaseAdapter implements AdapterView.OnItem
         String userName = userInfo.getUserName();
         Intent intent = new Intent();
         if (userName.equals(JMessageClient.getMyInfo().getUserName())) {
-            intent.setClass(mContext, MeInfoActivity.class);
+            intent.setClass(mContext, MeStudentInfoActivity.class);
             mContext.startActivity(intent);
         } else {
             intent.setClass(mContext, FriendInfoActivity.class);

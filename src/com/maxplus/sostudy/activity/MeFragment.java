@@ -1,23 +1,22 @@
 package com.maxplus.sostudy.activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.widget.TextViewCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +27,7 @@ import java.io.File;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.application.JChatDemoApplication;
@@ -47,7 +47,7 @@ public class MeFragment extends BaseFragment {
     private MeView mMeView;
     private MeController mMeController;
     private Context mContext;
-    private String mPath;
+    private String mPath, oldNickname;
     private boolean mIsShowAvatar = false;
     private boolean mIsGetAvatar = false;
     private ImageView nick_name;
@@ -69,25 +69,58 @@ public class MeFragment extends BaseFragment {
         nick_name = (ImageView) mRootView.findViewById(R.id.iv_edit_nickname);
         nick_name.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
+            public void onClick(View v) {
+                switch (v.getId()) {
 
                     case R.id.iv_edit_nickname:
-                        final EditText inputServer = new EditText(getActivity());
-                        final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                        dialog.setTitle(R.string.edit_nickname);
-                        dialog.setView(inputServer);
-                        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        final Dialog dialog = new Dialog(mContext, R.style.jmui_default_dialog_style);
+                        final View view = LayoutInflater.from(mContext)
+                                .inflate(R.layout.dialog_set_nickname, null);
+                        dialog.setContentView(view);
+                        dialog.getWindow().setLayout((int) (0.8 * mWidth), WindowManager.LayoutParams.WRAP_CONTENT);
+                        dialog.show();
+                        final EditText et_nickname = (EditText) view.findViewById(R.id.et_nickname);
+                        final Button cancel = (Button) view.findViewById(R.id.nickname_cancel_btn);
+                        final Button commit = (Button) view.findViewById(R.id.nickname_commit_btn);
+
+                        View.OnClickListener listener = new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (!inputServer.getText().toString().equals("")) {
-                                    tv_nickname.setText(inputServer.getText().toString());
+                            public void onClick(View v1) {
+                                switch (v1.getId()) {
+                                    case R.id.nickname_cancel_btn:
+                                        dialog.cancel();
+                                        break;
+                                    case R.id.nickname_commit_btn:
+                                        final String nickname = et_nickname.getText().toString();
+                                        if (nickname.length() == 0) {
+                                            dialog.cancel();
+                                        } else {
+                                            oldNickname = tv_nickname.getText().toString();
+                                            if (!oldNickname.equals(nickname)) {
+                                                UserInfo myUserInfo = JMessageClient.getMyInfo();
+                                                myUserInfo.setNickname(nickname);
+                                                JMessageClient.updateMyInfo(UserInfo.Field.nickname, myUserInfo, new BasicCallback() {
+                                                    @Override
+                                                    public void gotResult(final int status, final String desc) {
+                                                        dialog.dismiss();
+                                                        if (status == 0) {
+                                                            tv_nickname.setText(nickname);
+                                                            Toast.makeText(getActivity(), getResources().getString(R.string.modify_success_toast),
+                                                                    Toast.LENGTH_SHORT).show();
+                                                            dialog.dismiss();
+                                                        } else {
+                                                            HandleResponseCode.onHandle(getActivity(), status, false);
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                            dialog.cancel();
+                                        }
                                 }
-
                             }
-                        });
-                        dialog.setNegativeButton("取消", null).show();
-
+                        };
+                        cancel.setOnClickListener(listener);
+                        commit.setOnClickListener(listener);
                 }
             }
         });
@@ -173,7 +206,7 @@ public class MeFragment extends BaseFragment {
 
     public void startMeInfoActivity() {
         Intent intent = new Intent();
-        intent.setClass(this.getActivity(), MeInfoActivity.class);
+        intent.setClass(this.getActivity(), MeStudentInfoActivity.class);
         startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_ME_INFO);
     }
 

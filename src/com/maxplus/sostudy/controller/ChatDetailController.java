@@ -32,7 +32,7 @@ import cn.jpush.im.api.BasicCallback;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.ChatDetailActivity;
 import com.maxplus.sostudy.activity.FriendInfoActivity;
-import com.maxplus.sostudy.activity.MeInfoActivity;
+import com.maxplus.sostudy.activity.MeStudentInfoActivity;
 import com.maxplus.sostudy.activity.MembersInChatActivity;
 import com.maxplus.sostudy.adapter.GroupMemberGridAdapter;
 import com.maxplus.sostudy.application.JChatDemoApplication;
@@ -270,7 +270,7 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
             // 点击群成员项时
             if (position < mCurrentNum) {
                 if (mMemberInfoList.get(position).getUserName().equals(mMyUsername)) {
-                    intent.setClass(mContext, MeInfoActivity.class);
+                    intent.setClass(mContext, MeStudentInfoActivity.class);
                 } else {
                     UserInfo userInfo = mMemberInfoList.get(position);
                     intent.putExtra(JChatDemoApplication.TARGET_ID, userInfo.getUserName());

@@ -5,16 +5,16 @@ import android.view.View.OnClickListener;
 import com.maxplus.sostudy.R;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
-import com.maxplus.sostudy.activity.MeInfoActivity;
+import com.maxplus.sostudy.activity.MeStudentInfoActivity;
 import com.maxplus.sostudy.view.MeInfoView;
 
 public class MeInfoController implements OnClickListener {
 
     private MeInfoView mMeInfoView;
-    private MeInfoActivity mContext;
+    private MeStudentInfoActivity mContext;
 
 
-    public MeInfoController(MeInfoView view, MeInfoActivity context) {
+    public MeInfoController(MeInfoView view, MeStudentInfoActivity context) {
         this.mMeInfoView = view;
         this.mContext = context;
     }
@@ -26,7 +26,7 @@ public class MeInfoController implements OnClickListener {
                 mContext.setResultAndFinish();
                 break;
             case R.id.nick_name_rl:
-                mContext.startModifyNickNameActivity();
+//                mContext.startModifyNickNameActivity();
                 break;
             case R.id.sex_rl:
                 UserInfo userInfo = JMessageClient.getMyInfo();
