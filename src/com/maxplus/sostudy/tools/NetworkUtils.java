@@ -75,13 +75,12 @@ public class NetworkUtils {
         Pattern p = Pattern
                 .compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
         Matcher m = p.matcher(mobiles);
-
         return m.matches();
     }
 
     //判断email格式是否正确
     public static boolean isEmail(String email) {
-        String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+        String str = "\\w+@(\\w+.)+[a-z]{2,3}";
         Pattern p = Pattern.compile(str);
         Matcher m = p.matcher(email);
 
@@ -97,7 +96,8 @@ public class NetworkUtils {
         }
         return true;
     }
-    public static String returnUrl(){
+
+    public static String returnUrl() {
         String url = "http://192.168.1.200";
         return url;
     }
