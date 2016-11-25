@@ -60,6 +60,7 @@ public class CityPicker extends LinearLayout {
     private String city_code_string;
     private String city_string;
     private int city_id;
+
     public CityPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
@@ -223,6 +224,8 @@ public class CityPicker extends LinearLayout {
                     counyPicker.setData(citycodeUtil.getCouny(couny_map,
                             citycodeUtil.getCity_list_code().get(id)));
                     counyPicker.setDefault(1);
+                    city_code_string =""+counyPicker.getSelected();
+                    Log.d("city_code_string==>>>>>",""+city_code_string);
                     int lastDay = Integer.valueOf(cityPicker.getListSize());
                     if (id > lastDay) {
                         cityPicker.setDefault(lastDay - 1);
@@ -259,6 +262,7 @@ public class CityPicker extends LinearLayout {
                     // 城市数组
                     city_code_string = citycodeUtil.getCouny_list_code()
                             .get(id);
+                    System.out.println("city_code_string+++====>>" + city_code_string);
                     int lastDay = Integer.valueOf(counyPicker.getListSize());
                     if (id > lastDay) {
                         counyPicker.setDefault(lastDay - 1);
@@ -301,17 +305,18 @@ public class CityPicker extends LinearLayout {
     }
 
     public String getCity_code_string() {
-        city_code_string = ""+counyPicker.getSelected();
+        city_code_string = "" + counyPicker.getSelected();
         return city_code_string;
     }
-    public int getCity_id(){
-        city_id =counyPicker.getSelectedId();
+
+    public int getCity_id() {
+        city_id = counyPicker.getSelectedId();
         return city_id;
     }
 
     public String getCity_string() {
-        city_string = provincePicker.getSelectedText()
-                + cityPicker.getSelectedText() + counyPicker.getSelectedText();
+        city_string = provincePicker.getSelectedText() + ","
+                + cityPicker.getSelectedText() + "," + counyPicker.getSelectedText();
         return city_string;
     }
 

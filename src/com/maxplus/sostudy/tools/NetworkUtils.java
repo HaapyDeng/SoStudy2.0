@@ -97,5 +97,9 @@ public class NetworkUtils {
         }
         return true;
     }
+    public static String returnUrl(){
+        String url = "http://192.168.1.200";
+        return url;
+    }
 
 }

@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class ParentRegisterFragment extends Fragment implements View.OnClickListener {
@@ -34,7 +42,7 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
     private EditText pinput_phone, pinput_phone_code, pinput_password, pinput_name, pinput_user;
     private CheckBox pshow_num;
     private Button pcommit;
-    private String pschool, pgrade, pclass, puser, pname, pphone, pcode, ppassword;
+    private String pschool, pgrade, pclass, puser, pname, pphone, pcode, ppassword, getRaelCode = "";
 
     public ParentRegisterFragment() {
         // Required empty public constructor
@@ -153,7 +161,38 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                     break;
                 }
                 if (NetworkUtils.isMobileNO(pphone) == true) {
-                    timer.start();
+                    if (NetworkUtils.checkNetWork(getActivity()) == false) {
+                        Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String urlM = NetworkUtils.returnUrl();
+                    final String url = urlM + "/api/sms";
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    RequestParams params = new RequestParams();
+                    params.put("phone", pphone);
+                    client.post(url, params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            try {
+                                if (response.getInt("status") == 1) {
+                                    getRaelCode = response.getString("code");
+                                    Log.d("code===>>>>>>", "" + response.getString("code"));
+                                    timer.start();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                            Toast.makeText(getActivity(), R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
                     Toast.makeText(getActivity(), R.string.pl_right_phone, Toast.LENGTH_SHORT).show();
                 }
@@ -200,6 +239,10 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                 }
                 if (pcode.length() == 0) {
                     Toast.makeText(getActivity(), R.string.input_phone_verify_code, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pcode.equals(getRaelCode) == false) {
+                    Toast.makeText(getActivity(), R.string.input_error_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (ppassword.length() < 8) {

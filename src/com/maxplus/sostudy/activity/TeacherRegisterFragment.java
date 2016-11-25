@@ -23,8 +23,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.tools.NetworkUtils;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +61,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
     CheckBox ck_1, ck_2, ck_3, ck_4, ck_5, ck_6, ck_7, ck_8, ck_9, ck_10, ck_11, ck_12;
     RadioButton rb_1, rb_2, rb_3, rb_4, rb_5, rb_6, rb_7, rb_8, rb_9;
     com.maxplus.sostudy.tools.FlowRadioGroup rg_b;
-    String userName, realName, phone, phoneCode, password;
+    String userName, realName, phone, phoneCode, password,getRaelCode="";
     Button commit;
     CheckBox showPassword;
     List<CheckBox> checkBox = new ArrayList<CheckBox>();
@@ -426,7 +434,38 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                     break;
                 }
                 if (NetworkUtils.isMobileNO(phone) == true) {
-                    timer.start();
+                    if (NetworkUtils.checkNetWork(getActivity()) == false) {
+                        Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String urlM = NetworkUtils.returnUrl();
+                    final String url =urlM+ "/api/sms";
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    RequestParams params = new RequestParams();
+                    params.put("phone", phone);
+                    client.post(url, params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            try {
+                                if (response.getInt("status") == 1) {
+                                    getRaelCode = response.getString("code");
+                                    Log.d("code===>>>>>>", "" + response.getString("code"));
+                                    timer.start();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                            Toast.makeText(getActivity(), R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
                     Toast.makeText(getActivity(), R.string.pl_right_phone, Toast.LENGTH_SHORT).show();
                 }
@@ -476,6 +515,10 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                 }
                 if (phoneCode.length() == 0) {
                     Toast.makeText(getActivity(), R.string.input_phone_verify_code, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (phoneCode.equals(getRaelCode)==false){
+                    Toast.makeText(getActivity(), R.string.input_error_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (password.length() < 8) {

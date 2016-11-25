@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,7 +49,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
     Button commit;
     CheckBox showPassword;
     private View mRootView;
-    private String school, grade, sclass;
+    private String school, grade, sclass,getRaelCode = "";;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -195,10 +204,50 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                     break;
                 }
                 if (NetworkUtils.isEmail(email) == true) {
-                    timer.start();
+                    if (NetworkUtils.checkNetWork(getActivity()) == false) {
+                        Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String urlM = NetworkUtils.returnUrl();
+                    final String url = urlM+"/api/mail";
+                    Log.d("url=====>>>", "" + url);
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    RequestParams params = new RequestParams();
+                    params.put("email", email);
+                    client.post(url, params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            int status = 111;
+
+                            try {
+                                status = response.getInt("status");
+                                Log.d("status==>>>>>", "" + status);
+                                Log.d("response===>>>>>>", "" + response);
+                                if (status == 1) {
+                                    getRaelCode = response.getString("code");
+                                    Log.d("code===>>>>>>", "" + getRaelCode);
+                                    timer.start();
+                                }else if (status==0){
+                                    Toast.makeText(getActivity(), response.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(getActivity(), R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                            Toast.makeText(getActivity(), R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
                     Toast.makeText(getActivity(), R.string.pl_right_email, Toast.LENGTH_SHORT).show();
                 }
+
                 break;
 
             //提交注册
@@ -239,6 +288,10 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 }
                 if (emailCode.length() == 0) {
                     Toast.makeText(getActivity(), R.string.input_email_verify_code, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (emailCode.equals(getRaelCode)==false){
+                    Toast.makeText(getActivity(), R.string.input_error_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (password.length() < 8) {

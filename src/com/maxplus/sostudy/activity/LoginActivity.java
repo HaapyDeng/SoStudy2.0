@@ -17,6 +17,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.tools.NetworkUtils;
 
 import org.apache.http.Header;
 import org.apache.http.StatusLine;
@@ -121,7 +122,7 @@ public class LoginActivity extends Activity implements OnClickListener {
             @Override
             public void gotResult(int i, String s, Set<String> set) {
                 if (i == 0) {
-                    Log.d("setAlias","setAlias==>>"+s);
+                    Log.d("setAlias", "setAlias==>>" + s);
                 } else {
                     Toast.makeText(LoginActivity.this, R.string.network_little_hint, Toast.LENGTH_LONG).show();
                     return;
@@ -132,11 +133,23 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 
     public void doLoginPost() {
-        final String url = "http://101.201.197.73/api/login";
+        final String url = R.string.url+"/api/login";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         userName = edt_userName.getText().toString();
         password = edt_password.getText().toString();
+        if (userName.length() == 0) {
+            Toast.makeText(LoginActivity.this, R.string.userName_not_null, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (password.length() == 0) {
+            Toast.makeText(LoginActivity.this, R.string.password_not_null, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (NetworkUtils.checkNetWork(LoginActivity.this) == false) {
+            Toast.makeText(LoginActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+            return;
+        }
         client.post(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
@@ -190,6 +203,8 @@ public class LoginActivity extends Activity implements OnClickListener {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("errorCode", "" + responseString);
+                Toast.makeText(LoginActivity.this, responseString, Toast.LENGTH_LONG).show();
             }
         });
     }

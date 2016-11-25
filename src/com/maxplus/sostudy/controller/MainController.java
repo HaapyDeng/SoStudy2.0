@@ -116,6 +116,8 @@ public class MainController implements OnClickListener, OnPageChangeListener {
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.setMessage(mContext.getString(R.string.updating_avatar_hint));
         mDialog.show();
+        Log.d("path==>>>>>>>>", "" + path);
+        //上传头像
         JMessageClient.updateUserAvatar(new File(path), new BasicCallback() {
             @Override
             public void gotResult(final int status, final String desc) {

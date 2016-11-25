@@ -26,6 +26,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
     private CityPicker cityPicker;
     private OnSelectingListener onSelectingListener;
     private int cityid;
+    private String cityIdString;
     private Button confirm, bt_scrollchoose; // 滚动选择器按钮
     private PickerScrollView pckerscrlllview; // 滚动选择器
     private List<Pickers> list; // 滚动选择器数据
@@ -51,8 +52,11 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 Log.d("selected====>>>>", "" + selected);
                 if (selected == true) {
                     city = cityPicker.getCity_string();
+                    Log.i("city===>>>", ""+ city);
                     cityid = cityPicker.getCity_id();
                     Log.i("cityid===>>>", ""+ cityid);
+                    cityIdString = cityPicker.getCity_code_string();
+                    Log.i("cityIdString===>>>", ""+ cityIdString);
                     choose_city.setText(city);
                 } else {
                     choose_city.setText(city);
