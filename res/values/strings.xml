@@ -8,6 +8,7 @@
     <string name="register">注册</string>
     <string name="registering_hint">注册中</string>
     <string name="register_failed_toast">注册失败</string>
+    <string name="login_failed_toast">登录失败</string>
     <string name="login_hint">登录中</string>
     <string name="user_not_exist_toast">该用户不存在</string>
     <string name="jmui_user_already_exist_toast">该用户已存在</string>
@@ -319,7 +320,6 @@
 
 
     <!--以下自行添加-->
-    <string name="url">"http://192.168.1.200"</string>
     <string name="isNotNetWork">网络连接错误，请检查手机网络再试！</string>
     <string name="username">账号</string>
     <string name="password">密码</string>

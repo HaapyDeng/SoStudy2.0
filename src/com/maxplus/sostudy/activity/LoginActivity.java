@@ -1,13 +1,16 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -35,7 +38,7 @@ import cn.jpush.im.api.BasicCallback;
 
 
 public class LoginActivity extends Activity implements OnClickListener {
-    public String userName, password;
+    public String userName, password, token;
     EditText edt_userName, edt_password;
     TextView tv_forg_password, tv_regist;
     Button btn_login;
@@ -133,11 +136,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 
     public void doLoginPost() {
-        final String url = R.string.url+"/api/login";
+        final String url = NetworkUtils.returnUrl() + "/api/login";
+        Log.d("url==??>>>>>>", url);
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         userName = edt_userName.getText().toString();
         password = edt_password.getText().toString();
+
         if (userName.length() == 0) {
             Toast.makeText(LoginActivity.this, R.string.userName_not_null, Toast.LENGTH_SHORT).show();
             return;
@@ -146,57 +151,35 @@ public class LoginActivity extends Activity implements OnClickListener {
             Toast.makeText(LoginActivity.this, R.string.password_not_null, Toast.LENGTH_SHORT).show();
             return;
         }
-        if (NetworkUtils.checkNetWork(LoginActivity.this) == false) {
+        if (!NetworkUtils.checkNetWork(LoginActivity.this)) {
             Toast.makeText(LoginActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
             return;
         }
+        params.put("username", userName);
+        params.put("password", password);
         client.post(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-                Log.d("statuCode==>", "" + statusCode);
-                setAlias(userName);
-                JMessageClient.login(userName, password, new BasicCallback() {
-                    @Override
-                    public void gotResult(int i, String s) {
-                        if (i == 0) {
-                            Intent intent3 = new Intent();
-                            intent3.setClass(LoginActivity.this, MainActivity.class);
-                            startActivity(intent3);
-                            finish();
-                        } else {
-                            JMessageClient.register(userName, password, new BasicCallback() {
-                                @Override
-                                public void gotResult(int i, String s) {
-                                    if (i == 0) {
-                                        JMessageClient.login(userName, password, new BasicCallback() {
-                                            @Override
-                                            public void gotResult(int i, String s) {
-                                                Intent intent3 = new Intent();
-                                                intent3.setClass(LoginActivity.this, MainActivity.class);
-                                                startActivity(intent3);
-                                                finish();
-
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-                        }
+                try {
+                    Log.d("status=====>", "" + json.getInt("status"));
+                    if (json.getInt("status") == 1) {
+                        token = json.getString("tock");
+                        Log.d("token==>>>>", token);
+                        SharedPreferences mySharedPreferences = getSharedPreferences("token",
+                                Activity.MODE_PRIVATE);
+                        SharedPreferences.Editor edit = mySharedPreferences.edit();
+                        edit.putString("token", token);
+                        edit.commit();
+                        startJmlogin(userName, password);
+                    } else if (json.getInt("status") == 0) {
+                        Log.d("errorInfo==>>>>>", json.getString("errorInfo"));
+                        Toast.makeText(LoginActivity.this, json.getString("errorInfo"), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, R.string.login_failed_toast, Toast.LENGTH_LONG).show();
                     }
-                });
-                JMessageClient.register(userName, password, new BasicCallback() {
-                    @Override
-                    public void gotResult(int i, String s) {
-                        if (i == 0) {
-                            JMessageClient.login(userName, password, new BasicCallback() {
-                                @Override
-                                public void gotResult(int i, String s) {
-
-                                }
-                            });
-                        }
-                    }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
 
@@ -205,6 +188,41 @@ public class LoginActivity extends Activity implements OnClickListener {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.d("errorCode", "" + responseString);
                 Toast.makeText(LoginActivity.this, responseString, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void startJmlogin(final String userName, final String password) {
+
+        JMessageClient.login(userName, password, new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                if (i == 0) {
+                    setAlias(userName);
+                    Intent intent3 = new Intent();
+                    intent3.setClass(LoginActivity.this, MainActivity.class);
+                    startActivity(intent3);
+                    finish();
+                } else {
+                    JMessageClient.register(userName, password, new BasicCallback() {
+                        @Override
+                        public void gotResult(int i, String s) {
+                            if (i == 0) {
+                                setAlias(userName);
+                                JMessageClient.login(userName, password, new BasicCallback() {
+                                    @Override
+                                    public void gotResult(int i, String s) {
+                                        Intent intent3 = new Intent();
+                                        intent3.setClass(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent3);
+                                        finish();
+
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
             }
         });
     }
