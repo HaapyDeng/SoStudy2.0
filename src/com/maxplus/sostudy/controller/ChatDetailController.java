@@ -29,6 +29,7 @@ import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.android.eventbus.EventBus;
 import cn.jpush.im.api.BasicCallback;
+
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.ChatDetailActivity;
 import com.maxplus.sostudy.activity.FriendInfoActivity;
@@ -42,7 +43,7 @@ import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 import com.maxplus.sostudy.view.ChatDetailView;
 import com.maxplus.sostudy.view.SlipButton;
 
-public class ChatDetailController implements OnClickListener, OnItemClickListener, SlipButton.OnChangedListener{
+public class ChatDetailController implements OnClickListener, OnItemClickListener, SlipButton.OnChangedListener {
 
     private static final String TAG = "ChatDetailController";
 
@@ -198,8 +199,7 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
                                 Conversation conv;
                                 if (mIsGroup) {
                                     conv = JMessageClient.getGroupConversation(mGroupId);
-                                }
-                                else {
+                                } else {
                                     conv = JMessageClient.getSingleConversation(mTargetId, mTargetAppKey);
                                 }
                                 if (conv != null) {
@@ -347,7 +347,7 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
         commit.setOnClickListener(listener);
     }
 
-    private void getUserInfo(final String targetId, final Dialog dialog){
+    private void getUserInfo(final String targetId, final Dialog dialog) {
         JMessageClient.getUserInfo(targetId, new GetUserInfoCallback() {
             @Override
             public void gotResult(final int status, String desc, final UserInfo userInfo) {
@@ -437,7 +437,7 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
                             Toast.makeText(mContext, mContext.getString(R.string.remove_from_no_disturb_list_hint),
                                     Toast.LENGTH_SHORT).show();
                         }
-                    //设置失败,恢复为原来的状态
+                        //设置失败,恢复为原来的状态
                     } else {
                         if (checked) {
                             mChatDetailView.setNoDisturbChecked(false);
@@ -497,10 +497,10 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
                         final UserInfo userInfo = (UserInfo) msg.obj;
                         if (controller.mIsGroup) {
                             controller.addAMember(userInfo);
-                        //在单聊中点击加人按钮并且用户信息返回正确,如果为第三方则创建群聊
+                            //在单聊中点击加人按钮并且用户信息返回正确,如果为第三方则创建群聊
                         } else {
                             if (userInfo.getUserName().equals(controller.mMyUsername)
-                                    || userInfo.getUserName().equals(controller.mTargetId)){
+                                    || userInfo.getUserName().equals(controller.mTargetId)) {
                                 HandleResponseCode.onHandle(controller.mContext, 1002, false);
                                 return;
                             } else {
@@ -557,7 +557,7 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
     public String getName() {
         if (mIsGroup) {
             return mGroupName;
-        }else {
+        } else {
             Conversation conv = JMessageClient.getSingleConversation(mTargetId, mTargetAppKey);
             UserInfo userInfo = (UserInfo) conv.getTargetInfo();
             String nickname = userInfo.getNickname();

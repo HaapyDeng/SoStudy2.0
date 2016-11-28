@@ -193,7 +193,7 @@ public class MeFragment extends BaseFragment {
             SharePreferenceManager.setCachedUsername(info.getUserName());
             SharePreferenceManager.setCachedAvatarPath(file.getAbsolutePath());
             JMessageClient.logout();
-            intent.setClass(mContext, ReloginActivity.class);
+            intent.setClass(mContext, LoginActivity.class);
             startActivity(intent);
         } else {
             Log.d(TAG, "user info is null!");
@@ -202,7 +202,7 @@ public class MeFragment extends BaseFragment {
 
     public void StartSettingActivity() {
         Intent intent = new Intent();
-        intent.setClass(this.getActivity(), SettingActivity.class);
+        intent.setClass(this.getActivity(), SetActivity.class);
         startActivity(intent);
     }
 

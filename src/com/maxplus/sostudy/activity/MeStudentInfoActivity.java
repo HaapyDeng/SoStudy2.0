@@ -30,7 +30,7 @@ public class MeStudentInfoActivity extends BaseActivity {
     private LinearLayout user_rl;
     private TextView tv_school, tv_grade, tv_classse, tv_userName, tv_name, tv_email,
             tv_password, tv_change, tv_namet, email_phone;
-    private String school, grade, classe, userName, name, email, password;
+    private String school = "", grade = "", classe = "", userName = "", name = "", email = "", password = "";
     private int usertype;
 
     @Override

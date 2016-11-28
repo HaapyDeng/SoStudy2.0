@@ -214,7 +214,8 @@
         <activity android:name=".activity.ForgetPassword" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ChooseClassActivity" />
-        <activity android:name=".activity.ChooseSchoolActivity"></activity>
+        <activity android:name=".activity.ChooseSchoolActivity" />
+        <activity android:name=".activity.SetActivity"></activity>
     </application>
 
 </manifest>
