@@ -1,10 +1,12 @@
 package com.maxplus.sostudy.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -22,22 +24,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.chatting.utils.BitmapLoader;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
+import com.maxplus.sostudy.chatting.utils.FileHelper;
+import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
+import com.maxplus.sostudy.chatting.utils.SharePreferenceManager;
+import com.maxplus.sostudy.controller.MeController;
+import com.maxplus.sostudy.view.MeView;
+
 import java.io.File;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetAvatarBitmapCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
-
-import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
-import com.maxplus.sostudy.controller.MeController;
-import com.maxplus.sostudy.chatting.utils.BitmapLoader;
-import com.maxplus.sostudy.chatting.utils.DialogCreator;
-import com.maxplus.sostudy.chatting.utils.FileHelper;
-import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
-import com.maxplus.sostudy.chatting.utils.SharePreferenceManager;
-import com.maxplus.sostudy.view.MeView;
 
 public class MeFragment extends BaseFragment {
 

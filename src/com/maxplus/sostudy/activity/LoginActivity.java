@@ -65,51 +65,6 @@ public class LoginActivity extends Activity implements OnClickListener {
                 startActivity(intent2);
                 break;
             case R.id.btn_login:
-//                userName = edt_userName.getText().toString();
-//                password = edt_password.getText().toString();
-//                JMessageClient.login(userName, password, new BasicCallback() {
-//                    @Override
-//                    public void gotResult(int i, String s) {
-//                        if (i == 0) {
-//                            Intent intent3 = new Intent();
-//                            intent3.setClass(LoginActivity.this, MainActivity.class);
-//                            startActivity(intent3);
-//                            finish();
-//                        } else {
-//                            JMessageClient.register(userName, password, new BasicCallback() {
-//                                @Override
-//                                public void gotResult(int i, String s) {
-//                                    if (i == 0) {
-//                                        JMessageClient.login(userName, password, new BasicCallback() {
-//                                            @Override
-//                                            public void gotResult(int i, String s) {
-//                                                Intent intent3 = new Intent();
-//                                                intent3.setClass(LoginActivity.this, MainActivity.class);
-//                                                startActivity(intent3);
-//                                                finish();
-//
-//                                            }
-//                                        });
-//                                    }
-//                                }
-//                            });
-//                        }
-//                    }
-//                });
-//                JMessageClient.register(userName, password, new BasicCallback() {
-//                    @Override
-//                    public void gotResult(int i, String s) {
-//                        if (i == 0) {
-//                            JMessageClient.login(userName, password, new BasicCallback() {
-//                                @Override
-//                                public void gotResult(int i, String s) {
-//
-//                                }
-//                            });
-//                        }
-//                    }
-//                });
-//                register("12345678", "12345678" );
 
                 doLoginPost();
 
@@ -165,10 +120,11 @@ public class LoginActivity extends Activity implements OnClickListener {
                     if (json.getInt("status") == 1) {
                         token = json.getString("tock");
                         Log.d("token==>>>>", token);
-                        SharedPreferences mySharedPreferences = getSharedPreferences("token",
+                        SharedPreferences mySharedPreferences = getSharedPreferences("user",
                                 Activity.MODE_PRIVATE);
                         SharedPreferences.Editor edit = mySharedPreferences.edit();
                         edit.putString("token", token);
+                        edit.putString("username", userName);
                         edit.commit();
                         startJmlogin(userName, password);
                     } else if (json.getInt("status") == 0) {

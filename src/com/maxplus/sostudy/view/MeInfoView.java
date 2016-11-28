@@ -105,14 +105,14 @@ public class MeInfoView extends LinearLayout {
         mReturnBtn = (ImageButton) findViewById(R.id.return_btn);
         mTitle = (TextView) findViewById(R.id.title);
         mMenuBtn = (ImageButton) findViewById(R.id.right_btn);
-        mNickNameRl = (LinearLayout) findViewById(R.id.nick_name_rl);
-        mSexRl = (LinearLayout) findViewById(R.id.sex_rl);
+//        mNickNameRl = (LinearLayout) findViewById(R.id.nick_name_rl);
+//        mSexRl = (LinearLayout) findViewById(R.id.sex_rl);
         mAreaRl = (LinearLayout) findViewById(R.id.location_rl);
         mRegionTv = (TextView) findViewById(R.id.region_tv);
         mSignatureRl = (LinearLayout) findViewById(R.id.sign_rl);
         mNicknameTv = (TextView) findViewById(R.id.nick_name_tv);
         mGenderTv = (TextView) findViewById(R.id.gender_tv);
-        mGenderIv = (ImageView) findViewById(R.id.sex_icon);
+//        mGenderIv = (ImageView) findViewById(R.id.sex_icon);
         mRegionTv = (TextView) findViewById(R.id.region_tv);
         mSignatureTv = (TextView) findViewById(R.id.signature_tv);
         mTitle.setText(mContext.getString(R.string.detail_info));

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.MeFragment;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
@@ -115,5 +116,4 @@ public class MeController implements OnClickListener {
 //			break;
         }
     }
-
 }

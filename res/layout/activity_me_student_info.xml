@@ -4,44 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white" >
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-			<include layout="@layout/menu_title_bar"/>"
+            <!--<include layout="@layout/menu_title_bar" />"-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/jmui_jpush_blue"
+                android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/nick_name_rl"
-                style="@style/MeItemStyle" >
+                <ImageButton
+                    android:id="@+id/back_Button"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/jmui_jpush_blue"
+                    android:src="@drawable/jmui_back_btn" />
 
-                <ImageView
-                    android:id="@+id/avatar_icon_iv"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/me_man" />
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/myinfo"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/school_rl"
+                style="@style/MeItemStyle">
+
+                <!--<ImageView-->
+                <!--android:id="@+id/avatar_icon_iv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/me_man" />-->
 
                 <TextView
                     style="@style/info_left_txt_style"
-                    android:text="@string/nickname_hit"/>
+                    android:text="@string/school" />
 
                 <TextView
-                    android:id="@+id/nick_name_tv"
+                    android:id="@+id/school_tv"
                     style="@style/MeInfoItemContent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/arrow"/>
+                    android:background="@drawable/arrow" />
             </LinearLayout>
 
             <View
@@ -50,21 +73,21 @@
                 android:background="@color/me_split_line_color" />
 
             <LinearLayout
-                android:id="@+id/sex_rl"
-                style="@style/MeItemStyle" >
+                android:id="@+id/grade_rl"
+                style="@style/MeItemStyle">
 
-                <ImageView
-                    android:id="@+id/sex_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/sex_man" />
+                <!--<ImageView-->
+                <!--android:id="@+id/sex_icon"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/sex_man" />-->
 
                 <TextView
                     style="@style/info_left_txt_style"
-                    android:text="@string/sex" />
+                    android:text="@string/grade" />
 
                 <TextView
-                    android:id="@+id/gender_tv"
+                    android:id="@+id/grade_tv"
                     style="@style/MeInfoItemContent"
                     android:textColor="#808080" />
 
@@ -72,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/arrow"/>
+                    android:background="@drawable/arrow" />
             </LinearLayout>
 
             <View
@@ -82,28 +105,98 @@
 
             <LinearLayout
                 android:id="@+id/location_rl"
-                style="@style/MeItemStyle" >
+                style="@style/MeItemStyle">
 
-                <ImageView
-                    android:id="@+id/area_icon_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/area" />
+                <!--<ImageView-->
+                <!--android:id="@+id/area_icon_iv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/area" />-->
 
                 <TextView
-                    android:id="@+id/area_tv"
+                    android:id="@+id/tv_fix"
                     style="@style/info_left_txt_style"
-                    android:text="@string/area" />
+                    android:text="@string/classe" />
 
                 <TextView
-                    android:id="@+id/region_tv"
+                    android:id="@+id/classe_tv"
                     style="@style/MeInfoItemContent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/arrow"/>
+                    android:background="@drawable/arrow" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_split_line_color" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_split_line_color" />
+
+            <LinearLayout
+                android:id="@+id/user_rl"
+                style="@style/MeItemStyle">
+
+                <!--<ImageView-->
+                <!--android:id="@+id/signature_icon_iv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/sign" />-->
+
+                <TextView
+                    android:id="@+id/tv_namet"
+                    style="@style/info_left_txt_style"
+                    android:text="@string/user" />
+
+                <TextView
+                    android:id="@+id/user_tv"
+                    style="@style/MeInfoItemContent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/arrow" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_split_line_color" />
+
+            <LinearLayout
+                android:id="@+id/realname_rl"
+                style="@style/MeItemStyle">
+
+                <!--<ImageView-->
+                <!--android:id="@+id/signature_icon_iv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/sign" />-->
+
+                <TextView
+                    style="@style/info_left_txt_style"
+                    android:text="@string/realname" />
+
+                <TextView
+                    android:id="@+id/realname_tv"
+                    style="@style/MeInfoItemContent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/arrow" />
             </LinearLayout>
 
             <View
@@ -113,27 +206,60 @@
 
             <LinearLayout
                 android:id="@+id/sign_rl"
-                style="@style/MeItemStyle" >
+                style="@style/MeItemStyle">
 
-                <ImageView
-                    android:id="@+id/signature_icon_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/sign" />
+                <!--<ImageView-->
+                <!--android:id="@+id/signature_icon_iv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/sign" />-->
 
                 <TextView
+                    android:id="@+id/email_phone"
                     style="@style/info_left_txt_style"
-                    android:text="@string/sign" />
+                    android:text="@string/email" />
 
                 <TextView
-                    android:id="@+id/signature_tv"
+                    android:id="@+id/email_tv"
                     style="@style/MeInfoItemContent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/arrow"/>
+                    android:background="@drawable/arrow" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/me_split_line_color" />
+
+            <LinearLayout
+                android:id="@+id/fix_rl"
+                style="@style/MeItemStyle">
+
+                <!--<ImageView-->
+                <!--android:id="@+id/signature_icon_iv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/sign" />-->
+
+                <TextView
+                    style="@style/info_left_txt_style"
+                    android:text="@string/change_password" />
+
+                <TextView
+                    android:id="@+id/password"
+                    style="@style/MeInfoItemContent"
+                    android:password="true"
+                    android:text="12345678" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/arrow" />
             </LinearLayout>
 
             <View

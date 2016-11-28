@@ -1,164 +1,167 @@
 package com.maxplus.sostudy.activity;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.model.UserInfo;
-import cn.jpush.im.api.BasicCallback;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
-import com.maxplus.sostudy.controller.MeInfoController;
-import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
-import com.maxplus.sostudy.view.MeInfoView;
+import com.maxplus.sostudy.tools.NetworkUtils;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 public class MeStudentInfoActivity extends BaseActivity {
 
-    private MeInfoView mMeInfoView;
-    private MeInfoController mMeInfoController;
-    private final static int MODIFY_NICKNAME_REQUEST_CODE = 1;
-    private final static int SELECT_AREA_REQUEST_CODE = 3;
-    private final static int MODIFY_SIGNATURE_REQUEST_CODE = 4;
-    private String mModifiedName;
+    private ImageButton back_btn;
+    private LinearLayout user_rl;
+    private TextView tv_school, tv_grade, tv_classse, tv_userName, tv_name, tv_email,
+            tv_password, tv_change, tv_namet, email_phone;
+    private String school, grade, classe, userName, name, email, password;
+    private int usertype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_me_student_info);
-        mMeInfoView = (MeInfoView) findViewById(R.id.me_info_view);
-        mMeInfoView.initModule();
-        mMeInfoController = new MeInfoController(mMeInfoView, this);
-        mMeInfoView.setListeners(mMeInfoController);
-        UserInfo userInfo = JMessageClient.getMyInfo();
-        mMeInfoView.refreshUserInfo(userInfo);
+        initViews();
+        getInfo();
     }
 
-//    public void startModifyNickNameActivity() {
-//        String nickname = JMessageClient.getMyInfo().getNickname();
-//        Intent intent = new Intent();
-//        intent.putExtra("nickName", nickname);
-//        intent.setClass(this, ResetNickNameActivity.class);
-//        startActivityForResult(intent, MODIFY_NICKNAME_REQUEST_CODE);
-//    }
-
-    public void showSexDialog(final UserInfo.Gender gender) {
-        final Dialog dialog = new Dialog(this, R.style.jmui_default_dialog_style);
-        final LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.dialog_set_sex, null);
-        dialog.setContentView(view);
-        dialog.getWindow().setLayout((int) (0.8 * mWidth), WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-        RelativeLayout manRl = (RelativeLayout) view.findViewById(R.id.man_rl);
-        RelativeLayout womanRl = (RelativeLayout) view.findViewById(R.id.woman_rl);
-        ImageView manSelectedIv = (ImageView) view.findViewById(R.id.man_selected_iv);
-        ImageView womanSelectedIv = (ImageView) view.findViewById(R.id.woman_selected_iv);
-        if (gender == UserInfo.Gender.male) {
-            manSelectedIv.setVisibility(View.VISIBLE);
-            womanSelectedIv.setVisibility(View.GONE);
-        } else if (gender == UserInfo.Gender.female) {
-            manSelectedIv.setVisibility(View.GONE);
-            womanSelectedIv.setVisibility(View.VISIBLE);
-        } else {
-            manSelectedIv.setVisibility(View.GONE);
-            womanSelectedIv.setVisibility(View.GONE);
+    //从服务器获取用户信息
+    private void getInfo() {
+        String url = NetworkUtils.returnUrl() + "/api/my/userinfo";
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams param = new RequestParams();
+        final SharedPreferences mySharedPreferences = getSharedPreferences("user",
+                Activity.MODE_PRIVATE);
+        String token = "";
+        token = mySharedPreferences.getString("token", "");
+        Log.d("token==>>>", token);
+        if (token.length() == 0) {
+            Toast.makeText(MeStudentInfoActivity.this, R.string.getinfo_fail, Toast.LENGTH_LONG).show();
+            Intent i = new Intent();
+            i.setClass(MeStudentInfoActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
         }
-        View.OnClickListener listener = new View.OnClickListener() {
+        param.put("token", token);
+        client.get(url, param, new JsonHttpResponseHandler() {
             @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.man_rl:
-                        if (gender != UserInfo.Gender.male) {
-                            UserInfo myUserInfo = JMessageClient.getMyInfo();
-                            myUserInfo.setGender(UserInfo.Gender.male);
-                            JMessageClient.updateMyInfo(UserInfo.Field.gender, myUserInfo, new BasicCallback() {
-                                @Override
-                                public void gotResult(final int status, final String desc) {
-                                    if (status == 0) {
-                                        mMeInfoView.setGender(true);
-                                        Toast.makeText(MeStudentInfoActivity.this,
-                                                MeStudentInfoActivity.this.getString(R.string.modify_success_toast),
-                                                Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        HandleResponseCode.onHandle(MeStudentInfoActivity.this, status, false);
-                                    }
-                                }
-                            });
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                if (response != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.toString());
+                        int status = jsonObject.getInt("status");
+                        Log.d("status===>>>>>", "" + status);
+                        if (status == 100) {
+                            JSONObject jsonContent = jsonObject.getJSONObject("content");
+                            usertype = jsonContent.getInt("usertype");
+                            switch (usertype) {
+                                case 1:
+                                    school = jsonContent.getString("schoolname");
+                                    tv_school.setText(school);
+                                    grade = jsonContent.getString("gradename");
+                                    tv_grade.setText(grade);
+                                    classe = jsonContent.getString("classname");
+                                    tv_classse.setText(classe);
+                                    userName = mySharedPreferences.getString("username", "");
+                                    tv_userName.setText(userName);
+//                                    user_rl.setVisibility(View.INVISIBLE);
+                                    name = jsonContent.getString("realname");
+                                    tv_name.setText(name);
+                                    email = jsonContent.getString("email");
+                                    tv_email.setText(email);
+                                    break;
+                                case 2:
+                                    school = jsonContent.getString("schoolname");
+                                    tv_school.setText(school);
+                                    grade = jsonContent.getString("gradename");
+                                    tv_grade.setText(grade);
+                                    classe = jsonContent.getString("coursename");
+                                    tv_classse.setText(classe);
+                                    tv_change.setText("学科");
+                                    userName = mySharedPreferences.getString("username", "");
+                                    tv_userName.setText(userName);
+//                                    user_rl.setVisibility(View.INVISIBLE);
+                                    name = jsonContent.getString("realname");
+                                    tv_name.setText(name);
+//                                    email = jsonContent.getString("email");
+                                    tv_email.setText(userName);
+                                    email_phone.setText("手机号");
+                                    break;
+                                case 3:
+                                    JSONObject jsonChildren = jsonContent.getJSONObject("children");
+                                    school = jsonChildren.getString("schoolname");
+                                    tv_school.setText(school);
+                                    grade = jsonChildren.getString("gradename");
+                                    tv_grade.setText(grade);
+                                    classe = jsonChildren.getString("classname");
+                                    tv_classse.setText(classe);
+                                    userName = mySharedPreferences.getString("username", "");
+                                    tv_userName.setText(userName);
+                                    name = jsonChildren.getString("realname");
+                                    tv_name.setText(name);
+//                                    email = jsonContent.getString("email");
+                                    tv_email.setText(userName);
+                                    email_phone.setText("手机号");
+                                    break;
+                            }
+                        } else {
+                            Toast.makeText(MeStudentInfoActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                         }
-                        dialog.cancel();
-                        break;
-                    case R.id.woman_rl:
-                        if (gender != UserInfo.Gender.female) {
-                            UserInfo myUserInfo = JMessageClient.getMyInfo();
-                            myUserInfo.setGender(UserInfo.Gender.female);
-                            JMessageClient.updateMyInfo(UserInfo.Field.gender, myUserInfo, new BasicCallback() {
-                                @Override
-                                public void gotResult(final int status, final String desc) {
-                                    if (status == 0) {
-                                        mMeInfoView.setGender(false);
-                                        Toast.makeText(MeStudentInfoActivity.this,
-                                                MeStudentInfoActivity.this.getString(R.string.modify_success_toast),
-                                                Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        HandleResponseCode.onHandle(MeStudentInfoActivity.this, status, false);
-                                    }
-                                }
-                            });
-                        }
-                        dialog.cancel();
-                        break;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
+                Log.d("response==>>>>", "" + response);
             }
-        };
-        manRl.setOnClickListener(listener);
-        womanRl.setOnClickListener(listener);
-    }
 
-    public void startSelectAreaActivity() {
-        Intent intent = new Intent();
-        intent.putExtra("OldRegion", JMessageClient.getMyInfo().getRegion());
-        intent.setClass(this, SelectAreaActivity.class);
-        startActivityForResult(intent, SELECT_AREA_REQUEST_CODE);
-    }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(MeStudentInfoActivity.this, R.string.getinfo_fail, Toast.LENGTH_LONG).show();
 
-    public void startModifySignatureActivity() {
-        Intent intent = new Intent();
-        intent.putExtra("OldSignature", JMessageClient.getMyInfo().getSignature());
-        intent.setClass(this, EditSignatureActivity.class);
-        startActivityForResult(intent, MODIFY_SIGNATURE_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-            if (requestCode == MODIFY_NICKNAME_REQUEST_CODE) {
-                mModifiedName = data.getStringExtra("nickName");
-                mMeInfoView.setNickName(mModifiedName);
-            } else if (requestCode == SELECT_AREA_REQUEST_CODE) {
-                mMeInfoView.setRegion(data.getStringExtra("region"));
-            } else if (requestCode == MODIFY_SIGNATURE_REQUEST_CODE) {
-                mMeInfoView.setSignature(data.getStringExtra("signature"));
             }
-        }
+        });
     }
 
-    @Override
-    public void onBackPressed() {
-        setResultAndFinish();
-        super.onBackPressed();
+    private void initViews() {
+        back_btn = (ImageButton) findViewById(R.id.back_Button);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+//        user_rl = (LinearLayout)findViewById(R.id.user_rl);
+//        tv_namet = (TextView) findViewById(R.id.tv_namet);
+        tv_change = (TextView) findViewById(R.id.tv_fix);
+        tv_school = (TextView) findViewById(R.id.school_tv);
+        tv_grade = (TextView) findViewById(R.id.grade_tv);
+        tv_classse = (TextView) findViewById(R.id.classe_tv);
+        tv_userName = (TextView) findViewById(R.id.user_tv);
+        tv_name = (TextView) findViewById(R.id.realname_tv);
+        tv_email = (TextView) findViewById(R.id.email_tv);
+        tv_password = (TextView) findViewById(R.id.password);
+        email_phone = (TextView) findViewById(R.id.email_phone);
+
     }
 
-    public void setResultAndFinish() {
-        Intent intent = new Intent();
-        intent.putExtra("newName", mModifiedName);
-        setResult(JChatDemoApplication.RESULT_CODE_ME_INFO, intent);
-        finish();
-    }
 }
