@@ -72,27 +72,43 @@ public class MeInfoActivity extends BaseActivity {
                             switch (usertype) {
                                 case 1:
                                     school = jsonContent.getString("schoolname");
-                                    tv_school.setText(school);
+                                    if (school.equals("null") == false) {
+                                        tv_school.setText(school);
+                                    }
                                     grade = jsonContent.getString("gradename");
-                                    tv_grade.setText(grade);
+                                    if (grade.equals("null") == false) {
+                                        tv_grade.setText(grade);
+                                    }
                                     classe = jsonContent.getString("classname");
-                                    tv_classse.setText(classe);
+                                    if (classe.equals("null") == false) {
+                                        tv_classse.setText(classe);
+                                    }
                                     userName = mySharedPreferences.getString("username", "");
                                     tv_userName.setText(userName);
 //                                    user_rl.setVisibility(View.INVISIBLE);
                                     name = jsonContent.getString("realname");
-                                    tv_name.setText(name);
+                                    if (name.equals("null") == false) {
+                                        tv_name.setText(name);
+                                    }
                                     email = jsonContent.getString("email");
-                                    tv_email.setText(email);
+                                    if (email.equals("null") == false) {
+                                        tv_email.setText(email);
+                                    }
                                     break;
                                 case 2:
                                     school = jsonContent.getString("schoolname");
-                                    tv_school.setText(school);
+                                    if (school.equals("null") == false) {
+                                        tv_school.setText(school);
+                                    }
                                     grade = jsonContent.getString("gradename");
-                                    tv_grade.setText(grade);
+                                    if (grade.equals("null") == false) {
+                                        tv_grade.setText(grade);
+                                    }
                                     classe = jsonContent.getString("coursename");
-                                    tv_classse.setText(classe);
-                                    tv_change.setText("学科");
+                                    if (classe.equals("null") == false) {
+                                        tv_classse.setText(classe);
+                                        tv_change.setText("学科");
+                                    }
                                     userName = mySharedPreferences.getString("username", "");
                                     tv_userName.setText(userName);
 //                                    user_rl.setVisibility(View.INVISIBLE);
@@ -105,11 +121,17 @@ public class MeInfoActivity extends BaseActivity {
                                 case 3:
                                     JSONObject jsonChildren = jsonContent.getJSONObject("children");
                                     school = jsonChildren.getString("schoolname");
-                                    tv_school.setText(school);
+                                    if (school.equals("null") == false) {
+                                        tv_school.setText(school);
+                                    }
                                     grade = jsonChildren.getString("gradename");
-                                    tv_grade.setText(grade);
+                                    if (grade.equals("null") == false) {
+                                        tv_grade.setText(grade);
+                                    }
                                     classe = jsonChildren.getString("classname");
-                                    tv_classse.setText(classe);
+                                    if (classe.equals("null") == false) {
+                                        tv_classse.setText(classe);
+                                    }
                                     userName = mySharedPreferences.getString("username", "");
                                     tv_userName.setText(userName);
                                     name = jsonChildren.getString("realname");
