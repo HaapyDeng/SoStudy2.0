@@ -48,7 +48,20 @@ public class LoginActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SharedPreferences sp = getSharedPreferences("user", Activity.MODE_PRIVATE);
+        userName = sp.getString("username", "");
+        password = sp.getString("password", "");
+        if ((userName.length() != 0) && (password.length() != 0)) {
+            getShared(userName, password);
+        }
         initView();
+    }
+
+    private void getShared(String username, String password) {
+        edt_userName = (EditText) findViewById(R.id.edt_username);
+        edt_userName.setText(username);
+        edt_password = (EditText) findViewById(R.id.edt_password);
+        edt_password.setText(password);
     }
 
     @Override
@@ -94,7 +107,7 @@ public class LoginActivity extends Activity implements OnClickListener {
         final String url = NetworkUtils.returnUrl() + "/api/login";
         Log.d("url==??>>>>>>", url);
         AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
+        final RequestParams params = new RequestParams();
         userName = edt_userName.getText().toString();
         password = edt_password.getText().toString();
 
@@ -125,6 +138,7 @@ public class LoginActivity extends Activity implements OnClickListener {
                         SharedPreferences.Editor edit = mySharedPreferences.edit();
                         edit.putString("token", token);
                         edit.putString("username", userName);
+                        edit.putString("password", password);
                         edit.commit();
                         startJmlogin(userName, password);
                     } else if (json.getInt("status") == 0) {
@@ -186,7 +200,6 @@ public class LoginActivity extends Activity implements OnClickListener {
     public void initView() {
         edt_userName = (EditText) findViewById(R.id.edt_username);
         edt_password = (EditText) findViewById(R.id.edt_password);
-
         tv_forg_password = (TextView) findViewById(R.id.forg_password);
         tv_forg_password.setOnClickListener(this);
         tv_regist = (TextView) findViewById(R.id.tv_regist);

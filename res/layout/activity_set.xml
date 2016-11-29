@@ -58,12 +58,12 @@
         android:textColorHint="#d4d4d4" />
 
     <LinearLayout
+        android:id="@+id/tv_clear2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_clear2"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="@color/white"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:paddingRight="10dp"
-            android:text="0M"
+            android:text="0.01M"
             android:textColor="#646464"
             android:textSize="15dp" />
     </LinearLayout>

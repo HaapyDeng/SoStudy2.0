@@ -377,6 +377,7 @@
     <string name="getinfo_fail">获取个人信息失败，请稍后重试!</string>
     <string name="clear_chatinfo">清空聊天信息</string>
     <string name="clear_cache">清空缓存</string>
+    <string name="cof_clear_cache">确认清空缓存？</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
