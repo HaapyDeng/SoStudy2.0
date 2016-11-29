@@ -18,13 +18,10 @@ import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.tools.NetworkUtils;
 
 import org.apache.http.Header;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
-
-public class MeStudentInfoActivity extends BaseActivity {
+public class MeInfoActivity extends BaseActivity {
 
     private ImageButton back_btn;
     private LinearLayout user_rl;
@@ -53,9 +50,9 @@ public class MeStudentInfoActivity extends BaseActivity {
         token = mySharedPreferences.getString("token", "");
         Log.d("token==>>>", token);
         if (token.length() == 0) {
-            Toast.makeText(MeStudentInfoActivity.this, R.string.getinfo_fail, Toast.LENGTH_LONG).show();
+            Toast.makeText(MeInfoActivity.this, R.string.getinfo_fail, Toast.LENGTH_LONG).show();
             Intent i = new Intent();
-            i.setClass(MeStudentInfoActivity.this, LoginActivity.class);
+            i.setClass(MeInfoActivity.this, LoginActivity.class);
             startActivity(i);
             finish();
         }
@@ -123,7 +120,7 @@ public class MeStudentInfoActivity extends BaseActivity {
                                     break;
                             }
                         } else {
-                            Toast.makeText(MeStudentInfoActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(MeInfoActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -136,7 +133,7 @@ public class MeStudentInfoActivity extends BaseActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
-                Toast.makeText(MeStudentInfoActivity.this, R.string.getinfo_fail, Toast.LENGTH_LONG).show();
+                Toast.makeText(MeInfoActivity.this, R.string.getinfo_fail, Toast.LENGTH_LONG).show();
 
             }
         });

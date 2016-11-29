@@ -58,7 +58,7 @@ import cn.jpush.im.android.api.enums.ContentType;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import com.maxplus.sostudy.activity.BrowserViewPagerActivity;
 import com.maxplus.sostudy.activity.FriendInfoActivity;
-import com.maxplus.sostudy.activity.MeStudentInfoActivity;
+import com.maxplus.sostudy.activity.MeInfoActivity;
 import com.maxplus.sostudy.application.JChatDemoApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.FileHelper;
@@ -576,7 +576,7 @@ public class MsgListAdapter extends BaseAdapter {
                     if (msg.getDirect() == MessageDirect.send) {
                         intent.putExtra(JChatDemoApplication.TARGET_ID, mTargetId);
                         Log.i(TAG, "msg.getFromName() " + mTargetId);
-                        intent.setClass(mContext, MeStudentInfoActivity.class);
+                        intent.setClass(mContext, MeInfoActivity.class);
                         mContext.startActivity(intent);
                     } else {
                         String targetID = userInfo.getUserName();

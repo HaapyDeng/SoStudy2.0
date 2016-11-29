@@ -58,7 +58,8 @@
 
                 <TextView
                     android:id="@+id/school_tv"
-                    style="@style/MeInfoItemContent" />
+                    style="@style/MeInfoItemContent"
+                    android:text="@string/info_null" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -89,6 +90,7 @@
                 <TextView
                     android:id="@+id/grade_tv"
                     style="@style/MeInfoItemContent"
+                    android:text="@string/info_null"
                     android:textColor="#808080" />
 
                 <ImageView
@@ -120,7 +122,8 @@
 
                 <TextView
                     android:id="@+id/classe_tv"
-                    style="@style/MeInfoItemContent" />
+                    style="@style/MeInfoItemContent"
+                    android:text="@string/info_null" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -160,7 +163,8 @@
 
                 <TextView
                     android:id="@+id/user_tv"
-                    style="@style/MeInfoItemContent" />
+                    style="@style/MeInfoItemContent"
+                    android:text="@string/info_null" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -190,7 +194,8 @@
 
                 <TextView
                     android:id="@+id/realname_tv"
-                    style="@style/MeInfoItemContent" />
+                    style="@style/MeInfoItemContent"
+                    android:text="@string/info_null" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -221,7 +226,8 @@
 
                 <TextView
                     android:id="@+id/email_tv"
-                    style="@style/MeInfoItemContent" />
+                    style="@style/MeInfoItemContent"
+                    android:text="@string/info_null" />
 
                 <ImageView
                     android:layout_width="wrap_content"

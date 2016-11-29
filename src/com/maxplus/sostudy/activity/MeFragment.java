@@ -1,12 +1,10 @@
 package com.maxplus.sostudy.activity;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -208,7 +206,7 @@ public class MeFragment extends BaseFragment {
 
     public void startMeInfoActivity() {
         Intent intent = new Intent();
-        intent.setClass(this.getActivity(), MeStudentInfoActivity.class);
+        intent.setClass(this.getActivity(), MeInfoActivity.class);
         startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_ME_INFO);
     }
 

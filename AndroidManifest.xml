@@ -155,7 +155,7 @@
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MeStudentInfoActivity" />
+        <activity android:name=".activity.MeInfoActivity" />
         <activity
             android:name=".chatting.ChatActivity"
             android:windowSoftInputMode="adjustResize" />
