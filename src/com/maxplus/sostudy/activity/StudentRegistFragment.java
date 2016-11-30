@@ -49,7 +49,8 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
     Button commit;
     CheckBox showPassword;
     private View mRootView;
-    private String school, grade, sclass,getRaelCode = "";;
+    private String school, schoolName, grade, sclass, getRaelCode = "";
+    ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -209,7 +210,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                         return;
                     }
                     String urlM = NetworkUtils.returnUrl();
-                    final String url = urlM+"/api/mail";
+                    final String url = urlM + "/api/mail";
                     Log.d("url=====>>>", "" + url);
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
@@ -228,9 +229,9 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                                     getRaelCode = response.getString("code");
                                     Log.d("code===>>>>>>", "" + getRaelCode);
                                     timer.start();
-                                }else if (status==0){
+                                } else if (status == 0) {
                                     Toast.makeText(getActivity(), response.getString("errorInfo"), Toast.LENGTH_SHORT).show();
-                                }else {
+                                } else {
                                     Toast.makeText(getActivity(), R.string.get_code_fail, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
@@ -290,7 +291,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                     Toast.makeText(getActivity(), R.string.input_email_verify_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
-                if (emailCode.equals(getRaelCode)==false){
+                if (emailCode.equals(getRaelCode) == false) {
                     Toast.makeText(getActivity(), R.string.input_error_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -356,6 +357,8 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
                 school = bundle.getString("school");
+                schoolName = bundle.getString("schoolname");
+                Log.d("schoolName==>>>>", schoolName);
                 choose_school.setText(bundle.getString("school"));
             }
         }

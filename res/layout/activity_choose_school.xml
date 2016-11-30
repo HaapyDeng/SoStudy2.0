@@ -31,7 +31,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll1"
+        android:id="@+id/ll_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top"
@@ -53,10 +53,40 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/iv11"
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"
+        android:layout_below="@+id/ll_1"
+        android:background="@color/grey"
+        android:textColorHint="#d4d4d4" />
+
+    <LinearLayout
+        android:id="@+id/ll11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv11"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/choose_school_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/next"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:singleLine="true"
+            android:text="@string/choose_school_type"
+            android:textColor="#646464"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <ImageView
         android:id="@+id/iv1"
         android:layout_width="match_parent"
         android:layout_height="0.01dp"
-        android:layout_below="@+id/ll1"
+        android:layout_below="@+id/ll11"
         android:background="@color/grey"
         android:textColorHint="#d4d4d4" />
 
@@ -114,7 +144,6 @@
         android:layout_height="70dp"
         android:layout_below="@+id/confirm" />
 
-
     <com.maxplus.sostudy.tools.CityPicker
         android:id="@+id/citypicker"
         android:layout_width="match_parent"
@@ -124,6 +153,8 @@
         android:gravity="center"
         android:visibility="invisible"></com.maxplus.sostudy.tools.CityPicker>
 
+
     <include layout="@layout/picker_layout" />
+
 
 </RelativeLayout>
