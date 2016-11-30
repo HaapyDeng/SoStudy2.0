@@ -105,6 +105,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
 
         getCode = (TextView) mRootView.findViewById(R.id.tv_sgetCode);
         getCode.setOnClickListener(this);
+        et_password = (EditText) mRootView.findViewById(R.id.et_sinput_new_password);
         showPassword = (CheckBox) mRootView.findViewById(R.id.sshow_password);
         //点击密码可见或隐藏设置
         showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -353,6 +354,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_LONG).show();
+                return;
             }
         });
     }

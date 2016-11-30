@@ -42,7 +42,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
     private OnSelectingListener onSelectingListener;
     private int cityid, schoolTypeId = 10, schoolTypeid;
     private String cityIdString = "0";
-    private Button confirm, bt_scrollchoose; // 滚动选择器按钮
+    private Button choose_school_confirm, bt_scrollchoose; // 滚动选择器按钮
     private PickerScrollView pckerscrlllview; // 滚动选择器
     private List<Pickers> list, typeList; // 滚动选择器数据
     private String[] id, a, typeId;
@@ -102,8 +102,8 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
         bt_yes = (Button) findViewById(R.id.picker_yes);
         bt_yes.setOnClickListener(this);
 
-        confirm = (Button) findViewById(R.id.confirm);
-        confirm.setOnClickListener(this);
+        choose_school_confirm = (Button) findViewById(R.id.choose_school_confirm);
+        choose_school_confirm.setOnClickListener(this);
     }
 
     @Override
@@ -177,21 +177,29 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 picker_rel.setVisibility(View.GONE);
                 choose_school.setText(school);
                 break;
-            case R.id.confirm:
-                if (city == null) {
-                    Toast.makeText(ChooseSchoolActivity.this, R.string.choose_sssq, Toast.LENGTH_SHORT).show();
-                } else if (school.equals("")) {
-                    Toast.makeText(ChooseSchoolActivity.this, R.string.choose_sschool, Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = this.getIntent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("school", "" + city + school);//添加要返回给页面1的数据
-                    bundle.putString("schoolname", school);
-                    intent.putExtras(bundle);
-                    this.setResult(2, intent);//返回页面1
-                    this.finish();
+            case R.id.choose_school_confirm:
+                if (cityIdString.length() <= 1) {
+                    Toast.makeText(ChooseSchoolActivity.this, R.string.f_choose_ssq, Toast.LENGTH_SHORT).show();
                     break;
                 }
+                if (city == null) {
+                    Toast.makeText(ChooseSchoolActivity.this, R.string.choose_sssq, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (school == null) {
+                    Toast.makeText(ChooseSchoolActivity.this, R.string.choose_sschool, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                Log.d("school==>>>", school);
+                Intent intent = this.getIntent();
+                Bundle bundle = new Bundle();
+                bundle.putString("school", "" + city + school);//添加要返回给页面1的数据
+                bundle.putString("schoolname", school);
+                intent.putExtras(bundle);
+                this.setResult(2, intent);//返回页面1
+                this.finish();
+                break;
+
         }
     }
 

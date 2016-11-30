@@ -353,6 +353,8 @@
     <string name="password_not_null">密码不能为空</string>
     <string name="input_name">请输入您的姓名</string>
     <string name="input_child_name">请输入您孩子的姓名</string>
+    <string name="verify_child">验证孩子姓名</string>
+    <string name="verify_child_again">请重新验证孩子姓名</string>
     <string name="input_email">请输入邮箱</string>
     <string name="input_email_verify_code">请输入邮箱验证码</string>
     <string name="input_error_code">输入验证码错误</string>
@@ -384,6 +386,7 @@
     <string name="f_choose_type">请先选择学校的类型</string>
     <string name="school_null">对不起还不支持该地区学校，请重新选择学校所在区域！</string>
     <string name="regist_success">注册成功！</string>
+    <string name="verify_child_success">验证孩子成功！</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -38,11 +38,11 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
     private static final String ARG_PARAM2 = "param2";
     private View mRoot;
     // TODO: Rename and change types of parameters
-    private TextView pchoose_school, pchoose_grade, pchoose_class, pget_code;
+    private TextView pchoose_school, pchoose_grade, pchoose_class, pget_code, tv_pgetuid;
     private EditText pinput_phone, pinput_phone_code, pinput_password, pinput_name, pinput_user;
     private CheckBox pshow_num;
     private Button pcommit;
-    private String pschool, pgrade, pclass, puser, pname, pphone, pcode, ppassword, getRaelCode = "";
+    private String pschool, pgrade, pclass, puser, pname, pphone, pcode, ppassword, getRaelCode = "", childUid, pschoolName;
 
     public ParentRegisterFragment() {
         // Required empty public constructor
@@ -82,6 +82,8 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
         pchoose_grade.setOnClickListener(this);
         pchoose_class = (TextView) mRoot.findViewById(R.id.tv_pchoose_class);
         pchoose_class.setOnClickListener(this);
+        tv_pgetuid = (TextView) mRoot.findViewById(R.id.tv_pgetuid);
+        tv_pgetuid.setOnClickListener(this);
         pget_code = (TextView) mRoot.findViewById(R.id.tv_pgetCode);
         pget_code.setOnClickListener(this);
         pinput_password = (EditText) mRoot.findViewById(R.id.et_pinput_new_password);
@@ -91,10 +93,10 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (pshow_num.isChecked()) {
                     pinput_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    pinput_password.setBackgroundResource(R.drawable.visible);
+                    pshow_num.setBackgroundResource(R.drawable.visible);
                 } else {
                     pinput_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    pinput_password.setBackgroundResource(R.drawable.unvisible);
+                    pshow_num.setBackgroundResource(R.drawable.unvisible);
                 }
             }
         });
@@ -152,6 +154,28 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                 intent.setClass(getActivity(), ChooseClassActivity.class);
                 Bundle bundle = new Bundle();
                 startActivityForResult(intent, 10);
+                break;
+            //验证孩子是否存在，并返回hildrenid
+            case R.id.tv_pgetuid:
+                pinput_name = (EditText) mRoot.findViewById(R.id.et_pinput_name);
+                pname = pinput_name.getText().toString().trim();
+                if (pname.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.input_child_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pschoolName == null || pschoolName == "") {
+                    Toast.makeText(getActivity(), R.string.choose_child_school, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pgrade == null || pgrade == "") {
+                    Toast.makeText(getActivity(), R.string.choose_child_grade, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (pclass == null || pclass == "") {
+                    Toast.makeText(getActivity(), R.string.choose_child_class, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                doVerifyChild(pschoolName, pgrade, pclass, pname);
                 break;
             case R.id.tv_pgetCode:
                 pinput_phone = (EditText) mRoot.findViewById(R.id.et_pinput_num);
@@ -213,7 +237,7 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                 pinput_password = (EditText) mRoot.findViewById(R.id.et_pinput_new_password);
                 ppassword = pinput_password.getText().toString().trim();
 
-                if (pschool == null || pschool == "") {
+                if (pschoolName == null || pschoolName == "") {
                     Toast.makeText(getActivity(), R.string.choose_child_school, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -231,6 +255,10 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                 }
                 if (pname.length() == 0) {
                     Toast.makeText(getActivity(), R.string.input_child_name, Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                if (childUid.length() == 0) {
+                    Toast.makeText(getActivity(), R.string.verify_child_again, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (pphone.length() == 0) {
@@ -253,8 +281,93 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                     Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
                     break;
                 }
+                doPregist(pschoolName, pgrade, pclass, puser, childUid, pphone, ppassword);
                 break;
         }
+    }
+
+    private void doPregist(String pschoolName, String pgrade, String pclass, String puser, String childUid, String pphone, String ppassword) {
+        String pRegistUrl = NetworkUtils.returnUrl() + "/api/register";
+        int type = 3;
+        AsyncHttpClient pRegistClient = new AsyncHttpClient();
+        RequestParams pRegistParam = new RequestParams();
+        pRegistParam.put("usertype", type);
+        pRegistParam.put("schoolname", pschoolName);
+        pRegistParam.put("gradename", pgrade);
+        pRegistParam.put("classname", pclass);
+        pRegistParam.put("username", puser);
+        pRegistParam.put("childrenid", childUid);
+        pRegistParam.put("phone", pphone);
+        pRegistParam.put("password", ppassword);
+        Log.d("pRegistParam==>>", type + "," + pschoolName + "," + pgrade + "," + pclass + "," + puser + "," + childUid + ","
+                + pphone + "," + ppassword);
+        pRegistClient.post(pRegistUrl, pRegistParam, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    int json = (int) response.get("status");
+                    if (json == 1) {
+                        Toast.makeText(getActivity(), R.string.regist_success, Toast.LENGTH_LONG).show();
+                        Log.d("response==>>>>", response.toString());
+//                        SharedPreferences sp = getSharedPreferences()  ;
+                        Intent log = new Intent();
+                        log.setClass(getActivity(), LoginActivity.class);
+                        startActivity(log);
+                    } else {
+                        String errorInfo = (String) response.get("errorInfo");
+                        Toast.makeText(getActivity(), errorInfo, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_LONG).show();
+                return;
+            }
+        });
+    }
+
+    private void doVerifyChild(String pschoolName, String pgrade, String pclass, String pname) {
+        String urlVerify = NetworkUtils.returnUrl() + "/api/check-child";
+        AsyncHttpClient verifyClient = new AsyncHttpClient();
+        RequestParams verifyparam = new RequestParams();
+        verifyparam.put("childGradeName", pgrade);
+        verifyparam.put("childClassName", pclass);
+        verifyparam.put("childSchoolName", pschoolName);
+        verifyparam.put("childRealName", pname);
+        Log.d("verifyparam==>>", pschoolName + "," + pgrade + "," + pclass + "," + pname);
+        verifyClient.post(urlVerify, verifyparam, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Log.d("verifyChildResponse==>>>", response.toString());
+                    int json = (int) response.get("status");
+                    if (json == 1) {
+                        childUid = response.getString("uid");
+                        Toast.makeText(getActivity(), R.string.verify_child_success, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), response.getString("errorInfo"), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_LONG).show();
+                return;
+            }
+        });
     }
 
     /**
@@ -290,6 +403,8 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
                 pschool = bundle.getString("school");
+                pschoolName = bundle.getString("schoolname");
+                Log.d("schoolName==>>>>", pschoolName);
                 pchoose_school.setText(bundle.getString("school"));
             }
         }
