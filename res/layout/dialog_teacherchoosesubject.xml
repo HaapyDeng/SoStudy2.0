@@ -23,7 +23,7 @@
                 android:id="@+id/rb_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 语  文 "
+                android:text="  语文  "
 
                 android:textColor="@color/gray" />
 
@@ -32,28 +32,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text=" 数  学 "
+                android:text="  数学  "
                 android:textColor="@color/gray" />
 
             <RadioButton
                 android:id="@+id/rb_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 英  语 "
+                android:text="  英语  "
                 android:textColor="@color/gray" />
 
             <RadioButton
                 android:id="@+id/rb_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 物  理 "
+                android:text="  物理  "
                 android:textColor="@color/gray" />
 
             <RadioButton
                 android:id="@+id/rb_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 化  学 "
+                android:text="  化学  "
                 android:textColor="@color/gray" />
 
             <RadioButton
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rb_3"
                 android:layout_toRightOf="@id/rb_5"
-                android:text=" 生  物 "
+                android:text="  生物  "
                 android:textColor="@color/gray" />
 
             <RadioButton
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rb_4"
-                android:text=" 历  史 "
+                android:text="  历史  "
                 android:textColor="@color/gray" />
 
             <RadioButton
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rb_5"
                 android:layout_toRightOf="@id/rb_7"
-                android:text=" 地  理 "
+                android:text="  地理  "
                 android:textColor="@color/gray" />
 
             <RadioButton
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rb_6"
                 android:layout_toRightOf="@id/rb_8"
-                android:text=" 政  治 "
+                android:text="  政治  "
                 android:textColor="@color/gray" />
         </com.maxplus.sostudy.tools.FlowRadioGroup>
     </LinearLayout>

@@ -61,7 +61,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
     CheckBox ck_1, ck_2, ck_3, ck_4, ck_5, ck_6, ck_7, ck_8, ck_9, ck_10, ck_11, ck_12;
     RadioButton rb_1, rb_2, rb_3, rb_4, rb_5, rb_6, rb_7, rb_8, rb_9;
     com.maxplus.sostudy.tools.FlowRadioGroup rg_b;
-    String userName, realName, phone, phoneCode, password,getRaelCode="";
+    String userName, schoolName, realName, phone, phoneCode, password, getRaelCode = "";
     Button commit;
     CheckBox showPassword;
     List<CheckBox> checkBox = new ArrayList<CheckBox>();
@@ -113,6 +113,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
         showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                ett_password = (EditText) mRootView.findViewById(R.id.ett_input_new_password);
                 if (showPassword.isChecked()) {
                     ett_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     showPassword.setBackgroundResource(R.drawable.visible);
@@ -349,13 +350,15 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
 
                         if (!checkBox.isEmpty()) {
 
-                            tgrade = "";
+                            String tgrade1 = "";
                             for (CheckBox cbx : checkBox) {
                                 if (cbx.isChecked()) {
-                                    tgrade = tgrade + cbx.getText().toString() + ",";
-                                    Log.d("tgrade>>>>>", "" + tgrade);
+                                    tgrade1 = tgrade1 + cbx.getText().toString() + ",";
+                                    Log.d("tgrade1>>>>>", "" + tgrade1);
                                 }
                             }
+                            tgrade = tgrade1.substring(0, tgrade1.length() - 1);
+                            Log.d("tgrade====>>>>>", "" + tgrade);
                             if (tgrade != null) {
                                 tchoose_grade.setText(tgrade);
                                 dialog.dismiss();
@@ -439,7 +442,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                         return;
                     }
                     String urlM = NetworkUtils.returnUrl();
-                    final String url =urlM+ "/api/sms";
+                    final String url = urlM + "/api/sms";
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
                     params.put("phone", phone);
@@ -517,7 +520,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                     Toast.makeText(getActivity(), R.string.input_phone_verify_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
-                if (phoneCode.equals(getRaelCode)==false){
+                if (phoneCode.equals(getRaelCode) == false) {
                     Toast.makeText(getActivity(), R.string.input_error_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -529,10 +532,60 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                     Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
                     break;
                 }
+                Log.d("tsubject==?>>>", tsubject);
+                doTeacherRegist(schoolName, tgrade, tsubject, userName, realName, phone, password);
                 break;
 
         }
 
+    }
+
+    private void doTeacherRegist(String schoolName, String tgrade, String tsubject, String userName, String realName, String phone, String password) {
+        int usertype = 2;
+        String tRegistUrl = NetworkUtils.returnUrl() + "/api/register";
+        Log.d("registUrl==>>>", tRegistUrl);
+        AsyncHttpClient teacherClient = new AsyncHttpClient();
+        RequestParams teacherParams = new RequestParams();
+        teacherParams.put("usertype", usertype);
+        teacherParams.put("schoolname", schoolName);
+        teacherParams.put("gradename", tgrade);
+        teacherParams.put("coursename", tsubject.trim());
+        teacherParams.put("username", userName);
+        teacherParams.put("realname", realName);
+        teacherParams.put("phone", phone);
+        teacherParams.put("password", password);
+        Log.d("userinfo==>>>", "" + usertype + "," + schoolName + "," + tgrade + "," + tsubject
+                + "," + userName + "," + realName + "," + phone + "," + password);
+        teacherClient.post(tRegistUrl, teacherParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    int json = (int) response.get("status");
+                    if (json == 1) {
+                        Toast.makeText(getActivity(), R.string.regist_success, Toast.LENGTH_LONG).show();
+                        Log.d("response==>>>>", response.toString());
+//                        SharedPreferences sp = getSharedPreferences()  ;
+                        Intent log = new Intent();
+                        log.setClass(getActivity(), LoginActivity.class);
+                        startActivity(log);
+                    } else {
+                        Log.d("response==>>>>", response.toString());
+                        String errorInfo = (String) response.get("errorInfo");
+                        Toast.makeText(getActivity(), errorInfo, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /**
@@ -562,31 +615,31 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.rb_1:
-                    tsubject = rb_1.getText().toString();
+                    tsubject = rb_1.getText().toString().trim();
                     break;
                 case R.id.rb_2:
-                    tsubject = rb_2.getText().toString();
+                    tsubject = rb_2.getText().toString().trim();
                     break;
                 case R.id.rb_3:
-                    tsubject = rb_3.getText().toString();
+                    tsubject = rb_3.getText().toString().trim();
                     break;
                 case R.id.rb_4:
-                    tsubject = rb_4.getText().toString();
+                    tsubject = rb_4.getText().toString().trim();
                     break;
                 case R.id.rb_5:
-                    tsubject = rb_5.getText().toString();
+                    tsubject = rb_5.getText().toString().trim();
                     break;
                 case R.id.rb_6:
-                    tsubject = rb_6.getText().toString();
+                    tsubject = rb_6.getText().toString().trim();
                     break;
                 case R.id.rb_7:
-                    tsubject = rb_7.getText().toString();
+                    tsubject = rb_7.getText().toString().trim();
                     break;
                 case R.id.rb_8:
-                    tsubject = rb_8.getText().toString();
+                    tsubject = rb_8.getText().toString().trim();
                     break;
                 case R.id.rb_9:
-                    tsubject = rb_9.getText().toString();
+                    tsubject = rb_9.getText().toString().trim();
                     break;
 
             }
@@ -615,6 +668,8 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
                 tschool = bundle.getString("school");
+                schoolName = bundle.getString("schoolname");
+                Log.d("schoolName==>>>>", schoolName);
                 tchoose_school.setText(bundle.getString("school"));
             }
         }
