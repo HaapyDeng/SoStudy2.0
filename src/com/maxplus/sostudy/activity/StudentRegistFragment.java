@@ -1,6 +1,7 @@
 package com.maxplus.sostudy.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -302,11 +303,58 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 if (NetworkUtils.checkNetWork(getActivity()) == false) {
                     Toast.makeText(getActivity(), R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
                 }
-
+                doRegister(schoolName, grade, sclass, userName, realName, email, password);
 
                 break;
 
         }
+    }
+
+    private void doRegister(String schoolName, String gradename, String classname, String username, String realname, String email, String password) {
+        int i = 1;
+        String registUrl = NetworkUtils.returnUrl() + "/api/register";
+        Log.d("registUrl==>>>", registUrl);
+        AsyncHttpClient registClient = new AsyncHttpClient();
+        RequestParams rparams = new RequestParams();
+        rparams.put("usertype", i);
+        rparams.put("schoolname", schoolName);
+        rparams.put("gradename", gradename);
+        rparams.put("classname", classname);
+        rparams.put("username", username);
+        rparams.put("realname", realname);
+        rparams.put("email", email);
+        rparams.put("password", password);
+        Log.d("userinfo==>>>", "" + i + "," + schoolName + "," + gradename + "," + classname
+                + "," + username + "," + realname + "," + email + "," + password);
+        registClient.post(registUrl, rparams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    int json = (int) response.get("status");
+                    if (json == 1) {
+                        Toast.makeText(getActivity(), R.string.regist_success, Toast.LENGTH_LONG).show();
+                        Log.d("response==>>>>", response.toString());
+//                        SharedPreferences sp = getSharedPreferences()  ;
+                        Intent log = new Intent();
+                        log.setClass(getActivity(), LoginActivity.class);
+                        startActivity(log);
+                    } else {
+                        String errorInfo = (String) response.get("errorInfo");
+                        Toast.makeText(getActivity(), errorInfo, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(getActivity(), errorResponse.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /**

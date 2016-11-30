@@ -258,6 +258,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(ChooseSchoolActivity.this, errorResponse.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
