@@ -190,7 +190,7 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                         return;
                     }
                     String urlM = NetworkUtils.returnUrl();
-                    final String url = urlM + "/api/sms";
+                    final String url = urlM + NetworkUtils.returnPhoneCodeApi();
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
                     params.put("phone", pphone);
@@ -287,7 +287,7 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
     }
 
     private void doPregist(String pschoolName, String pgrade, String pclass, String puser, String childUid, String pphone, String ppassword) {
-        String pRegistUrl = NetworkUtils.returnUrl() + "/api/register";
+        String pRegistUrl = NetworkUtils.returnUrl() + NetworkUtils.returnRegistApi();
         int type = 3;
         AsyncHttpClient pRegistClient = new AsyncHttpClient();
         RequestParams pRegistParam = new RequestParams();
@@ -334,14 +334,14 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
     }
 
     private void doVerifyChild(String pschoolName, String pgrade, String pclass, String pname) {
-        String urlVerify = NetworkUtils.returnUrl() + "/api/check-child";
+        String urlVerify = NetworkUtils.returnUrl() + NetworkUtils.returnChildUidApi();
         AsyncHttpClient verifyClient = new AsyncHttpClient();
         RequestParams verifyparam = new RequestParams();
         verifyparam.put("childGradeName", pgrade);
         verifyparam.put("childClassName", pclass);
         verifyparam.put("childSchoolName", pschoolName);
         verifyparam.put("childRealName", pname);
-        Log.d("verifyparam==>>", pschoolName + "," + pgrade + "," + pclass + "," + pname);
+        Log.d("verifyparam==>>", urlVerify + "," + pschoolName + "," + pgrade + "," + pclass + "," + pname);
         verifyClient.post(urlVerify, verifyparam, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

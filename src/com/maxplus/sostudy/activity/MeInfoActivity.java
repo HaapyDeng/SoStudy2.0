@@ -41,7 +41,7 @@ public class MeInfoActivity extends BaseActivity {
 
     //从服务器获取用户信息
     private void getInfo() {
-        String url = NetworkUtils.returnUrl() + "/api/my/userinfo";
+        String url = NetworkUtils.returnUrl() + NetworkUtils.returnUserInfoApi();
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams param = new RequestParams();
         final SharedPreferences mySharedPreferences = getSharedPreferences("user",

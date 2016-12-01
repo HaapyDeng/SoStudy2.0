@@ -107,7 +107,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 
     public void doLoginPost() {
-        final String url = NetworkUtils.returnUrl() + "/api/login";
+        final String url = NetworkUtils.returnUrl() + NetworkUtils.returnLoginApi();
         Log.d("url==??>>>>>>", url);
         AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();

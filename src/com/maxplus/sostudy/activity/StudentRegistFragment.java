@@ -212,7 +212,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                         return;
                     }
                     String urlM = NetworkUtils.returnUrl();
-                    final String url = urlM + "/api/mail";
+                    final String url = urlM + NetworkUtils.returnEmailCodeApi();
                     Log.d("url=====>>>", "" + url);
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
@@ -313,7 +313,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
 
     private void doRegister(String schoolName, String gradename, String classname, String username, String realname, String email, String password) {
         int i = 1;
-        String registUrl = NetworkUtils.returnUrl() + "/api/register";
+        String registUrl = NetworkUtils.returnUrl() + NetworkUtils.returnRegistApi();
         Log.d("registUrl==>>>", registUrl);
         AsyncHttpClient registClient = new AsyncHttpClient();
         RequestParams rparams = new RequestParams();

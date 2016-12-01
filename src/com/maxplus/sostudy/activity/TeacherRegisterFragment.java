@@ -442,7 +442,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                         return;
                     }
                     String urlM = NetworkUtils.returnUrl();
-                    final String url = urlM + "/api/sms";
+                    final String url = urlM + NetworkUtils.returnPhoneCodeApi();
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
                     params.put("phone", phone);
@@ -542,7 +542,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
 
     private void doTeacherRegist(String schoolName, String tgrade, String tsubject, String userName, String realName, String phone, String password) {
         int usertype = 2;
-        String tRegistUrl = NetworkUtils.returnUrl() + "/api/register";
+        String tRegistUrl = NetworkUtils.returnUrl() + NetworkUtils.returnRegistApi();
         Log.d("registUrl==>>>", tRegistUrl);
         AsyncHttpClient teacherClient = new AsyncHttpClient();
         RequestParams teacherParams = new RequestParams();

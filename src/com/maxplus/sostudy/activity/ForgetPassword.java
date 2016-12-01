@@ -76,11 +76,11 @@ public class ForgetPassword extends Activity implements OnClickListener {
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
                     if (NetworkUtils.isMobileNO(phoneNum)) {
-                        url = urlM + "/api/sms";
+                        url = urlM + NetworkUtils.returnPhoneCodeApi();
                         Log.d("url=====>>>", "" + url);
                         params.put("phone", phoneNum);
                     } else {
-                        url = urlM + "/api/mail";
+                        url = urlM + NetworkUtils.returnEmailCodeApi();
                         Log.d("url=====>>>", "" + url);
                         params.put("email", phoneNum);
                     }
@@ -142,7 +142,7 @@ public class ForgetPassword extends Activity implements OnClickListener {
                     break;
                 }
                 String urlM = NetworkUtils.returnUrl();
-                String url = urlM + "/api/forget";
+                String url = urlM + NetworkUtils.returnForgPasswordApi();
                 AsyncHttpClient client = new AsyncHttpClient();
                 RequestParams params = new RequestParams();
                 params.put("newPassword", newPassword);

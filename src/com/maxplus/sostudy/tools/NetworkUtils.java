@@ -97,9 +97,54 @@ public class NetworkUtils {
         return true;
     }
 
+    //服务器端主路径
     public static String returnUrl() {
-        String url = "http://192.168.1.200";
+        String url = "http://101.201.197.73/api";
         return url;
     }
 
+    //登录接口
+    public static String returnLoginApi() {
+        return "/api/login";
+    }
+
+    //忘记密码接口
+    public static String returnForgPasswordApi() {
+        return "/api/forget";
+    }
+
+    //注册接口
+    public static String returnRegistApi() {
+        return "/api/register";
+    }
+
+    //手机验证码接口
+    public static String returnPhoneCodeApi() {
+        return "/api/sms";
+    }
+
+    //邮箱验证码接口
+    public static String returnEmailCodeApi() {
+        return "/api/mail";
+    }
+
+    //省市区对应的学校接口
+    public static String returnSchoolApi() {
+        return "/common/getschool";
+    }
+
+    //验证孩子姓名接口
+    public static String returnChildUidApi() {
+        return "/api/check-child";
+    }
+
+    //验证孩子姓名接口
+    public static String returnUserInfoApi() {
+        return "/my/userinfo";
+    }
+
+    //上传头像接口
+    public static String returnUploadActorApi() {
+        return "/api/my/uploadimage";
+    }
 }

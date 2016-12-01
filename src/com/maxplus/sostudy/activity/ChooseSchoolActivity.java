@@ -214,7 +214,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
      * 从服务器端获取相应城市的学校列表
      */
     private void initData(String cityid, final int typeid) {
-        String url = NetworkUtils.returnUrl() + "/common/getschool";
+        String url = NetworkUtils.returnUrl() + NetworkUtils.returnSchoolApi();
         if (!NetworkUtils.checkNetWork(ChooseSchoolActivity.this)) {
             Toast.makeText(ChooseSchoolActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
             return;
