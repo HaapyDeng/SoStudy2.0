@@ -20,6 +20,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
+import com.maxplus.sostudy.tools.ClearEditText;
 import com.maxplus.sostudy.tools.NetworkUtils;
 
 import org.apache.http.Header;
@@ -39,9 +41,10 @@ import cn.jpush.im.api.BasicCallback;
 
 public class LoginActivity extends Activity implements OnClickListener {
     public String userName, password, token;
-    EditText edt_userName, edt_password;
-    TextView tv_forg_password, tv_regist;
-    Button btn_login;
+    private ClearEditText edt_userName, edt_password;
+    private TextView tv_forg_password, tv_regist;
+    private Button btn_login;
+    private Dialog mLoadingDialog;
 
 
     @Override
@@ -58,9 +61,9 @@ public class LoginActivity extends Activity implements OnClickListener {
     }
 
     private void getShared(String username, String password) {
-        edt_userName = (EditText) findViewById(R.id.edt_username);
+        edt_userName = (ClearEditText) findViewById(R.id.edt_username);
         edt_userName.setText(username);
-        edt_password = (EditText) findViewById(R.id.edt_password);
+        edt_password = (ClearEditText) findViewById(R.id.edt_password);
         edt_password.setText(password);
     }
 
@@ -125,6 +128,10 @@ public class LoginActivity extends Activity implements OnClickListener {
         }
         params.put("username", userName);
         params.put("password", password);
+        mLoadingDialog = DialogCreator.createLoadingDialog(LoginActivity.this,
+                LoginActivity.this.getString(R.string.logining));
+        mLoadingDialog.show();
+        Log.d("LoginParams==>>>", url + "," + userName + "" + password);
         client.post(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
@@ -143,8 +150,10 @@ public class LoginActivity extends Activity implements OnClickListener {
                         startJmlogin(userName, password);
                     } else if (json.getInt("status") == 0) {
                         Log.d("errorInfo==>>>>>", json.getString("errorInfo"));
+                        mLoadingDialog.dismiss();
                         Toast.makeText(LoginActivity.this, json.getString("errorInfo"), Toast.LENGTH_LONG).show();
                     } else {
+                        mLoadingDialog.dismiss();
                         Toast.makeText(LoginActivity.this, R.string.login_failed_toast, Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -157,6 +166,7 @@ public class LoginActivity extends Activity implements OnClickListener {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.d("errorCode", "" + responseString);
+                mLoadingDialog.dismiss();
                 Toast.makeText(LoginActivity.this, responseString, Toast.LENGTH_LONG).show();
             }
         });
@@ -171,6 +181,7 @@ public class LoginActivity extends Activity implements OnClickListener {
                     setAlias(userName);
                     Intent intent3 = new Intent();
                     intent3.setClass(LoginActivity.this, MainActivity.class);
+                    mLoadingDialog.dismiss();
                     startActivity(intent3);
                     finish();
                 } else {
@@ -184,6 +195,7 @@ public class LoginActivity extends Activity implements OnClickListener {
                                     public void gotResult(int i, String s) {
                                         Intent intent3 = new Intent();
                                         intent3.setClass(LoginActivity.this, MainActivity.class);
+                                        mLoadingDialog.dismiss();
                                         startActivity(intent3);
                                         finish();
 
@@ -198,8 +210,8 @@ public class LoginActivity extends Activity implements OnClickListener {
     }
 
     public void initView() {
-        edt_userName = (EditText) findViewById(R.id.edt_username);
-        edt_password = (EditText) findViewById(R.id.edt_password);
+        edt_userName = (ClearEditText) findViewById(R.id.edt_username);
+        edt_password = (ClearEditText) findViewById(R.id.edt_password);
         tv_forg_password = (TextView) findViewById(R.id.forg_password);
         tv_forg_password.setOnClickListener(this);
         tv_regist = (TextView) findViewById(R.id.tv_regist);

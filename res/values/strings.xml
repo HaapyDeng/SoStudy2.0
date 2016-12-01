@@ -387,6 +387,7 @@
     <string name="school_null">对不起还不支持该地区学校，请重新选择学校所在区域！</string>
     <string name="regist_success">注册成功！</string>
     <string name="verify_child_success">验证孩子成功！</string>
+    <string name="logining">登录中...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -253,7 +253,7 @@
 
                 <TextView
                     style="@style/info_left_txt_style"
-                    android:text="@string/change_password" />
+                    android:text="@string/password" />
 
                 <TextView
                     android:id="@+id/password"

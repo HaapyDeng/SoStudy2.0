@@ -27,7 +27,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <EditText
+        <com.maxplus.sostudy.tools.ClearEditText
             android:id="@+id/edt_username"
             style="?android:attr/textViewStyle"
             android:layout_width="match_parent"
@@ -36,11 +36,13 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/imageView1"
             android:background="@color/white"
+            android:drawableRight="@drawable/del_btn"
             android:ellipsize="end"
             android:hint="@string/username"
             android:maxLength="25"
             android:maxLines="1"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:singleLine="true"
             android:textColor="#646464"
             android:textColorHint="#d4d4d4"
@@ -51,7 +53,7 @@
             android:layout_height="0.01dp"
             android:background="@color/grey" />
 
-        <EditText
+        <com.maxplus.sostudy.tools.ClearEditText
             android:id="@+id/edt_password"
             style="?android:attr/textViewStyle"
             android:layout_width="match_parent"
@@ -60,10 +62,12 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/edt_username"
             android:background="@color/white"
+            android:drawableRight="@drawable/del_btn"
             android:ellipsize="end"
             android:hint="@string/password"
             android:maxLength="30"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:password="true"
             android:singleLine="true"
             android:textColor="#646464"
