@@ -164,7 +164,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                     break;
                 }
                 if (schoolTypeId == 10) {
-                    Toast.makeText(ChooseSchoolActivity.this, R.string.f_choose_ssq, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChooseSchoolActivity.this, R.string.f_choose_type, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 Log.d("cityIdString===>>>", cityIdString);
@@ -178,17 +178,22 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 choose_school.setText(school);
                 break;
             case R.id.choose_school_confirm:
+                //判断获取的区县id，默认为0，正常id长度6位
                 if (cityIdString.length() <= 1) {
                     Toast.makeText(ChooseSchoolActivity.this, R.string.f_choose_ssq, Toast.LENGTH_SHORT).show();
-                    break;
+                    return;
                 }
                 if (city == null) {
                     Toast.makeText(ChooseSchoolActivity.this, R.string.choose_sssq, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (schoolTypeId == 10) {
+                    Toast.makeText(ChooseSchoolActivity.this, R.string.f_choose_type, Toast.LENGTH_SHORT).show();
                     break;
                 }
-                if (school == null) {
+                if (school == "") {
                     Toast.makeText(ChooseSchoolActivity.this, R.string.choose_sschool, Toast.LENGTH_SHORT).show();
-                    break;
+                    return;
                 }
                 Log.d("school==>>>", school);
                 Intent intent = this.getIntent();
