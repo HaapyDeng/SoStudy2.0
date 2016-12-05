@@ -23,7 +23,7 @@ import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.chatting.ChatActivity;
 import com.maxplus.sostudy.activity.ConversationListFragment;
 import com.maxplus.sostudy.adapter.ConversationListAdapter;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.tools.SortConvList;
 import com.maxplus.sostudy.view.ConversationListView;
@@ -79,17 +79,17 @@ public class ConversationListController implements OnClickListener,
                 // 当前点击的会话是否为群组
                 if (conv.getType() == ConversationType.group) {
                     long groupId = ((GroupInfo) conv.getTargetInfo()).getGroupID();
-                    intent.putExtra(JChatDemoApplication.GROUP_ID, groupId);
-                    intent.putExtra(JChatDemoApplication.DRAFT, getAdapter().getDraft(conv.getId()));
+                    intent.putExtra(MyApplication.GROUP_ID, groupId);
+                    intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
                     intent.setClass(mContext.getActivity(), ChatActivity.class);
                     mContext.getActivity().startActivity(intent);
                     return;
                 } else {
                     String targetId = ((UserInfo) conv.getTargetInfo()).getUserName();
-                    intent.putExtra(JChatDemoApplication.TARGET_ID, targetId);
-                    intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, conv.getTargetAppKey());
+                    intent.putExtra(MyApplication.TARGET_ID, targetId);
+                    intent.putExtra(MyApplication.TARGET_APP_KEY, conv.getTargetAppKey());
                     Log.d("ConversationList", "Target app key from conversation: " + conv.getTargetAppKey());
-                    intent.putExtra(JChatDemoApplication.DRAFT, getAdapter().getDraft(conv.getId()));
+                    intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
                 }
                 intent.setClass(mContext.getActivity(), ChatActivity.class);
                 mContext.getActivity().startActivity(intent);

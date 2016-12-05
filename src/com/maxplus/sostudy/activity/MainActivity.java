@@ -19,7 +19,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 
 import com.maxplus.sostudy.R;
 
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.controller.MainController;
 import com.maxplus.sostudy.chatting.utils.FileHelper;
 import com.maxplus.sostudy.chatting.utils.SharePreferenceManager;
@@ -65,14 +65,14 @@ public class MainActivity extends FragmentActivity {
             if (null != SharePreferenceManager.getCachedUsername()) {
                 intent.putExtra("userName", SharePreferenceManager.getCachedUsername());
                 intent.putExtra("avatarFilePath", SharePreferenceManager.getCachedAvatarPath());
-                intent.setClass(this, ReloginActivity.class);
+                intent.setClass(this, LoginActivity.class);
             } else {
                 intent.setClass(this, LoginActivity.class);
             }
             startActivity(intent);
             finish();
         } else {
-            JChatDemoApplication.setPicturePath(myInfo.getAppKey());
+            MyApplication.setPicturePath(myInfo.getAppKey());
             if (TextUtils.isEmpty(myInfo.getNickname()) && flag) {
                 Intent intent = new Intent();
                 intent.setClass(this, FixProfileActivity.class);
@@ -100,7 +100,7 @@ public class MainActivity extends FragmentActivity {
         if (resultCode == Activity.RESULT_CANCELED) {
             return;
         }
-        if (requestCode == JChatDemoApplication.REQUEST_CODE_TAKE_PHOTO) {
+        if (requestCode == MyApplication.REQUEST_CODE_TAKE_PHOTO) {
             String path = mMainController.getPhotoPath();
             if (path != null) {
                 File file = new File(path);
@@ -111,10 +111,10 @@ public class MainActivity extends FragmentActivity {
                     Intent intent = new Intent();
                     intent.putExtra("filePath", mUri.getPath());
                     intent.setClass(this, CropImageActivity.class);
-                    startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_CROP_PICTURE);
+                    startActivityForResult(intent, MyApplication.REQUEST_CODE_CROP_PICTURE);
                 }
             }
-        } else if (requestCode == JChatDemoApplication.REQUEST_CODE_SELECT_PICTURE) {
+        } else if (requestCode == MyApplication.REQUEST_CODE_SELECT_PICTURE) {
             if (data != null) {
                 Uri selectedImg = data.getData();
                 if (selectedImg != null) {
@@ -153,13 +153,13 @@ public class MainActivity extends FragmentActivity {
                     }
                 }
             }
-        } else if (requestCode == JChatDemoApplication.REQUEST_CODE_CROP_PICTURE) {
+        } else if (requestCode == MyApplication.REQUEST_CODE_CROP_PICTURE) {
 //            mMainController.uploadUserAvatar(mUri.getPath());
             String path = data.getStringExtra("filePath");
             if (path != null) {
                 mMainController.uploadUserAvatar(path);
             }
-        } else if (resultCode == JChatDemoApplication.RESULT_CODE_ME_INFO) {
+        } else if (resultCode == MyApplication.RESULT_CODE_ME_INFO) {
             String newName = data.getStringExtra("newName");
             if (!TextUtils.isEmpty(newName)) {
                 mMainController.refreshNickname(newName);
@@ -181,7 +181,7 @@ public class MainActivity extends FragmentActivity {
                 Intent intent = new Intent();
                 intent.putExtra("filePath", mUri.getPath());
                 intent.setClass(MainActivity.this, CropImageActivity.class);
-                startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_CROP_PICTURE);
+                startActivityForResult(intent, MyApplication.REQUEST_CODE_CROP_PICTURE);
             }
         });
     }

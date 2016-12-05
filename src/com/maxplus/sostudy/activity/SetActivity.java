@@ -3,6 +3,7 @@ package com.maxplus.sostudy.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 
+import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.Conversation;
 
 public class SetActivity extends Activity implements View.OnClickListener {
@@ -160,6 +162,12 @@ public class SetActivity extends Activity implements View.OnClickListener {
 //                mDialog2.show();
                 break;
             case R.id.tv_loginOut:
+                SharedPreferences mySharedPreferences = getSharedPreferences("user",
+                        Activity.MODE_PRIVATE);
+                SharedPreferences.Editor edit = mySharedPreferences.edit();
+                edit.putString("token", "");
+                edit.commit();
+                JMessageClient.logout();
                 Intent i = new Intent();
                 i.setClass(SetActivity.this, LoginActivity.class);
                 startActivity(i);

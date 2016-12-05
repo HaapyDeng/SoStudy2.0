@@ -22,7 +22,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.chatting.ChatActivity;
 import com.maxplus.sostudy.activity.ConversationListFragment;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 import com.maxplus.sostudy.view.MenuItemView;
@@ -67,8 +67,8 @@ public class MenuItemController implements View.OnClickListener {
                             Intent intent = new Intent();
                             //设置跳转标志
                             intent.putExtra("fromGroup", true);
-                            intent.putExtra(JChatDemoApplication.MEMBERS_COUNT, 1);
-                            intent.putExtra(JChatDemoApplication.GROUP_ID, groupId);
+                            intent.putExtra(MyApplication.MEMBERS_COUNT, 1);
+                            intent.putExtra(MyApplication.GROUP_ID, groupId);
                             intent.setClass(mContext.getActivity(), ChatActivity.class);
                             mContext.startActivity(intent);
                         } else {

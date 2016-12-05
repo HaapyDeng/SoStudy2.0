@@ -25,7 +25,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.BitmapLoader;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.FileHelper;
@@ -152,7 +152,7 @@ public class FixProfileActivity extends BaseActivity {
             File file = new File(mPath);
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-            startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_TAKE_PHOTO);
+            startActivityForResult(intent, MyApplication.REQUEST_CODE_TAKE_PHOTO);
         }else {
             Toast.makeText(this, this.getString(R.string.jmui_sdcard_not_exist_toast), Toast.LENGTH_SHORT).show();
         }
@@ -167,7 +167,7 @@ public class FixProfileActivity extends BaseActivity {
             intent = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
-        startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_SELECT_PICTURE);
+        startActivityForResult(intent, MyApplication.REQUEST_CODE_SELECT_PICTURE);
     }
 
 
@@ -177,16 +177,16 @@ public class FixProfileActivity extends BaseActivity {
         if (resultCode == Activity.RESULT_CANCELED) {
             return;
         }
-        if (requestCode == JChatDemoApplication.REQUEST_CODE_TAKE_PHOTO) {
+        if (requestCode == MyApplication.REQUEST_CODE_TAKE_PHOTO) {
             if (mPath != null) {
                 mUri = Uri.fromFile(new File(mPath));
 //                cropRawPhoto(mUri);
                 Intent intent = new Intent();
                 intent.putExtra("filePath", mUri.getPath());
                 intent.setClass(this, CropImageActivity.class);
-                startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_CROP_PICTURE);
+                startActivityForResult(intent, MyApplication.REQUEST_CODE_CROP_PICTURE);
             }
-        }else if (requestCode == JChatDemoApplication.REQUEST_CODE_SELECT_PICTURE) {
+        }else if (requestCode == MyApplication.REQUEST_CODE_SELECT_PICTURE) {
             if (data != null) {
                 Uri selectedImg = data.getData();
                 if (selectedImg != null) {
@@ -230,7 +230,7 @@ public class FixProfileActivity extends BaseActivity {
                 }
 
             }
-        }else if (requestCode == JChatDemoApplication.REQUEST_CODE_CROP_PICTURE) {
+        }else if (requestCode == MyApplication.REQUEST_CODE_CROP_PICTURE) {
 //            uploadUserAvatar(mUri.getPath());
             String path = data.getStringExtra("filePath");
             if (path != null) {
@@ -258,7 +258,7 @@ public class FixProfileActivity extends BaseActivity {
         intent.putExtra("outputY", OUTPUT_Y);
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        this.startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_CROP_PICTURE);
+        this.startActivityForResult(intent, MyApplication.REQUEST_CODE_CROP_PICTURE);
     }
 
     /**
@@ -275,7 +275,7 @@ public class FixProfileActivity extends BaseActivity {
                 Intent intent = new Intent();
                 intent.putExtra("filePath", mUri.getPath());
                 intent.setClass(mContext, CropImageActivity.class);
-                startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_CROP_PICTURE);
+                startActivityForResult(intent, MyApplication.REQUEST_CODE_CROP_PICTURE);
             }
         });
     }

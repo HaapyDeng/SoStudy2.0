@@ -55,6 +55,7 @@ public class MeInfoActivity extends BaseActivity {
             i.setClass(MeInfoActivity.this, LoginActivity.class);
             startActivity(i);
             finish();
+            return;
         }
         param.put("token", token);
         client.get(url, param, new JsonHttpResponseHandler() {

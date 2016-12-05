@@ -29,7 +29,7 @@ import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.FriendInfoActivity;
 import com.maxplus.sostudy.activity.MeInfoActivity;
 import com.maxplus.sostudy.activity.MembersInChatActivity;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 import com.maxplus.sostudy.chatting.CircleImageView;
@@ -185,10 +185,10 @@ public class AllMembersAdapter extends BaseAdapter implements AdapterView.OnItem
             mContext.startActivity(intent);
         } else {
             intent.setClass(mContext, FriendInfoActivity.class);
-            intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, userInfo.getAppKey());
-            intent.putExtra(JChatDemoApplication.TARGET_ID,
+            intent.putExtra(MyApplication.TARGET_APP_KEY, userInfo.getAppKey());
+            intent.putExtra(MyApplication.TARGET_ID,
                     userInfo.getUserName());
-            intent.putExtra(JChatDemoApplication.GROUP_ID, mGroupId);
+            intent.putExtra(MyApplication.GROUP_ID, mGroupId);
             mContext.startActivity(intent);
         }
     }

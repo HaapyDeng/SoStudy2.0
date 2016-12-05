@@ -25,7 +25,7 @@ import com.maxplus.sostudy.activity.HomeFragment;
 import com.maxplus.sostudy.activity.MainActivity;
 import com.maxplus.sostudy.activity.MeFragment;
 import com.maxplus.sostudy.adapter.ViewPagerAdapter;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 import com.maxplus.sostudy.view.MainView;
 
@@ -108,7 +108,7 @@ public class MainController implements OnClickListener, OnPageChangeListener {
         intent.putExtra("return-data", false);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        mContext.startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_CROP_PICTURE);
+        mContext.startActivityForResult(intent, MyApplication.REQUEST_CODE_CROP_PICTURE);
     }
 
     public void uploadUserAvatar(final String path) {

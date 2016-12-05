@@ -59,7 +59,7 @@ import cn.jpush.im.android.api.enums.MessageDirect;
 import com.maxplus.sostudy.activity.BrowserViewPagerActivity;
 import com.maxplus.sostudy.activity.FriendInfoActivity;
 import com.maxplus.sostudy.activity.MeInfoActivity;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.FileHelper;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
@@ -574,18 +574,18 @@ public class MsgListAdapter extends BaseAdapter {
                 public void onClick(View arg0) {
                     Intent intent = new Intent();
                     if (msg.getDirect() == MessageDirect.send) {
-                        intent.putExtra(JChatDemoApplication.TARGET_ID, mTargetId);
+                        intent.putExtra(MyApplication.TARGET_ID, mTargetId);
                         Log.i(TAG, "msg.getFromName() " + mTargetId);
                         intent.setClass(mContext, MeInfoActivity.class);
                         mContext.startActivity(intent);
                     } else {
                         String targetID = userInfo.getUserName();
-                        intent.putExtra(JChatDemoApplication.TARGET_ID, targetID);
-                        intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, userInfo.getAppKey());
-                        intent.putExtra(JChatDemoApplication.GROUP_ID, mGroupId);
+                        intent.putExtra(MyApplication.TARGET_ID, targetID);
+                        intent.putExtra(MyApplication.TARGET_APP_KEY, userInfo.getAppKey());
+                        intent.putExtra(MyApplication.GROUP_ID, mGroupId);
                         intent.setClass(mContext, FriendInfoActivity.class);
                         ((Activity) mContext).startActivityForResult(intent,
-                                JChatDemoApplication.REQUEST_CODE_FRIEND_INFO);
+                                MyApplication.REQUEST_CODE_FRIEND_INFO);
                     }
                 }
             });
@@ -1301,12 +1301,12 @@ public class MsgListAdapter extends BaseAdapter {
                 }
             } else if (holder.picture != null && v.getId() == holder.picture.getId()) {
                 Intent intent = new Intent();
-                intent.putExtra(JChatDemoApplication.TARGET_ID, mTargetId);
+                intent.putExtra(MyApplication.TARGET_ID, mTargetId);
                 intent.putExtra("msgId", msg.getId());
-                intent.putExtra(JChatDemoApplication.GROUP_ID, mGroupId);
-                intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, mTargetAppKey);
+                intent.putExtra(MyApplication.GROUP_ID, mGroupId);
+                intent.putExtra(MyApplication.TARGET_APP_KEY, mTargetAppKey);
                 intent.putExtra("msgCount", mMsgList.size());
-                intent.putIntegerArrayListExtra(JChatDemoApplication.MsgIDs, getImgMsgIDList());
+                intent.putIntegerArrayListExtra(MyApplication.MsgIDs, getImgMsgIDList());
                 intent.putExtra("fromChatActivity", true);
                 intent.setClass(mContext, BrowserViewPagerActivity.class);
                 mContext.startActivity(intent);

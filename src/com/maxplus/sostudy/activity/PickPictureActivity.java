@@ -22,7 +22,7 @@ import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.adapter.PickPictureAdapter;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.BitmapLoader;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 
@@ -56,13 +56,13 @@ public class PickPictureActivity extends BaseActivity {
         mGridView = (GridView) findViewById(R.id.child_grid);
 
         Intent intent = this.getIntent();
-        mGroupId = intent.getLongExtra(JChatDemoApplication.GROUP_ID, 0);
+        mGroupId = intent.getLongExtra(MyApplication.GROUP_ID, 0);
         if (mGroupId != 0) {
             mIsGroup = true;
             mConv = JMessageClient.getGroupConversation(mGroupId);
         } else {
-            mTargetId = intent.getStringExtra(JChatDemoApplication.TARGET_ID);
-            mTargetAppKey = intent.getStringExtra(JChatDemoApplication.TARGET_APP_KEY);
+            mTargetId = intent.getStringExtra(MyApplication.TARGET_ID);
+            mTargetAppKey = intent.getStringExtra(MyApplication.TARGET_APP_KEY);
             mConv = JMessageClient.getSingleConversation(mTargetId, mTargetAppKey);
         }
         mList = intent.getStringArrayListExtra("data");
@@ -79,16 +79,16 @@ public class PickPictureActivity extends BaseActivity {
             Intent intent = new Intent();
             intent.putExtra("fromChatActivity", false);
             if (mIsGroup) {
-                intent.putExtra(JChatDemoApplication.GROUP_ID, mGroupId);
+                intent.putExtra(MyApplication.GROUP_ID, mGroupId);
             } else {
-                intent.putExtra(JChatDemoApplication.TARGET_ID, mTargetId);
-                intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, mTargetAppKey);
+                intent.putExtra(MyApplication.TARGET_ID, mTargetId);
+                intent.putExtra(MyApplication.TARGET_APP_KEY, mTargetAppKey);
             }
             intent.putStringArrayListExtra("pathList", (ArrayList<String>) mList);
-            intent.putExtra(JChatDemoApplication.POSITION, position);
+            intent.putExtra(MyApplication.POSITION, position);
             intent.putExtra("pathArray", mAdapter.getSelectedArray());
             intent.setClass(PickPictureActivity.this, BrowserViewPagerActivity.class);
-            startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_BROWSER_PICTURE);
+            startActivityForResult(intent, MyApplication.REQUEST_CODE_BROWSER_PICTURE);
         }
     };
 
@@ -176,7 +176,7 @@ public class PickPictureActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == JChatDemoApplication.RESULT_CODE_SELECT_PICTURE) {
+        if (resultCode == MyApplication.RESULT_CODE_SELECT_PICTURE) {
             if (data != null) {
                 int[] selectedArray = data.getIntArrayExtra("pathArray");
                 int sum = 0;
@@ -194,8 +194,8 @@ public class PickPictureActivity extends BaseActivity {
                 mAdapter.refresh(selectedArray);
             }
 
-        } else if (resultCode == JChatDemoApplication.RESULT_CODE_BROWSER_PICTURE) {
-            setResult(JChatDemoApplication.RESULT_CODE_SELECT_ALBUM, data);
+        } else if (resultCode == MyApplication.RESULT_CODE_BROWSER_PICTURE) {
+            setResult(MyApplication.RESULT_CODE_SELECT_ALBUM, data);
             finish();
         }
     }
@@ -215,8 +215,8 @@ public class PickPictureActivity extends BaseActivity {
                 switch (msg.what) {
                     case SEND_PICTURE:
                         Intent intent = new Intent();
-                        intent.putExtra(JChatDemoApplication.MsgIDs, activity.mMsgIds);
-                        activity.setResult(JChatDemoApplication.RESULT_CODE_SELECT_ALBUM, intent);
+                        intent.putExtra(MyApplication.MsgIDs, activity.mMsgIds);
+                        activity.setResult(MyApplication.RESULT_CODE_SELECT_ALBUM, intent);
                         if (activity.mDialog != null) {
                             activity.mDialog.dismiss();
                         }

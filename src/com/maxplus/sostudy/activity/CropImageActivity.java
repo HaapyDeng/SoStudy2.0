@@ -18,7 +18,7 @@ import java.io.IOException;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.BitmapLoader;
 import com.maxplus.sostudy.view.CropImageView;
 
@@ -65,7 +65,7 @@ public class CropImageActivity extends BaseActivity {
                         mContext, myInfo.getUserName());
                 Intent data = new Intent();
                 data.putExtra("filePath", uploadPath);
-                setResult(JChatDemoApplication.REQUEST_CODE_CROP_PICTURE, data);
+                setResult(MyApplication.REQUEST_CODE_CROP_PICTURE, data);
                 finish();
             }
         });

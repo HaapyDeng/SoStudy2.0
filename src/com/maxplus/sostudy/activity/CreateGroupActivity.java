@@ -3,7 +3,7 @@ package com.maxplus.sostudy.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.ChatActivity;
 import com.maxplus.sostudy.controller.CreateGroupController;
 import com.maxplus.sostudy.view.CreateGroupView;
@@ -33,9 +33,9 @@ public class CreateGroupActivity extends BaseActivity{
 		Intent intent = new Intent();
 		//设置跳转标志
 		intent.putExtra("fromGroup", true);
-		intent.putExtra(JChatDemoApplication.GROUP_ID, groupId);
-		intent.putExtra(JChatDemoApplication.GROUP_NAME, groupName);
-		intent.putExtra(JChatDemoApplication.MEMBERS_COUNT, 1);
+		intent.putExtra(MyApplication.GROUP_ID, groupId);
+		intent.putExtra(MyApplication.GROUP_NAME, groupName);
+		intent.putExtra(MyApplication.MEMBERS_COUNT, 1);
 		intent.setClass(this, ChatActivity.class);
 		startActivity(intent);
 		finish();

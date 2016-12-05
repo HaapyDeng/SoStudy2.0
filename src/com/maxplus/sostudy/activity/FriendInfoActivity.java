@@ -13,7 +13,7 @@ import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.android.eventbus.EventBus;
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.ChatActivity;
 import com.maxplus.sostudy.controller.FriendInfoController;
 import com.maxplus.sostudy.entity.Event;
@@ -39,12 +39,12 @@ public class FriendInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_info);
         mFriendInfoView = (FriendInfoView) findViewById(R.id.friend_info_view);
-        mTargetId = getIntent().getStringExtra(JChatDemoApplication.TARGET_ID);
-        mTargetAppKey = getIntent().getStringExtra(JChatDemoApplication.TARGET_APP_KEY);
+        mTargetId = getIntent().getStringExtra(MyApplication.TARGET_ID);
+        mTargetAppKey = getIntent().getStringExtra(MyApplication.TARGET_APP_KEY);
         if (mTargetAppKey == null) {
             mTargetAppKey = JMessageClient.getMyInfo().getAppKey();
         }
-        mGroupId = getIntent().getLongExtra(JChatDemoApplication.GROUP_ID, 0);
+        mGroupId = getIntent().getLongExtra(MyApplication.GROUP_ID, 0);
         Conversation conv;
         if (mGroupId == 0) {
             conv = JMessageClient.getSingleConversation(mTargetId, mTargetAppKey);
@@ -89,15 +89,15 @@ public class FriendInfoActivity extends BaseActivity {
         if (mGroupId != 0) {
             Intent intent = new Intent();
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra(JChatDemoApplication.TARGET_ID, mTargetId);
-            intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, mTargetAppKey);
+            intent.putExtra(MyApplication.TARGET_ID, mTargetId);
+            intent.putExtra(MyApplication.TARGET_APP_KEY, mTargetAppKey);
             intent.setClass(this, ChatActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent();
             intent.putExtra("returnChatActivity", true);
-            intent.putExtra(JChatDemoApplication.NICKNAME, mNickname);
-            setResult(JChatDemoApplication.RESULT_CODE_FRIEND_INFO, intent);
+            intent.putExtra(MyApplication.NICKNAME, mNickname);
+            setResult(MyApplication.RESULT_CODE_FRIEND_INFO, intent);
         }
         Conversation conv = JMessageClient.getSingleConversation(mTargetId, mTargetAppKey);
         //如果会话为空，使用EventBus通知会话列表添加新会话
@@ -168,8 +168,8 @@ public class FriendInfoActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra(JChatDemoApplication.NICKNAME, mNickname);
-        setResult(JChatDemoApplication.RESULT_CODE_FRIEND_INFO, intent);
+        intent.putExtra(MyApplication.NICKNAME, mNickname);
+        setResult(MyApplication.RESULT_CODE_FRIEND_INFO, intent);
         finish();
         super.onBackPressed();
     }

@@ -8,7 +8,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import com.maxplus.sostudy.receiver.NotificationClickEventReceiver;
 import com.maxplus.sostudy.chatting.utils.SharePreferenceManager;
 
-public class JChatDemoApplication extends Application {
+public class MyApplication extends Application {
 
     public static final int REQUEST_CODE_TAKE_PHOTO = 4;
     public static final int REQUEST_CODE_SELECT_PICTURE = 6;
@@ -46,7 +46,7 @@ public class JChatDemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i("JpushDemoApplication", "init");
+        Log.i("MyApplication===>>>", "init");
         //初始化JMessage-sdk
         JMessageClient.init(getApplicationContext());
         SharePreferenceManager.init(getApplicationContext(), JCHAT_CONFIGS);

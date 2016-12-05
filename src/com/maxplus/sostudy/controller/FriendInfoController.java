@@ -15,7 +15,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.FriendInfoActivity;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 import com.maxplus.sostudy.view.FriendInfoView;
@@ -44,8 +44,8 @@ public class FriendInfoController implements OnClickListener, SlipButton.OnChang
             case R.id.friend_info_return_btn:
                 Intent intent = new Intent();
                 String nickname = mContext.getNickname();
-                intent.putExtra(JChatDemoApplication.NICKNAME, nickname);
-                mContext.setResult(JChatDemoApplication.RESULT_CODE_FRIEND_INFO, intent);
+                intent.putExtra(MyApplication.NICKNAME, nickname);
+                mContext.setResult(MyApplication.RESULT_CODE_FRIEND_INFO, intent);
                 mContext.finish();
                 break;
             case R.id.friend_send_msg_btn:

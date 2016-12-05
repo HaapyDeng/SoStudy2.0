@@ -39,7 +39,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.adapter.AllMembersAdapter;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
 import com.maxplus.sostudy.tools.HanyuPinyin;
@@ -88,8 +88,8 @@ public class MembersInChatActivity extends BaseActivity {
         mBackgroundThread = new HandlerThread("Work on MembersInChatActivity");
         mBackgroundThread.start();
         mBackgroundHandler = new BackgroundHandler(mBackgroundThread.getLooper());
-        mGroupId = getIntent().getLongExtra(JChatDemoApplication.GROUP_ID, 0);
-        mIsDeleteMode = getIntent().getBooleanExtra(JChatDemoApplication.DELETE_MODE, false);
+        mGroupId = getIntent().getLongExtra(MyApplication.GROUP_ID, 0);
+        mIsDeleteMode = getIntent().getBooleanExtra(MyApplication.DELETE_MODE, false);
         final Conversation conv = JMessageClient.getGroupConversation(mGroupId);
         GroupInfo groupInfo = (GroupInfo) conv.getTargetInfo();
         mMemberInfoList = groupInfo.getGroupMembers();
@@ -118,7 +118,7 @@ public class MembersInChatActivity extends BaseActivity {
             switch (v.getId()) {
                 case R.id.return_btn:
                     Intent intent = new Intent();
-                    setResult(JChatDemoApplication.RESULT_CODE_ALL_MEMBER, intent);
+                    setResult(MyApplication.RESULT_CODE_ALL_MEMBER, intent);
                     finish();
                     break;
                 case R.id.right_btn:
@@ -175,7 +175,7 @@ public class MembersInChatActivity extends BaseActivity {
                                 mLoadingDialog.dismiss();
                                 if (status == 0) {
                                     Intent intent = new Intent();
-                                    setResult(JChatDemoApplication.RESULT_CODE_ALL_MEMBER, intent);
+                                    setResult(MyApplication.RESULT_CODE_ALL_MEMBER, intent);
                                     finish();
                                 } else {
                                     HandleResponseCode.onHandle(mContext, status, false);
@@ -468,7 +468,7 @@ public class MembersInChatActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        setResult(JChatDemoApplication.RESULT_CODE_ALL_MEMBER, intent);
+        setResult(MyApplication.RESULT_CODE_ALL_MEMBER, intent);
         finish();
         super.onBackPressed();
     }

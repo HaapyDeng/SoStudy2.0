@@ -17,7 +17,7 @@ import java.util.Locale;
 
 import cn.jpush.im.android.api.JMessageClient;
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 
 /**
  * Created by Ken on 2015/11/13.
@@ -35,7 +35,7 @@ public class FileHelper {
     }
 
     public static String createAvatarPath(String userName) {
-        String dir = JChatDemoApplication.PICTURE_DIR;
+        String dir = MyApplication.PICTURE_DIR;
         File destDir = new File(dir);
         if (!destDir.exists()) {
             destDir.mkdirs();
@@ -51,7 +51,7 @@ public class FileHelper {
     }
 
     public static String getUserAvatarPath(String userName) {
-        return JChatDemoApplication.PICTURE_DIR + userName + ".png";
+        return MyApplication.PICTURE_DIR + userName + ".png";
     }
 
 

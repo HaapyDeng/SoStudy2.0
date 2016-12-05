@@ -12,7 +12,7 @@ import cn.jpush.im.android.api.model.Conversation;
 import cn.jpush.im.android.api.model.Message;
 
 import com.maxplus.sostudy.chatting.ChatActivity;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 
 public class NotificationClickEventReceiver {
     private static final String TAG = NotificationClickEventReceiver.class.getSimpleName();
@@ -45,12 +45,12 @@ public class NotificationClickEventReceiver {
             Intent notificationIntent = new Intent(mContext, ChatActivity.class);
             if (type == ConversationType.single) {
                 conv = JMessageClient.getSingleConversation(targetId, appKey);
-                notificationIntent.putExtra(JChatDemoApplication.TARGET_ID, targetId);
-                notificationIntent.putExtra(JChatDemoApplication.TARGET_APP_KEY, appKey);
+                notificationIntent.putExtra(MyApplication.TARGET_ID, targetId);
+                notificationIntent.putExtra(MyApplication.TARGET_APP_KEY, appKey);
                 Log.d("Notification", "msg.fromAppKey() " + appKey);
             } else {
                 conv = JMessageClient.getGroupConversation(Long.parseLong(targetId));
-                notificationIntent.putExtra(JChatDemoApplication.GROUP_ID, Long.parseLong(targetId));
+                notificationIntent.putExtra(MyApplication.GROUP_ID, Long.parseLong(targetId));
             }
             conv.resetUnreadCount();
             Log.d("Notification", "Conversation unread msg reset");

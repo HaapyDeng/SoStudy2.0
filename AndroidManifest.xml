@@ -39,7 +39,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
-        android:name=".application.JChatDemoApplication"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:configChanges="fontScale"
         android:icon="@drawable/logomain1"

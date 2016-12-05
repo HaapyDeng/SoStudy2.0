@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.adapter.AlbumListAdapter;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.entity.ImageBean;
 import com.maxplus.sostudy.tools.SortPictureList;
 
@@ -99,7 +99,7 @@ public class PickPictureTotalActivity extends BaseActivity {
 				List<String> childList = mGruopMap.get(list.get(position).getFolderName());
 				mIntent.setClass(PickPictureTotalActivity.this, PickPictureActivity.class);
 				mIntent.putStringArrayListExtra("data", (ArrayList<String>)childList);
-				startActivityForResult(mIntent, JChatDemoApplication.REQUEST_CODE_SELECT_ALBUM);
+				startActivityForResult(mIntent, MyApplication.REQUEST_CODE_SELECT_ALBUM);
 				
 			}
 		});
@@ -215,8 +215,8 @@ public class PickPictureTotalActivity extends BaseActivity {
 		if (resultCode == Activity.RESULT_CANCELED) {
 			return;
 		}
-		if (resultCode == JChatDemoApplication.RESULT_CODE_SELECT_ALBUM) {
-			setResult(JChatDemoApplication.RESULT_CODE_SELECT_PICTURE, data);
+		if (resultCode == MyApplication.RESULT_CODE_SELECT_ALBUM) {
+			setResult(MyApplication.RESULT_CODE_SELECT_PICTURE, data);
 			finish();
 		}
 	}

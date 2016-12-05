@@ -36,7 +36,7 @@ import com.maxplus.sostudy.activity.FriendInfoActivity;
 import com.maxplus.sostudy.activity.MeInfoActivity;
 import com.maxplus.sostudy.activity.MembersInChatActivity;
 import com.maxplus.sostudy.adapter.GroupMemberGridAdapter;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.entity.Event;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
@@ -90,10 +90,10 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
      */
     private void initData() {
         Intent intent = mContext.getIntent();
-        mGroupId = intent.getLongExtra(JChatDemoApplication.GROUP_ID, 0);
+        mGroupId = intent.getLongExtra(MyApplication.GROUP_ID, 0);
         Log.i(TAG, "mGroupId" + mGroupId);
-        mTargetId = intent.getStringExtra(JChatDemoApplication.TARGET_ID);
-        mTargetAppKey = intent.getStringExtra(JChatDemoApplication.TARGET_APP_KEY);
+        mTargetId = intent.getStringExtra(MyApplication.TARGET_ID);
+        mTargetAppKey = intent.getStringExtra(MyApplication.TARGET_APP_KEY);
         mMyUsername = JMessageClient.getMyInfo().getUserName();
         Log.i(TAG, "mTargetId: " + mTargetId);
         // 是群组
@@ -155,17 +155,17 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
         switch (v.getId()) {
             case R.id.return_btn:
                 intent.putExtra("deleteMsg", mDeleteMsg);
-                intent.putExtra(JChatDemoApplication.NAME, getName());
-                intent.putExtra(JChatDemoApplication.MEMBERS_COUNT, mMemberInfoList.size());
-                mContext.setResult(JChatDemoApplication.RESULT_CODE_CHAT_DETAIL, intent);
+                intent.putExtra(MyApplication.NAME, getName());
+                intent.putExtra(MyApplication.MEMBERS_COUNT, mMemberInfoList.size());
+                mContext.setResult(MyApplication.RESULT_CODE_CHAT_DETAIL, intent);
                 mContext.finish();
                 break;
             //显示所有群成员
             case R.id.all_member_ll:
-                intent.putExtra(JChatDemoApplication.GROUP_ID, mGroupId);
-                intent.putExtra(JChatDemoApplication.DELETE_MODE, false);
+                intent.putExtra(MyApplication.GROUP_ID, mGroupId);
+                intent.putExtra(MyApplication.DELETE_MODE, false);
                 intent.setClass(mContext, MembersInChatActivity.class);
-                mContext.startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_ALL_MEMBER);
+                mContext.startActivityForResult(intent, MyApplication.REQUEST_CODE_ALL_MEMBER);
                 break;
 
             // 设置群组名称
@@ -273,9 +273,9 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
                     intent.setClass(mContext, MeInfoActivity.class);
                 } else {
                     UserInfo userInfo = mMemberInfoList.get(position);
-                    intent.putExtra(JChatDemoApplication.TARGET_ID, userInfo.getUserName());
-                    intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, userInfo.getAppKey());
-                    intent.putExtra(JChatDemoApplication.GROUP_ID, mGroupId);
+                    intent.putExtra(MyApplication.TARGET_ID, userInfo.getUserName());
+                    intent.putExtra(MyApplication.TARGET_APP_KEY, userInfo.getAppKey());
+                    intent.putExtra(MyApplication.GROUP_ID, mGroupId);
                     intent.setClass(mContext, FriendInfoActivity.class);
                 }
                 mContext.startActivity(intent);
@@ -286,17 +286,17 @@ public class ChatDetailController implements OnClickListener, OnItemClickListene
 
                 // 是群主, 成员个数大于1并点击删除按钮
             } else if (position == mCurrentNum + 1 && mIsCreator && mCurrentNum > 1) {
-                intent.putExtra(JChatDemoApplication.DELETE_MODE, true);
-                intent.putExtra(JChatDemoApplication.GROUP_ID, mGroupId);
+                intent.putExtra(MyApplication.DELETE_MODE, true);
+                intent.putExtra(MyApplication.GROUP_ID, mGroupId);
                 intent.setClass(mContext, MembersInChatActivity.class);
-                mContext.startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_ALL_MEMBER);
+                mContext.startActivityForResult(intent, MyApplication.REQUEST_CODE_ALL_MEMBER);
             }
             //单聊
         } else if (position < mCurrentNum) {
-            intent.putExtra(JChatDemoApplication.TARGET_ID, mTargetId);
-            intent.putExtra(JChatDemoApplication.TARGET_APP_KEY, mTargetAppKey);
+            intent.putExtra(MyApplication.TARGET_ID, mTargetId);
+            intent.putExtra(MyApplication.TARGET_APP_KEY, mTargetAppKey);
             intent.setClass(mContext, FriendInfoActivity.class);
-            mContext.startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_FRIEND_INFO);
+            mContext.startActivityForResult(intent, MyApplication.REQUEST_CODE_FRIEND_INFO);
         } else if (position == mCurrentNum) {
             addMemberToGroup();
         }

@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.BitmapLoader;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.FileHelper;
@@ -207,7 +207,7 @@ public class MeFragment extends BaseFragment {
     public void startMeInfoActivity() {
         Intent intent = new Intent();
         intent.setClass(this.getActivity(), MeInfoActivity.class);
-        startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_ME_INFO);
+        startActivityForResult(intent, MyApplication.REQUEST_CODE_ME_INFO);
     }
 
     public void cancelNotification() {
@@ -223,7 +223,7 @@ public class MeFragment extends BaseFragment {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mPath)));
             try {
-                getActivity().startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_TAKE_PHOTO);
+                getActivity().startActivityForResult(intent, MyApplication.REQUEST_CODE_TAKE_PHOTO);
             } catch (ActivityNotFoundException anf) {
                 Toast.makeText(this.getActivity(), mContext.getString(R.string.camera_not_prepared), Toast.LENGTH_SHORT).show();
             }
@@ -247,7 +247,7 @@ public class MeFragment extends BaseFragment {
                 intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             }
-            getActivity().startActivityForResult(intent, JChatDemoApplication.REQUEST_CODE_SELECT_PICTURE);
+            getActivity().startActivityForResult(intent, MyApplication.REQUEST_CODE_SELECT_PICTURE);
         } else {
             Toast.makeText(this.getActivity(), mContext.getString(R.string.jmui_sdcard_not_exist_toast),
                     Toast.LENGTH_SHORT).show();

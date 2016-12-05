@@ -33,7 +33,7 @@ import cn.jpush.im.android.api.model.GroupInfo;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.api.BasicCallback;
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.application.JChatDemoApplication;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.ChatActivity;
 import com.maxplus.sostudy.controller.ChatDetailController;
 import com.maxplus.sostudy.chatting.utils.HandleResponseCode;
@@ -184,10 +184,10 @@ public class ChatDetailActivity extends BaseActivity {
     public void onBackPressed() {
         Log.i(TAG, "onBackPressed");
         Intent intent = new Intent();
-        intent.putExtra(JChatDemoApplication.NAME, mChatDetailController.getName());
-        intent.putExtra(JChatDemoApplication.MEMBERS_COUNT, mChatDetailController.getCurrentCount());
+        intent.putExtra(MyApplication.NAME, mChatDetailController.getName());
+        intent.putExtra(MyApplication.MEMBERS_COUNT, mChatDetailController.getCurrentCount());
         intent.putExtra("deleteMsg", mChatDetailController.getDeleteFlag());
-        setResult(JChatDemoApplication.RESULT_CODE_CHAT_DETAIL, intent);
+        setResult(MyApplication.RESULT_CODE_CHAT_DETAIL, intent);
         finish();
         super.onBackPressed();
     }
@@ -214,14 +214,14 @@ public class ChatDetailActivity extends BaseActivity {
         } else if (requestCode == MY_NAME_REQUEST_CODE) {
             Log.i(TAG, "myName = " + data.getStringExtra("resultName"));
             mChatDetailView.setMyName(data.getStringExtra("resultName"));
-        } else if (resultCode == JChatDemoApplication.RESULT_CODE_FRIEND_INFO) {
+        } else if (resultCode == MyApplication.RESULT_CODE_FRIEND_INFO) {
             if (data.getBooleanExtra("returnChatActivity", false)) {
                 data.putExtra("deleteMsg", mChatDetailController.getDeleteFlag());
-                data.putExtra(JChatDemoApplication.NAME, mChatDetailController.getName());
-                setResult(JChatDemoApplication.RESULT_CODE_CHAT_DETAIL, data);
+                data.putExtra(MyApplication.NAME, mChatDetailController.getName());
+                setResult(MyApplication.RESULT_CODE_CHAT_DETAIL, data);
                 finish();
             }
-        } else if (requestCode == JChatDemoApplication.REQUEST_CODE_ALL_MEMBER) {
+        } else if (requestCode == MyApplication.REQUEST_CODE_ALL_MEMBER) {
             mChatDetailController.refreshMemberList();
         }
     }
@@ -264,9 +264,9 @@ public class ChatDetailActivity extends BaseActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         //设置跳转标志
         intent.putExtra("fromGroup", true);
-        intent.putExtra(JChatDemoApplication.MEMBERS_COUNT, 3);
-        intent.putExtra(JChatDemoApplication.GROUP_ID, groupID);
-        intent.putExtra(JChatDemoApplication.GROUP_NAME, groupName);
+        intent.putExtra(MyApplication.MEMBERS_COUNT, 3);
+        intent.putExtra(MyApplication.GROUP_ID, groupID);
+        intent.putExtra(MyApplication.GROUP_NAME, groupName);
         intent.setClass(this, ChatActivity.class);
         startActivity(intent);
         finish();
@@ -306,9 +306,9 @@ public class ChatDetailActivity extends BaseActivity {
             }
             //无论是否添加群成员，刷新界面
             android.os.Message handleMsg = mUIHandler.obtainMessage();
-            handleMsg.what = JChatDemoApplication.ON_GROUP_EVENT;
+            handleMsg.what = MyApplication.ON_GROUP_EVENT;
             Bundle bundle = new Bundle();
-            bundle.putLong(JChatDemoApplication.GROUP_ID, ((GroupInfo)msg.getTargetInfo()).getGroupID());
+            bundle.putLong(MyApplication.GROUP_ID, ((GroupInfo)msg.getTargetInfo()).getGroupID());
             handleMsg.setData(bundle);
             handleMsg.sendToTarget();
         }
@@ -328,9 +328,9 @@ public class ChatDetailActivity extends BaseActivity {
             ChatDetailActivity activity = mActivity.get();
             if (activity != null) {
                 switch (msg.what) {
-                    case JChatDemoApplication.ON_GROUP_EVENT:
+                    case MyApplication.ON_GROUP_EVENT:
                         activity.mChatDetailController.refresh(msg.getData()
-                                .getLong(JChatDemoApplication.GROUP_ID, 0));
+                                .getLong(MyApplication.GROUP_ID, 0));
                         break;
                 }
             }
