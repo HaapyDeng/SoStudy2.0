@@ -16,18 +16,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.Conversation;
+import cn.jpush.im.android.api.model.GroupInfo;
+import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 
 public class SetActivity extends Activity implements View.OnClickListener {
     private ImageButton back_Button;
     private TextView tv_clear1, tv_cahe, tv_loginOut;
-    private String cahe;
-    private Dialog mDialog, mDialog2;
+    private Dialog mDialog;
     private LinearLayout tv_clear2;
     private Button cancel, commit;
+    public static final String TARGET_ID = "targetId";
+    public static final String GROUP_ID = "groupId";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,6 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.tv_clear1:
-//                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 View.OnClickListener listener = new View.OnClickListener() {
 
                     @Override
@@ -65,11 +73,24 @@ public class SetActivity extends Activity implements View.OnClickListener {
                                 mDialog.cancel();
                                 break;
                             case R.id.jmui_commit_btn:
-                                Conversation conv = null;
-//                                conv.getAllMessage();
-//                                Log.d("conv===>>>>>>", "" + conv);
-                                if (conv != null) {
-                                    conv.deleteAllMessage();
+                                String tageId;
+                                long groupId;
+                                List<Conversation> conversation = getConversation();
+                                System.out.println(conversation);
+                                for (int i = 0; i < conversation.size(); i++) {
+                                    if (conversation.get(i).getType().toString().equals("single")) {
+                                        System.out.println("==>>>11111????" + conversation.get(i).getType().equals("single"));
+                                        UserInfo userInfo = (UserInfo) conversation.get(i).getTargetInfo();
+                                        tageId = userInfo.getUserName();
+                                        JMessageClient.deleteSingleConversation(tageId);
+                                        System.out.println("==11>>>" + tageId);
+                                    } else {
+                                        System.out.println("==>>>22222????" + conversation.get(i).getType().equals("single"));
+                                        GroupInfo groupInfo = (GroupInfo) conversation.get(i).getTargetInfo();
+                                        groupId = groupInfo.getGroupID();
+                                        JMessageClient.deleteGroupConversation(groupId);
+                                        System.out.println("==22>>>" + groupId);
+                                    }
                                 }
                                 mDialog.cancel();
                                 break;
@@ -83,28 +104,10 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 mDialog = DialogCreator.createDeleteMessageDialog(SetActivity.this, listener);
                 mDialog.getWindow().setLayout((int) (0.8 * 720), WindowManager.LayoutParams.WRAP_CONTENT);
                 mDialog.show();
-//                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int i) {
-//                        Conversation conv = null;
-//                        conv.getAllMessage();
-//                        if (conv != null) {
-//                            conv.deleteAllMessage();
-//                        }
-//                        dialog.dismiss();
-//                    }
-//                });
-//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int i) {
-//                        dialog.dismiss();
-//                    }
-//                });
                 break;
             case R.id.tv_clear2:
                 final Dialog dialog = new Dialog(SetActivity.this, R.style.jmui_default_dialog_style);
                 View v = LayoutInflater.from(SetActivity.this).inflate(R.layout.dialog_clear_cache, null);
-//                dialog.setContentView(R.layout.dialog_clear_cache);
                 dialog.setContentView(v);
                 dialog.getWindow().setLayout((int) (0.8 * 720), WindowManager.LayoutParams.WRAP_CONTENT);
                 dialog.show();
@@ -123,43 +126,6 @@ public class SetActivity extends Activity implements View.OnClickListener {
                         dialog.cancel();
                     }
                 });
-//                commit.setOnClickListener(listener2);
-//                View.OnClickListener listener2 = new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        switch (view.getId()) {
-//                            case R.id.cache_cancel_btn:
-//                                dialog.cancel();
-//                                break;
-//                            case R.id.cache_commit_btn:
-//                                tv_cahe.setText("0M");
-//                                dialog.cancel();
-//                        }
-//                    }
-//                };
-
-
-//                View.OnClickListener listener2 = new View.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(View view) {
-//                        switch (view.getId()) {
-//                            case R.id.jmui_cancel_btn:
-//                                mDialog2.cancel();
-//                                break;
-//                            case R.id.jmui_commit_btn:
-//                                mDialog2.cancel();
-//                                break;
-//                        }
-//                    }
-//                };
-//                int mWidth2;
-//                DisplayMetrics dm2 = new DisplayMetrics();
-//                mWidth2 = dm2.widthPixels;
-//                Log.d("mWidth==???>>>>>>", "" + mWidth2);
-//                mDialog2 = DialogCreator.createDeleteMessageDialog(SetActivity.this, listener2);
-//                mDialog2.getWindow().setLayout((int) (0.8 * 720), WindowManager.LayoutParams.WRAP_CONTENT);
-//                mDialog2.show();
                 break;
             case R.id.tv_loginOut:
                 SharedPreferences mySharedPreferences = getSharedPreferences("user",
@@ -176,4 +142,12 @@ public class SetActivity extends Activity implements View.OnClickListener {
         }
 
     }
+
+    private List<Conversation> getConversation() {
+        List<Conversation> conversation;
+        conversation = JMessageClient.getConversationList();
+        Log.d("conversation==???.>>>", "" + conversation);
+        return conversation;
+    }
+
 }
