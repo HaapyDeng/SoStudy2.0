@@ -11,14 +11,18 @@
         android:background="@drawable/ydy3"
         android:focusable="true"
         android:scaleType="centerCrop" />
-    <ImageView
+    <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:background="@drawable/buttonopen"
+        android:background="@drawable/in"
         android:focusable="true"
-        android:layout_marginBottom="80dp"
-        android:layout_centerHorizontal="true"
+        android:text="点击进入"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginBottom="193dp"
+        android:id="@+id/iv_start_weibo"
         android:layout_alignParentBottom="true"
-        android:id="@+id/iv_start_weibo"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

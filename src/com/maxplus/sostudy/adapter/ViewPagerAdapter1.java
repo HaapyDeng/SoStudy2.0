@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.maxplus.sostudy.R;
@@ -64,7 +65,7 @@ public class ViewPagerAdapter1 extends PagerAdapter {
 	public Object instantiateItem(View arg0, int arg1) {
 		((ViewPager) arg0).addView(views.get(arg1), 0);
 		if (arg1 == views.size() - 1) {
-			ImageView mStartWeiboImageButton = (ImageView) arg0
+			TextView mStartWeiboImageButton = (TextView) arg0
 					.findViewById(R.id.iv_start_weibo);
 			mStartWeiboImageButton.setOnClickListener(new OnClickListener() {
 
