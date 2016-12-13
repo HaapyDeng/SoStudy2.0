@@ -17,7 +17,7 @@ public class ChooseClassActivity extends Activity implements View.OnClickListene
     private ImageButton back;
     private Button confirm;
     private ImageView add, delete;
-    private EditText et_class;
+    private TextView et_class;
     private TextView tv_schoose_class;
     int sclass = 1;
 
@@ -37,7 +37,7 @@ public class ChooseClassActivity extends Activity implements View.OnClickListene
         add.setOnClickListener(this);
         delete = (ImageView) findViewById(R.id.delete);
         delete.setOnClickListener(this);
-        et_class = (EditText) findViewById(R.id.et_class);
+        et_class = (TextView) findViewById(R.id.et_class);
         sclass = Integer.parseInt(et_class.getText().toString());
     }
 
@@ -48,7 +48,7 @@ public class ChooseClassActivity extends Activity implements View.OnClickListene
                 finish();
                 break;
             case R.id.delete:
-                et_class = (EditText) findViewById(R.id.et_class);
+                et_class = (TextView) findViewById(R.id.et_class);
                 sclass = Integer.parseInt(et_class.getText().toString());
                 if (sclass - 1 > 0) {
                     sclass = sclass - 1;
@@ -59,7 +59,7 @@ public class ChooseClassActivity extends Activity implements View.OnClickListene
                 }
                 break;
             case R.id.add:
-                et_class = (EditText) findViewById(R.id.et_class);
+                et_class = (TextView) findViewById(R.id.et_class);
                 sclass = Integer.parseInt(et_class.getText().toString());
                 if (sclass + 1 > 99) {
                     Toast.makeText(this, "班级必须小于100", Toast.LENGTH_SHORT).show();

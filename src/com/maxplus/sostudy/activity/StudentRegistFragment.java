@@ -414,8 +414,10 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         } else if (requestCode == 5) {
             if (requestCode == 5) {
                 Bundle bundle = data.getExtras();
-                grade = bundle.getString("sgrade");
-                choose_grade.setText(grade);
+                if (bundle.getString("sgrade") != null) {
+                    grade = bundle.getString("sgrade");
+                    choose_grade.setText(grade);
+                }
             }
         }
 

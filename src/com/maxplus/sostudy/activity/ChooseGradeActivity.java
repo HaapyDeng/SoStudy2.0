@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +18,7 @@ public class ChooseGradeActivity extends Activity {
     private static final String[] PLANETS = new String[]{"一年级", "二年级", "三年级", "四年级", "五年级", "六年级",
             "七年级", "八年级", "九年级", "十年级", "十一年级", "十二年级"};
     private TextView ok;
-    private String grade;
+    private String grade = PLANETS[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +50,31 @@ public class ChooseGradeActivity extends Activity {
 
     }
 
-    //实现onTouchEvent触屏函数但点击屏幕时销毁本Activity
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        finish();
-//        return true;
-//    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString("sgrade", "" + grade);//添加要返回给页面1的数据
+            intent.putExtras(bundle);
+            setResult(5, intent);//返回页面1
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    //        实现onTouchEvent触屏函数但点击屏幕时销毁本Activity
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString("sgrade", "" + grade);//添加要返回给页面1的数据
+        intent.putExtras(bundle);
+        setResult(5, intent);//返回页面1
+        finish();
+        return true;
+    }
 
 }
