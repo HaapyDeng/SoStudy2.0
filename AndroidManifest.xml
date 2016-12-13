@@ -233,7 +233,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom" />
         <activity
-            android:name=".activity.ChooseCityActivity"
+            android:name=".activity.ChooseProvinceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom"></activity>
     </application>

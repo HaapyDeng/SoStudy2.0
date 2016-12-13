@@ -5,17 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.maxplus.sostudy.R;
 
 public class ChooseSchoolActivity extends Activity implements View.OnClickListener {
-    private String city, area, type, school;
-    private int cityid;
+    private String province, area, type, school;
+    private int provinceid;
     private TextView tv_city, tv_area, tv_type, tv_school;
 
     @Override
@@ -42,7 +38,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.tv_choose_city:
                 Intent intent = new Intent();
-                intent.setClass(ChooseSchoolActivity.this, ChooseCityActivity.class);
+                intent.setClass(ChooseSchoolActivity.this, ChooseProvinceActivity.class);
                 startActivityForResult(intent, 3);
                 break;
             case R.id.tv_choose_dq:
@@ -62,10 +58,10 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
         if (requestCode == 3) {
             if (resultCode == 3) {
                 Bundle bundle = data.getExtras();
-                city = bundle.getString("city");
-                cityid = bundle.getInt("cityid");
-                Log.d("city==>>>>", city + "" + cityid);
-                tv_city.setText(city);
+                province = bundle.getString("province");
+                provinceid = bundle.getInt("provinceid");
+                Log.d("province==>>>>", province + "" + provinceid);
+                tv_city.setText(province);
             }
         }
     }

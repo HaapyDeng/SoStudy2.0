@@ -1,9 +1,7 @@
 package com.maxplus.sostudy.activity;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,12 +22,12 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-public class ChooseCityActivity extends Activity {
-    private String[] cityList = new String[]{};
+public class ChooseProvinceActivity extends Activity {
+    private String[] provinceList = new String[]{};
     private TextView ok;
-    private int[] cityidList = new int[]{};
-    private String city = "";
-    private int cityid = 0;
+    private int[] provinceidList = new int[]{};
+    private String province = "";
+    private int provinceid = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +45,17 @@ public class ChooseCityActivity extends Activity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    cityList = new String[response.length()];
-                    cityidList = new int[response.length()];
+                    provinceList = new String[response.length()];
+                    provinceidList = new int[response.length()];
                     JSONArray arr = response;
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject temp = (JSONObject) arr.get(i);
-                        cityList[i] = temp.getString("province");
-                        cityidList[i] = temp.getInt("provinceid");
+                        provinceList[i] = temp.getString("province");
+                        provinceidList[i] = temp.getInt("provinceid");
                         Log.d("PLANETS==>>>", temp.getString("province"));
                     }
-                    Log.d("citylist==>>", cityList.toString());
-                    initToWheel(cityList, cityidList);
+                    Log.d("provinceList==>>", provinceList.toString());
+                    initToWheel(provinceList, provinceidList);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -80,8 +78,8 @@ public class ChooseCityActivity extends Activity {
             @Override
             public void onSelected(int selectedIndex, String item) {
                 Log.d("item==>>>", "selectedIndex: " + cityidList[selectedIndex-1] + ", item: " + item);
-                city = item;
-                cityid = cityidList[selectedIndex-1];
+                province = item;
+                provinceid = cityidList[selectedIndex-1];
             }
         });
         ok = (TextView) findViewById(R.id.tv_ok);
@@ -89,14 +87,14 @@ public class ChooseCityActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                if (cityid==0){
-                    city = "北京";
-                    cityid =110000;
+                if (provinceid ==0){
+                    province = "北京";
+                    provinceid =110000;
                 }
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putString("city", "" + city);//添加要返回给页面1的数据
-                bundle.putInt("cityid", cityid);
+                bundle.putString("province", "" + province);//添加要返回给页面1的数据
+                bundle.putInt("provinceid", provinceid);
                 intent.putExtras(bundle);
                 setResult(3, intent);//返回页面1
                 finish();
@@ -110,7 +108,7 @@ public class ChooseCityActivity extends Activity {
                 && event.getRepeatCount() == 0) {
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
-            bundle.putString("city", "" + city);//添加要返回给页面1的数据
+            bundle.putString("province", "" + province);//添加要返回给页面1的数据
             intent.putExtras(bundle);
             setResult(3, intent);//返回页面1
             finish();
@@ -124,7 +122,7 @@ public class ChooseCityActivity extends Activity {
     public boolean onTouchEvent(MotionEvent event) {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
-        bundle.putString("city", "" + city);//添加要返回给页面1的数据
+        bundle.putString("province", "" + province);//添加要返回给页面1的数据
         intent.putExtras(bundle);
         setResult(3, intent);//返回页面1
         finish();
