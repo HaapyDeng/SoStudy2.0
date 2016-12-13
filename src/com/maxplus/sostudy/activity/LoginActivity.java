@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +44,7 @@ import cn.jpush.im.api.BasicCallback;
 public class LoginActivity extends Activity implements OnClickListener {
     public String userName, password, token;
     private ClearEditText edt_userName, edt_password;
-    private TextView tv_forg_password, tv_regist;
+    private TextView tv_forg_password, tv_regist, tv_error;
     private Button btn_login;
     private Dialog mLoadingDialog;
 
@@ -56,6 +58,7 @@ public class LoginActivity extends Activity implements OnClickListener {
         password = sp.getString("password", "");
         if ((userName.length() != 0) && (password.length() != 0)) {
             getShared(userName, password);
+            btn_login.setBackgroundResource(R.drawable.btn_y_shape);
         }
         initView();
     }
@@ -122,6 +125,7 @@ public class LoginActivity extends Activity implements OnClickListener {
             Toast.makeText(LoginActivity.this, R.string.password_not_null, Toast.LENGTH_SHORT).show();
             return;
         }
+        btn_login.setBackgroundResource(R.drawable.btn_y_shape);
         if (!NetworkUtils.checkNetWork(LoginActivity.this)) {
             Toast.makeText(LoginActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
             return;
@@ -151,10 +155,13 @@ public class LoginActivity extends Activity implements OnClickListener {
                     } else if (json.getInt("status") == 0) {
                         Log.d("errorInfo==>>>>>", json.getString("errorInfo"));
                         mLoadingDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, json.getString("errorInfo"), Toast.LENGTH_LONG).show();
+                        tv_error = (TextView) findViewById(R.id.tv_error);
+                        tv_error.setText(json.getString("errorInfo"));
+//                        Toast.makeText(LoginActivity.this, json.getString("errorInfo"), Toast.LENGTH_LONG).show();
                     } else {
                         mLoadingDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, R.string.login_failed_toast, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(LoginActivity.this, R.string.login_failed_toast, Toast.LENGTH_LONG).show();
+                        tv_error.setText(R.string.login_failed_toast);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -211,7 +218,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 
     public void initView() {
         edt_userName = (ClearEditText) findViewById(R.id.edt_username);
+        edt_userName.addTextChangedListener(new textListener());
         edt_password = (ClearEditText) findViewById(R.id.edt_password);
+        edt_password.addTextChangedListener(new textListener());
         tv_forg_password = (TextView) findViewById(R.id.forg_password);
         tv_forg_password.setOnClickListener(this);
         tv_regist = (TextView) findViewById(R.id.tv_regist);
@@ -219,6 +228,7 @@ public class LoginActivity extends Activity implements OnClickListener {
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_login.setOnClickListener(this);
     }
+
 
     @Override
     protected void onPause() {
@@ -242,4 +252,24 @@ public class LoginActivity extends Activity implements OnClickListener {
     }
 
 
+    private class textListener implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if ((edt_userName.getText().toString().trim().length() != 0) && (edt_password.getText().toString().trim().length() != 0)) {
+                btn_login.setBackgroundResource(R.drawable.btn_y_shape);
+            } else {
+                btn_login.setBackgroundResource(R.drawable.btn_n_shape);
+            }
+        }
+    }
 }

@@ -323,7 +323,7 @@
     <string name="isNotNetWork">网络连接错误，请检查手机网络再试！</string>
     <string name="username">账号</string>
     <string name="password">密码</string>
-    <string name="fog_password">忘记密码？</string>
+    <string name="fog_password">忘记密码</string>
     <string name="login">登录</string>
     <string name="regist">注册</string>
     <string name="sclass">班级:</string>
