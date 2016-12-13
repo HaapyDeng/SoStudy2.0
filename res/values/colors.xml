@@ -99,4 +99,7 @@
     <color name="reg_parent">#f07841</color>
     <!--老师注册按钮-->
     <color name="reg_teacher">#41a1f0</color>
+    <!--注册-->
+    <color name="reg_color_blue">#0076ff</color>
+
 </resources>

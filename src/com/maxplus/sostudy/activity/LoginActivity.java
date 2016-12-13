@@ -58,6 +58,7 @@ public class LoginActivity extends Activity implements OnClickListener {
         password = sp.getString("password", "");
         if ((userName.length() != 0) && (password.length() != 0)) {
             getShared(userName, password);
+            btn_login = (Button) findViewById(R.id.btn_login);
             btn_login.setBackgroundResource(R.drawable.btn_y_shape);
         }
         initView();
