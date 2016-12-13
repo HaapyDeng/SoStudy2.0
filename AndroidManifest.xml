@@ -201,7 +201,6 @@
             android:name=".activity.SplashActivity"
             android:configChanges="keyboardHidden"
             android:label="@string/app_name"
-
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -228,7 +227,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SetActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ChooseGradeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom"></activity>
     </application>
 
 </manifest>

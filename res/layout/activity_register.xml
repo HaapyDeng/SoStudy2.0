@@ -28,7 +28,7 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/regist"
             android:textColor="@color/white"
-            android:textSize="25dp" />
+            android:textSize="18dp" />
     </RelativeLayout>
 
     <HorizontalScrollView

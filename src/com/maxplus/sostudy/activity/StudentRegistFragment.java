@@ -166,31 +166,31 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 break;
             //选择年级
             case R.id.tv_schoose_grade:
-                final RadioButtonAlertDialog dialog = new RadioButtonAlertDialog(getActivity());
-
-                dialog.setOnPositiveListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        final RadioButton radioButton;
-                        radioButton = (RadioButton) dialog.retunGrade();
-                        if (radioButton == null) {
-                            dialog.dismiss();
-                        } else {
-                            grade = radioButton.getText().toString();
-                            choose_grade.setText(grade);
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                dialog.setOnNegativeListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-
+//                final RadioButtonAlertDialog dialog = new RadioButtonAlertDialog(getActivity());
+//                dialog.setOnPositiveListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        final RadioButton radioButton;
+//                        radioButton = (RadioButton) dialog.retunGrade();
+//                        if (radioButton == null) {
+//                            dialog.dismiss();
+//                        } else {
+//                            grade = radioButton.getText().toString();
+//                            choose_grade.setText(grade);
+//                            dialog.dismiss();
+//                        }
+//                    }
+//                });
+//                dialog.setOnNegativeListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                dialog.show();
+                Intent gintent = new Intent();
+                gintent.setClass(getActivity(), ChooseGradeActivity.class);
+                startActivityForResult(gintent, 5);
                 break;
             //选择班级
             case R.id.tv_schoose_class:
@@ -203,7 +203,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 et_email = (EditText) mRootView.findViewById(R.id.et_sinput_email);
                 email = et_email.getText().toString().trim();
                 if (email.equals("")) {
-                    Toast.makeText(getActivity(), R.string.input_email, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.email_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (NetworkUtils.isEmail(email) == true) {
@@ -266,31 +266,31 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 et_password = (EditText) mRootView.findViewById(R.id.et_sinput_new_password);
                 password = et_password.getText().toString().trim();
                 if (school == null || school == "") {
-                    Toast.makeText(getActivity(), R.string.choose_school, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.school_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (grade == null || grade == "") {
-                    Toast.makeText(getActivity(), R.string.choose_grade, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.grade_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (sclass == null || sclass == "") {
-                    Toast.makeText(getActivity(), R.string.choose_class, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.class_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (userName.length() == 0) {
-                    Toast.makeText(getActivity(), R.string.input_user_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.username_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (realName.length() == 0) {
-                    Toast.makeText(getActivity(), R.string.input_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.name_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (email.length() == 0) {
-                    Toast.makeText(getActivity(), R.string.input_email, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.email_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (emailCode.length() == 0) {
-                    Toast.makeText(getActivity(), R.string.input_email_verify_code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.input_verifyCode, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (emailCode.equals(getRaelCode) == false) {
@@ -411,7 +411,14 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 Log.d("schoolName==>>>>", schoolName);
                 choose_school.setText(bundle.getString("school"));
             }
+        } else if (requestCode == 5) {
+            if (requestCode == 5) {
+                Bundle bundle = data.getExtras();
+                grade = bundle.getString("sgrade");
+                choose_grade.setText(grade);
+            }
         }
+
     }
 }
 
