@@ -231,6 +231,10 @@
         <activity
             android:name=".activity.ChooseGradeActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name=".activity.ChooseCityActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom"></activity>
     </application>
 

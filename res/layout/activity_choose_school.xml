@@ -27,7 +27,7 @@
             android:layout_gravity="center_horizontal"
             android:text="学校选择"
             android:textColor="@color/white"
-            android:textSize="25dp" />
+            android:textSize="18dp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -35,22 +35,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_choose_city"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
             android:background="@color/white"
-            android:drawableRight="@drawable/next"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
             android:singleLine="true"
             android:text="@string/choose_ssq"
             android:textColor="#646464"
-            android:textSize="15dp" />
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_choose_city"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:drawableRight="@drawable/next"
+            android:gravity="center_vertical"
+            android:paddingRight="20dp"
+            android:textColor="#646464"
+            android:textSize="16dp" />
     </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv11"
@@ -61,18 +70,54 @@
         android:textColorHint="#d4d4d4" />
 
     <LinearLayout
-        android:id="@+id/ll11"
+        android:id="@+id/ll_d"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv11"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/choose_school_type"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
             android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:singleLine="true"
+            android:text="@string/choose_dq"
+            android:textColor="#646464"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tv_choose_dq"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
             android:drawableRight="@drawable/next"
+            android:gravity="center_vertical"
+            android:paddingRight="20dp"
+            android:textColor="#646464"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv110"
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"
+        android:layout_below="@+id/ll_d"
+        android:background="@color/grey"
+        android:textColorHint="#d4d4d4" />
+
+    <LinearLayout
+        android:id="@+id/ll11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv110"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:background="@color/white"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
@@ -80,6 +125,16 @@
             android:text="@string/choose_school_type"
             android:textColor="#646464"
             android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/choose_school_type"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:drawableRight="@drawable/next"
+            android:gravity="center_vertical"
+            android:paddingRight="20dp"
+            android:textColor="#646464"
+            android:textSize="16dp" />
     </LinearLayout>
 
     <ImageView
@@ -96,14 +151,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv1"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/choose_school"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
             android:background="@color/white"
-            android:drawableRight="@drawable/next"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
@@ -111,6 +164,16 @@
             android:text="@string/choose_school"
             android:textColor="#646464"
             android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/choose_school"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:drawableRight="@drawable/next"
+            android:gravity="center_vertical"
+            android:paddingRight="20dp"
+            android:textColor="#646464"
+            android:textSize="16dp" />
     </LinearLayout>
 
     <ImageView
@@ -143,18 +206,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_below="@+id/choose_school_confirm" />
-
-    <com.maxplus.sostudy.tools.CityPicker
-        android:id="@+id/citypicker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv5"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:visibility="invisible"></com.maxplus.sostudy.tools.CityPicker>
-
-
-    <include layout="@layout/picker_layout" />
 
 
 </RelativeLayout>

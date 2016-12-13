@@ -147,4 +147,9 @@ public class NetworkUtils {
     public static String returnUploadActorApi() {
         return "/api/my/uploadimage";
     }
+
+    //获取省份列表
+    public static String returnGetProvinceApi() {
+        return "/common/getprovince";
+    }
 }
