@@ -109,6 +109,7 @@ public class ChooseProvinceActivity extends Activity {
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString("province", "" + province);//添加要返回给页面1的数据
+            bundle.putInt("provinceid", provinceid);
             intent.putExtras(bundle);
             setResult(3, intent);//返回页面1
             finish();
@@ -123,6 +124,7 @@ public class ChooseProvinceActivity extends Activity {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putString("province", "" + province);//添加要返回给页面1的数据
+        bundle.putInt("provinceid", provinceid);
         intent.putExtras(bundle);
         setResult(3, intent);//返回页面1
         finish();
