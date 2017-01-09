@@ -1,6 +1,7 @@
 package com.maxplus.sostudy.tools;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -69,6 +70,7 @@ public class NetworkUtils {
         }
         return true;
     }
+
 
     //判断手机格式是否正确
     public static boolean isMobileNO(String mobiles) {
@@ -151,5 +153,10 @@ public class NetworkUtils {
     //获取省份列表
     public static String returnGetProvinceApi() {
         return "/common/getprovince";
+    }
+
+    //获取省市下面城市列表
+    public static String returnGetCityApi() {
+        return "/common/getcity";
     }
 }

@@ -235,6 +235,10 @@
         <activity
             android:name=".activity.ChooseProvinceActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name=".activity.ChooseSchoolCityActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom"></activity>
     </application>
 

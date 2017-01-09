@@ -348,7 +348,7 @@
     <string name="choose_subject">请选择您的学科</string>
     <string name="choose_child_grade">请选择您孩子的年级</string>
     <string name="choose_ssq">城市</string>
-    <string name="choose_dq">地区</string>
+    <string name="choose_dq">区县</string>
     <string name="choose_class">班级</string>
     <string name="class_not_null">班级不能为空</string>
     <string name="choose_child_class">请选择您孩子的班级</string>
@@ -379,6 +379,7 @@
     <string name="school">学校</string>
     <string name="grade">年级</string>
     <string name="city">城市</string>
+    <string name="p_city">省市</string>
     <string name="classe">班级</string>
     <string name="user">用户名</string>
     <string name="realname">姓名</string>
