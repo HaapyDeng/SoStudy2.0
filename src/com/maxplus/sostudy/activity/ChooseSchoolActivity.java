@@ -11,7 +11,7 @@ import com.maxplus.sostudy.R;
 
 public class ChooseSchoolActivity extends Activity implements View.OnClickListener {
     private String province, city, quxian, type, school;
-    private int provinceid;
+    private int provinceid,cityid;
     private TextView tv_provnice, tv_city, tv_quxian, tv_type, tv_school;
 
     @Override
@@ -50,7 +50,14 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 intent1.putExtras(bundle);
                 intent1.setClass(ChooseSchoolActivity.this, ChooseSchoolCityActivity.class);
                 startActivityForResult(intent1, 4);
+                break;
             case R.id.tv_choose_qx:
+                Intent intent2 = new Intent();
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("cityid",cityid);
+                intent2.putExtras(bundle2);
+                intent2.setClass(ChooseSchoolActivity.this,ChooseSchoolQuXianActivity.class);
+                startActivityForResult(intent2,5);
                 break;
             case R.id.choose_school_type:
                 break;
@@ -71,6 +78,23 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 provinceid = bundle.getInt("provinceid");
                 Log.d("province==>>>>", province + "" + provinceid);
                 tv_provnice.setText(province);
+            }
+        }
+        if (requestCode==4){
+            if (resultCode==4){
+                Bundle bundle1 = data.getExtras();
+                city = bundle1.getString("city");
+                cityid = bundle1.getInt("cityid");
+                Log.d("city==>>>>>",city+""+cityid);
+                tv_city.setText(city);
+            }
+        }
+        if (requestCode==5){
+            if (resultCode==5){
+                Bundle bundle2 = data.getExtras();
+                quxian = bundle2.getString("quxian");
+                Log.d("quxian===>>>",quxian+"+"+bundle2.getInt("quxianId"));
+                tv_quxian.setText(quxian);
             }
         }
     }
