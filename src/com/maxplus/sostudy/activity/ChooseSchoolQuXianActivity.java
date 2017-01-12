@@ -28,7 +28,7 @@ public class ChooseSchoolQuXianActivity extends Activity {
     private int cityid;
     private String[] quxianList = new String[]{};
     private int[] quxianIdList = new int[]{};
-    private String quxian;
+    private String quxian = "";
     private int quxianId;
     private TextView ok;
 
@@ -44,9 +44,9 @@ public class ChooseSchoolQuXianActivity extends Activity {
         Bundle bundle = intent.getExtras();
         cityid = bundle.getInt("cityid");
         String url = NetworkUtils.returnUrl() + NetworkUtils.returnGetDistrict();
-        Log.d("url==>>>>",url);
+        Log.d("url==>>>>", url);
         RequestParams param = new RequestParams();
-        param.put("cityid",cityid);
+        param.put("cityid", cityid);
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, param, new JsonHttpResponseHandler() {
             @Override
@@ -55,7 +55,7 @@ public class ChooseSchoolQuXianActivity extends Activity {
                 quxianList = new String[response.length()];
                 quxianIdList = new int[response.length()];
                 JSONArray arr = response;
-                for (int i=0;i<response.length();i++){
+                for (int i = 0; i < response.length(); i++) {
                     JSONObject temp = null;
                     try {
                         temp = (JSONObject) arr.get(i);
@@ -66,7 +66,7 @@ public class ChooseSchoolQuXianActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
-                initToWheel(quxianList,quxianIdList);
+                initToWheel(quxianList, quxianIdList);
             }
 
             @Override
@@ -76,7 +76,7 @@ public class ChooseSchoolQuXianActivity extends Activity {
         });
     }
 
-    private void initToWheel(String[] quxianList, final int[] quxianIdList) {
+    private void initToWheel(final String[] quxianList, final int[] quxianIdList) {
         WheelView wva = (WheelView) findViewById(R.id.main_wv);
         wva.setOffset(1);
         wva.setItems(Arrays.asList(quxianList));
@@ -93,6 +93,11 @@ public class ChooseSchoolQuXianActivity extends Activity {
 
             @Override
             public void onClick(View view) {
+                if (quxian.length() == 0 || quxianId == 0) {
+                    quxian = quxianList[0].toString();
+                    quxianId = quxianIdList[0];
+
+                }
 
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();

@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maxplus.sostudy.R;
 
 public class ChooseSchoolActivity extends Activity implements View.OnClickListener {
-    private String province, city, quxian, type, school;
-    private int provinceid,cityid;
+    private String province = "", city = "", quxian = "", type = "", school = "";
+    private int provinceid, cityid, qixianid;
     private TextView tv_provnice, tv_city, tv_quxian, tv_type, tv_school;
 
     @Override
@@ -39,11 +40,24 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_choose_pcity:
+                if (city.length() != 0 || quxian.length() != 0 || school.length() != 0) {
+                    tv_city.setText("");
+                    tv_quxian.setText("");
+                    tv_school.setText("");
+                }
                 Intent intent = new Intent();
                 intent.setClass(ChooseSchoolActivity.this, ChooseProvinceActivity.class);
                 startActivityForResult(intent, 3);
                 break;
             case R.id.tv_choose_city:
+                if (province.length() == 0) {
+                    Toast.makeText(this, "请先选择省市", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (quxian.length() != 0 || school.length() != 0) {
+                    tv_quxian.setText("");
+                    tv_school.setText("");
+                }
                 Intent intent1 = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putInt("provinceid", provinceid);
@@ -52,12 +66,23 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 startActivityForResult(intent1, 4);
                 break;
             case R.id.tv_choose_qx:
+                if (province.length() == 0) {
+                    Toast.makeText(this, "请先选择省市", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (city.length() == 0) {
+                    Toast.makeText(this, "请先选择城市", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (school.length() != 0) {
+                    tv_school.setText("");
+                }
                 Intent intent2 = new Intent();
                 Bundle bundle2 = new Bundle();
-                bundle2.putInt("cityid",cityid);
+                bundle2.putInt("cityid", cityid);
                 intent2.putExtras(bundle2);
-                intent2.setClass(ChooseSchoolActivity.this,ChooseSchoolQuXianActivity.class);
-                startActivityForResult(intent2,5);
+                intent2.setClass(ChooseSchoolActivity.this, ChooseSchoolQuXianActivity.class);
+                startActivityForResult(intent2, 5);
                 break;
             case R.id.choose_school_type:
                 break;
@@ -80,20 +105,21 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 tv_provnice.setText(province);
             }
         }
-        if (requestCode==4){
-            if (resultCode==4){
+        if (requestCode == 4) {
+            if (resultCode == 4) {
                 Bundle bundle1 = data.getExtras();
                 city = bundle1.getString("city");
                 cityid = bundle1.getInt("cityid");
-                Log.d("city==>>>>>",city+""+cityid);
+                Log.d("city==>>>>>", city + "" + cityid);
                 tv_city.setText(city);
             }
         }
-        if (requestCode==5){
-            if (resultCode==5){
+        if (requestCode == 5) {
+            if (resultCode == 5) {
                 Bundle bundle2 = data.getExtras();
                 quxian = bundle2.getString("quxian");
-                Log.d("quxian===>>>",quxian+"+"+bundle2.getInt("quxianId"));
+                Log.d("quxian===>>>", quxian + "+" + bundle2.getInt("quxianid"));
+                qixianid = bundle2.getInt("quxianid");
                 tv_quxian.setText(quxian);
             }
         }

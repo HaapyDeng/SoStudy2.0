@@ -240,7 +240,10 @@
             android:name=".activity.ChooseSchoolCityActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom" />
-        <activity android:name=".activity.ChooseSchoolQuXianActivity"></activity>
+        <activity
+            android:name=".activity.ChooseSchoolQuXianActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom"></activity>
     </application>
 
 </manifest>

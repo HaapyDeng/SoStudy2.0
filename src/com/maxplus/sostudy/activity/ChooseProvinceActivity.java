@@ -70,7 +70,7 @@ public class ChooseProvinceActivity extends Activity {
         });
     }
 
-    private void initToWheel(String[] cityList, final int[] cityidList) {
+    private void initToWheel(final String[] cityList, final int[] cityidList) {
         WheelView wva = (WheelView) findViewById(R.id.main_wv);
         wva.setOffset(1);
         wva.setItems(Arrays.asList(cityList));
@@ -87,9 +87,9 @@ public class ChooseProvinceActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                if (provinceid ==0){
-                    province = "北京";
-                    provinceid =110000;
+                if (provinceid ==0||province.length()==0){
+                    province = cityList[0].toString();
+                    provinceid =cityidList[0];
                 }
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();

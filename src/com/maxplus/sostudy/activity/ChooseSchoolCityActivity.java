@@ -78,8 +78,8 @@ public class ChooseSchoolCityActivity extends Activity {
 
     }
 
-    private void initToWheel(String[] cityList, final int[] cityIdList) {
-        WheelView wva = (WheelView) findViewById(R.id.main_wv);
+    private void initToWheel(final String[] cityList, final int[] cityIdList) {
+        final WheelView wva = (WheelView) findViewById(R.id.main_wv);
         wva.setOffset(1);
         wva.setItems(Arrays.asList(cityList));
         wva.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
@@ -95,7 +95,10 @@ public class ChooseSchoolCityActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-
+                if (city.length() == 0 || cityid == 0) {
+                    city = cityList[0].toString();
+                    cityid = cityIdList[0];
+                }
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putString("city", "" + city);//添加要返回给页面1的数据
