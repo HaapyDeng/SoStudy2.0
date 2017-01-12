@@ -114,6 +114,10 @@ public class ChooseSchoolCityActivity extends Activity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getRepeatCount() == 0) {
+            if (city.length() == 0 || cityid == 0) {
+                city = cityList[0].toString();
+                cityid = cityIdList[0];
+            }
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString("city", "" + city);//添加要返回给页面1的数据
@@ -129,6 +133,10 @@ public class ChooseSchoolCityActivity extends Activity {
     //        实现onTouchEvent触屏函数但点击屏幕时销毁本Activity
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (city.length() == 0 || cityid == 0) {
+            city = cityList[0].toString();
+            cityid = cityIdList[0];
+        }
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putString("city", "" + city);//添加要返回给页面1的数据

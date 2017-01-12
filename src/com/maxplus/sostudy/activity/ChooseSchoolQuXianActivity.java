@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -108,5 +110,46 @@ public class ChooseSchoolQuXianActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            if (quxian.length() == 0 || quxianId == 0) {
+                quxian = quxianList[0].toString();
+                quxianId = quxianIdList[0];
+
+            }
+
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString("quxian", "" + quxian);//添加要返回给页面1的数据
+            bundle.putInt("quxianid", quxianId);
+            intent.putExtras(bundle);
+            setResult(5, intent);//返回页面1
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    //        实现onTouchEvent触屏函数但点击屏幕时销毁本Activity
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (quxian.length() == 0 || quxianId == 0) {
+            quxian = quxianList[0].toString();
+            quxianId = quxianIdList[0];
+
+        }
+
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString("quxian", "" + quxian);//添加要返回给页面1的数据
+        bundle.putInt("quxianid", quxianId);
+        intent.putExtras(bundle);
+        setResult(5, intent);//返回页面1
+        finish();
+        return true;
     }
 }

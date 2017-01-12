@@ -70,16 +70,16 @@ public class ChooseProvinceActivity extends Activity {
         });
     }
 
-    private void initToWheel(final String[] cityList, final int[] cityidList) {
+    private void initToWheel(final String[] provinceList, final int[] provinceidList) {
         WheelView wva = (WheelView) findViewById(R.id.main_wv);
         wva.setOffset(1);
-        wva.setItems(Arrays.asList(cityList));
+        wva.setItems(Arrays.asList(provinceList));
         wva.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
-                Log.d("item==>>>", "selectedIndex: " + cityidList[selectedIndex-1] + ", item: " + item);
+                Log.d("item==>>>", "selectedIndex: " + provinceidList[selectedIndex - 1] + ", item: " + item);
                 province = item;
-                provinceid = cityidList[selectedIndex-1];
+                provinceid = provinceidList[selectedIndex - 1];
             }
         });
         ok = (TextView) findViewById(R.id.tv_ok);
@@ -87,9 +87,9 @@ public class ChooseProvinceActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                if (provinceid ==0||province.length()==0){
-                    province = cityList[0].toString();
-                    provinceid =cityidList[0];
+                if (provinceid == 0 || province.length() == 0) {
+                    province = provinceList[0].toString();
+                    provinceid = provinceidList[0];
                 }
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
@@ -106,6 +106,10 @@ public class ChooseProvinceActivity extends Activity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getRepeatCount() == 0) {
+            if (provinceid == 0 || province.length() == 0) {
+                province = provinceList[0].toString();
+                provinceid = provinceidList[0];
+            }
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString("province", "" + province);//添加要返回给页面1的数据
@@ -121,6 +125,10 @@ public class ChooseProvinceActivity extends Activity {
     //        实现onTouchEvent触屏函数但点击屏幕时销毁本Activity
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (provinceid == 0 || province.length() == 0) {
+            province = provinceList[0].toString();
+            provinceid = provinceidList[0];
+        }
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putString("province", "" + province);//添加要返回给页面1的数据

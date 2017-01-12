@@ -14,6 +14,7 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
     private String province = "", city = "", quxian = "", type = "", school = "";
     private int provinceid, cityid, qixianid;
     private TextView tv_provnice, tv_city, tv_quxian, tv_type, tv_school;
+    private int typeid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,9 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                     tv_city.setText("");
                     tv_quxian.setText("");
                     tv_school.setText("");
+                    city = "";
+                    quxian = "";
+                    school = "";
                 }
                 Intent intent = new Intent();
                 intent.setClass(ChooseSchoolActivity.this, ChooseProvinceActivity.class);
@@ -55,7 +59,9 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                     return;
                 }
                 if (quxian.length() != 0 || school.length() != 0) {
+                    quxian = "";
                     tv_quxian.setText("");
+                    school = "";
                     tv_school.setText("");
                 }
                 Intent intent1 = new Intent();
@@ -85,6 +91,9 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 startActivityForResult(intent2, 5);
                 break;
             case R.id.choose_school_type:
+                Intent intent3 = new Intent();
+                intent3.setClass(ChooseSchoolActivity.this, ChooseSchoolTypeActivity.class);
+                startActivityForResult(intent3, 6);
                 break;
             case R.id.choose_school:
                 break;
@@ -121,6 +130,15 @@ public class ChooseSchoolActivity extends Activity implements View.OnClickListen
                 Log.d("quxian===>>>", quxian + "+" + bundle2.getInt("quxianid"));
                 qixianid = bundle2.getInt("quxianid");
                 tv_quxian.setText(quxian);
+            }
+        }
+        if (requestCode == 6) {
+            if (resultCode == 6) {
+                Bundle bundle2 = data.getExtras();
+                type = bundle2.getString("type");
+                Log.d("quxian===>>>", type + "+" + bundle2.getInt("typeid"));
+                typeid = bundle2.getInt("typeid");
+                tv_type.setText(type);
             }
         }
     }
