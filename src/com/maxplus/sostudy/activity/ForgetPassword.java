@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,6 +37,7 @@ public class ForgetPassword extends Activity implements OnClickListener {
     TextView tv_getCode;
     Button btn_commit;
     ImageButton back_btn;
+    CheckBox showPassword;
 
 
     @Override
@@ -51,6 +56,21 @@ public class ForgetPassword extends Activity implements OnClickListener {
         btn_commit.setOnClickListener(this);
         back_btn = (ImageButton) findViewById(R.id.back_Button);
         back_btn.setOnClickListener(this);
+        showPassword = (CheckBox) findViewById(R.id.sshow_password);
+        et_newPassword = (EditText) findViewById(R.id.et_newPassword);
+        //点击密码可见或隐藏设置
+        showPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (showPassword.isChecked()) {
+                    et_newPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    showPassword.setBackgroundResource(R.drawable.visible);
+                } else {
+                    et_newPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    showPassword.setBackgroundResource(R.drawable.unvisible);
+                }
+            }
+        });
     }
 
     @Override
