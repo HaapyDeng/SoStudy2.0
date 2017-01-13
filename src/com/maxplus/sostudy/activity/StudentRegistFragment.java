@@ -265,7 +265,10 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 emailCode = et_emailCode.getText().toString().trim();
                 et_password = (EditText) mRootView.findViewById(R.id.et_sinput_new_password);
                 password = et_password.getText().toString().trim();
-                if (school == null || school == "") {
+                if (NetworkUtils.checkNetWork(getActivity()) == false) {
+                    Toast.makeText(getActivity(), getActivity().getText(R.string.network_disconnected_hint), Toast.LENGTH_SHORT).show();
+                }
+                if (schoolName == null || schoolName == "") {
                     Toast.makeText(getActivity(), R.string.school_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -406,10 +409,10 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         } else if (requestCode == 2) {
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
-                school = bundle.getString("school");
+//                school = bundle.getString("school");
                 schoolName = bundle.getString("schoolname");
                 Log.d("schoolName==>>>>", schoolName);
-                choose_school.setText(bundle.getString("school"));
+                choose_school.setText(schoolName);
             }
         } else if (requestCode == 5) {
             if (requestCode == 5) {

@@ -159,8 +159,14 @@ public class NetworkUtils {
     public static String returnGetCityApi() {
         return "/common/getcity";
     }
+
     //获取区县列表
-    public static String returnGetDistrict(){
+    public static String returnGetDistrict() {
         return "/common/getdistrict";
+    }
+
+    //获取学校名称
+    public static String returnGetSchoolname() {
+        return "/common/getschool";
     }
 }
