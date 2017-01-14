@@ -493,11 +493,11 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                 ett_password = (EditText) mRootView.findViewById(R.id.ett_input_new_password);
                 password = ett_password.getText().toString().trim();
                 if (tschool == null || tschool == "") {
-                    Toast.makeText(getActivity(), R.string.choose_school, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.school_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (tgrade == null || tgrade == "") {
-                    Toast.makeText(getActivity(), R.string.choose_grade, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.grade_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (tsubject == null || tsubject == "") {
@@ -505,11 +505,11 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                     break;
                 }
                 if (userName.length() == 0) {
-                    Toast.makeText(getActivity(), R.string.input_user_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.username_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (realName.length() == 0) {
-                    Toast.makeText(getActivity(), R.string.input_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.name_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (phone.length() == 0) {
@@ -670,7 +670,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                 tschool = bundle.getString("school");
                 schoolName = bundle.getString("schoolname");
                 Log.d("schoolName==>>>>", schoolName);
-                tchoose_school.setText(bundle.getString("school"));
+                tchoose_school.setText(bundle.getString("schoolname"));
             }
         }
     }

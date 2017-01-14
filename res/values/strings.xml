@@ -331,10 +331,13 @@
     <string name="input_phone_email_number">请输入手机号/邮箱</string>
     <string name="input_right_phone_email_number">请输入正确格式的手机号或邮箱</string>
     <string name="input_phone_number">请输入手机号</string>
+    <string name="phone_number">手机号</string>
     <string name="input_verify_code">请输入验证码</string>
     <string name="input_phone_verify_code">请输入手机验证码</string>
+    <string name="verify_code">验证码</string>
     <string name="input_new_password">请输入新密码(至少8位)</string>
     <string name="commit_button">提交</string>
+    <string name="regist_ok">完成注册</string>
     <string name="get_verify_code">获取验证码</string>
     <string name="student">学生</string>
     <string name="teacher">老师</string>
@@ -346,6 +349,7 @@
     <string name="choose_grade">年级</string>
     <string name="grade_not_null">年级不能为空</string>
     <string name="choose_subject">请选择您的学科</string>
+    <string name="choose_sub">学科</string>
     <string name="choose_child_grade">请选择您孩子的年级</string>
     <string name="choose_ssq">城市</string>
     <string name="choose_dq">区县</string>
