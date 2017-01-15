@@ -251,7 +251,11 @@
         <activity
             android:name=".activity.ChooseSchoolNameActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyDialogStyleBottom"></activity>
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name=".activity.ChooseSubjectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
     </application>
 
 </manifest>

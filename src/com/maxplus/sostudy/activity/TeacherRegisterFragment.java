@@ -374,50 +374,53 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                 break;
             //选择学科
             case R.id.tvt_choose_subject:
-                LayoutInflater inflater2 = LayoutInflater.from(getActivity());
-                RelativeLayout layout2 = (RelativeLayout) inflater2.
-                        inflate(R.layout.dialog_teacherchoosesubject, null);
-                final Dialog dialog2 = new AlertDialog.Builder(getActivity()).create();
-                dialog2.show();
-                dialog2.getWindow().setContentView(layout2);
-                rb_1 = (RadioButton) layout2.findViewById(R.id.rb_1);
-                rb_1.setOnClickListener(new MyOnClieckListener());
-                rb_2 = (RadioButton) layout2.findViewById(R.id.rb_2);
-                rb_2.setOnClickListener(new MyOnClieckListener());
-                rb_3 = (RadioButton) layout2.findViewById(R.id.rb_3);
-                rb_3.setOnClickListener(new MyOnClieckListener());
-                rb_4 = (RadioButton) layout2.findViewById(R.id.rb_4);
-                rb_4.setOnClickListener(new MyOnClieckListener());
-                rb_5 = (RadioButton) layout2.findViewById(R.id.rb_5);
-                rb_5.setOnClickListener(new MyOnClieckListener());
-                rb_6 = (RadioButton) layout2.findViewById(R.id.rb_6);
-                rb_6.setOnClickListener(new MyOnClieckListener());
-                rb_7 = (RadioButton) layout2.findViewById(R.id.rb_7);
-                rb_7.setOnClickListener(new MyOnClieckListener());
-                rb_8 = (RadioButton) layout2.findViewById(R.id.rb_8);
-                rb_8.setOnClickListener(new MyOnClieckListener());
-                rb_9 = (RadioButton) layout2.findViewById(R.id.rb_9);
-                rb_9.setOnClickListener(new MyOnClieckListener());
-
-                TextView cancel_sub = (TextView) layout2.findViewById(R.id.sub_negativeButton);
-                cancel_sub.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog2.dismiss();
-                    }
-                });
-                TextView ok_sub = (TextView) layout2.findViewById(R.id.sub_positiveButton);
-                ok_sub.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (tsubject != "") {
-                            tchoose_subject.setText(tsubject);
-                            dialog2.dismiss();
-                        } else {
-                            dialog2.dismiss();
-                        }
-                    }
-                });
+//                LayoutInflater inflater2 = LayoutInflater.from(getActivity());
+//                RelativeLayout layout2 = (RelativeLayout) inflater2.
+//                        inflate(R.layout.dialog_teacherchoosesubject, null);
+//                final Dialog dialog2 = new AlertDialog.Builder(getActivity()).create();
+//                dialog2.show();
+//                dialog2.getWindow().setContentView(layout2);
+//                rb_1 = (RadioButton) layout2.findViewById(R.id.rb_1);
+//                rb_1.setOnClickListener(new MyOnClieckListener());
+//                rb_2 = (RadioButton) layout2.findViewById(R.id.rb_2);
+//                rb_2.setOnClickListener(new MyOnClieckListener());
+//                rb_3 = (RadioButton) layout2.findViewById(R.id.rb_3);
+//                rb_3.setOnClickListener(new MyOnClieckListener());
+//                rb_4 = (RadioButton) layout2.findViewById(R.id.rb_4);
+//                rb_4.setOnClickListener(new MyOnClieckListener());
+//                rb_5 = (RadioButton) layout2.findViewById(R.id.rb_5);
+//                rb_5.setOnClickListener(new MyOnClieckListener());
+//                rb_6 = (RadioButton) layout2.findViewById(R.id.rb_6);
+//                rb_6.setOnClickListener(new MyOnClieckListener());
+//                rb_7 = (RadioButton) layout2.findViewById(R.id.rb_7);
+//                rb_7.setOnClickListener(new MyOnClieckListener());
+//                rb_8 = (RadioButton) layout2.findViewById(R.id.rb_8);
+//                rb_8.setOnClickListener(new MyOnClieckListener());
+//                rb_9 = (RadioButton) layout2.findViewById(R.id.rb_9);
+//                rb_9.setOnClickListener(new MyOnClieckListener());
+//
+//                TextView cancel_sub = (TextView) layout2.findViewById(R.id.sub_negativeButton);
+//                cancel_sub.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        dialog2.dismiss();
+//                    }
+//                });
+//                TextView ok_sub = (TextView) layout2.findViewById(R.id.sub_positiveButton);
+//                ok_sub.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (tsubject != "") {
+//                            tchoose_subject.setText(tsubject);
+//                            dialog2.dismiss();
+//                        } else {
+//                            dialog2.dismiss();
+//                        }
+//                    }
+//                });
+                Intent tintent = new Intent();
+                tintent.setClass(getActivity(), ChooseSubjectActivity.class);
+                startActivityForResult(tintent, 5);
                 break;
 //            //输入用户名
 //            case R.id.ett_input_user:
@@ -671,6 +674,14 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                 schoolName = bundle.getString("schoolname");
                 Log.d("schoolName==>>>>", schoolName);
                 tchoose_school.setText(bundle.getString("schoolname"));
+            }
+        } else if (requestCode == 5) {
+            if (requestCode == 5) {
+                Bundle bundle = data.getExtras();
+                if (bundle.getString("ssubject") != null) {
+                    tsubject = bundle.getString("ssubject");
+                    tchoose_subject.setText(tsubject);
+                }
             }
         }
     }
