@@ -9,23 +9,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:text="@string/choose_school"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/im_pchoose_school"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-
-            android:background="@color/white"
+            android:layout_height="44dp"
             android:drawableRight="@drawable/next"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:text="@string/choose_child_school"
-            android:textColor="#646464"
-            android:textSize="15dp" />
+            android:textColor="#646464" />
 
 
     </LinearLayout>
@@ -38,23 +44,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:singleLine="true"
+            android:text="@string/choose_grade"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/tv_pchoose_grade"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
+            android:layout_height="44dp"
             android:drawableRight="@drawable/next"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:singleLine="true"
-            android:text="@string/choose_child_grade"
-            android:textColor="#646464"
-            android:textSize="15dp" />
+            android:textColor="#646464" />
 
 
     </LinearLayout>
@@ -67,24 +80,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
 
-        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:singleLine="true"
+            android:text="@string/choose_class"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/tv_pchoose_class"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
+            android:layout_height="44dp"
             android:drawableRight="@drawable/next"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:singleLine="true"
-            android:text="@string/choose_child_class"
-            android:textColor="#646464"
-            android:textSize="15dp" />
+            android:textColor="#646464" />
 
 
     </LinearLayout>
@@ -97,24 +116,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
 
-        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/input_user_name"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <EditText
             android:id="@+id/et_pinput_user"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="1"
+            android:layout_height="44dp"
             android:background="@color/white"
-            android:hint="@string/input_user_name"
             android:maxLength="30"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:singleLine="true"
             android:textColor="#646464"
-            android:textColorHint="#d4d4d4"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
 
 
     </LinearLayout>
@@ -127,33 +151,47 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="44dp"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:maxLength="30"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:text="@string/child_name"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <EditText
             android:id="@+id/et_pinput_name"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="2"
+            android:layout_height="44dp"
+            android:layout_weight="3"
             android:background="@color/white"
-            android:hint="@string/input_child_name"
             android:maxLength="30"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:singleLine="true"
             android:textColor="#646464"
-            android:textColorHint="#d4d4d4"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
+
+        <ImageView
+            android:layout_width="0.1dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:background="#7bc6ba" />
 
         <TextView
             android:id="@+id/tv_pgetuid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:background="@color/get_verify_code"
             android:gravity="center"
             android:text="@string/verify_child"
-            android:textColor="@color/white" />
+            android:textColor="#7bc6ba" />
 
 
     </LinearLayout>
@@ -166,33 +204,48 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="1"
+        android:layout_height="44dp"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:phoneNumber="true"
+            android:singleLine="true"
+            android:text="@string/phone_number"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <EditText
             android:id="@+id/et_pinput_num"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="2"
+            android:layout_height="44dp"
+            android:layout_weight="3"
             android:background="@color/white"
-            android:hint="@string/input_phone_number"
-            android:paddingLeft="10dp"
+            android:maxLength="30"
+            android:paddingLeft="20dp"
             android:phoneNumber="true"
             android:singleLine="true"
             android:textColor="#646464"
-            android:textColorHint="#d4d4d4"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
+
+        <ImageView
+            android:layout_width="0.1dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:background="#7bc6ba" />
 
         <TextView
             android:id="@+id/tv_pgetCode"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:background="@color/get_verify_code"
             android:gravity="center"
             android:text="@string/get_verify_code"
-            android:textColor="@color/white" />
+            android:textColor="#7bc6ba" />
     </LinearLayout>
 
     <ImageView
@@ -203,24 +256,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
 
-        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:maxLength="30"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:text="@string/verify_code"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <EditText
             android:id="@+id/et_pinput_phone_code"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="1"
+            android:layout_height="44dp"
             android:background="@color/white"
-            android:hint="@string/input_phone_verify_code"
             android:maxLength="30"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:singleLine="true"
             android:textColor="#646464"
-            android:textColorHint="#d4d4d4"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
     </LinearLayout>
 
     <ImageView
@@ -231,28 +290,38 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="44dp"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/et_pinput_new_password"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="7"
+            android:layout_height="44dp"
             android:background="@color/white"
-            android:hint="@string/input_new_password"
+            android:gravity="center_vertical"
             android:maxLength="30"
             android:paddingLeft="10dp"
             android:singleLine="true"
+            android:text="@string/password"
             android:textColor="#646464"
-            android:textColorHint="#d4d4d4"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/et_pinput_new_password"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_weight="111"
+            android:background="@color/white"
+            android:maxLength="30"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textColor="#646464"
+            android:textSize="14dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="1"
+            android:paddingRight="20dp">
 
             <CheckBox
                 android:id="@+id/pshow_password"
@@ -278,24 +347,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-
-        android:orientation="vertical">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <Button
             android:id="@id/btn_pcommit"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="44dp"
             android:layout_weight="1"
-            android:background="@color/reg_teacher"
-            android:text="@string/commit_button"
+            android:background="@drawable/btn_y_shape"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/regist_ok"
             android:textColor="@color/white"
             android:textSize="20dp" />
     </LinearLayout>
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@color/white" />
 </LinearLayout>

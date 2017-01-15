@@ -123,31 +123,33 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                 break;
             //选择孩子年级
             case R.id.tv_pchoose_grade:
-                final RadioButtonAlertDialog dialog = new RadioButtonAlertDialog(getActivity());
-
-                dialog.setOnPositiveListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        final RadioButton radioButton;
-                        radioButton = (RadioButton) dialog.retunGrade();
-                        if (radioButton == null) {
-                            dialog.dismiss();
-                        } else {
-                            pgrade = radioButton.getText().toString();
-                            pchoose_grade.setText(pgrade);
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                dialog.setOnNegativeListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-
+//                final RadioButtonAlertDialog dialog = new RadioButtonAlertDialog(getActivity());
+//
+//                dialog.setOnPositiveListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        final RadioButton radioButton;
+//                        radioButton = (RadioButton) dialog.retunGrade();
+//                        if (radioButton == null) {
+//                            dialog.dismiss();
+//                        } else {
+//                            pgrade = radioButton.getText().toString();
+//                            pchoose_grade.setText(pgrade);
+//                            dialog.dismiss();
+//                        }
+//                    }
+//                });
+//                dialog.setOnNegativeListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//
+//                        dialog.dismiss();
+//                    }
+//                });
+//                dialog.show();
+                Intent gintent = new Intent();
+                gintent.setClass(getActivity(), ChooseGradeActivity.class);
+                startActivityForResult(gintent, 5);
                 break;
             case R.id.tv_pchoose_class:
                 Intent intent = new Intent();
@@ -347,13 +349,14 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    Log.d("verifyChildResponse==>>>", response.toString());
                     int json = (int) response.get("status");
                     if (json == 1) {
                         childUid = response.getString("uid");
                         Toast.makeText(getActivity(), R.string.verify_child_success, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getActivity(), response.getString("errorInfo"), Toast.LENGTH_LONG).show();
+                        pinput_name = (EditText) mRoot.findViewById(R.id.et_pinput_name);
+                        pinput_name.setText("");
                         return;
                     }
                 } catch (JSONException e) {
@@ -402,10 +405,17 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
         } else if (requestCode == 2) {
             if (resultCode == 2) {
                 Bundle bundle = data.getExtras();
-                pschool = bundle.getString("school");
                 pschoolName = bundle.getString("schoolname");
                 Log.d("schoolName==>>>>", pschoolName);
-                pchoose_school.setText(bundle.getString("school"));
+                pchoose_school.setText(pschoolName);
+            }
+        } else if (requestCode == 5) {
+            if (requestCode == 5) {
+                Bundle bundle = data.getExtras();
+                if (bundle.getString("sgrade") != null) {
+                    pgrade = bundle.getString("sgrade");
+                    pchoose_grade.setText(pgrade);
+                }
             }
         }
     }

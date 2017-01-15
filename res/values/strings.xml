@@ -331,7 +331,7 @@
     <string name="input_phone_email_number">请输入手机号/邮箱</string>
     <string name="input_right_phone_email_number">请输入正确格式的手机号或邮箱</string>
     <string name="input_phone_number">请输入手机号</string>
-    <string name="phone_number">手机号</string>
+    <string name="phone_number">手机号码</string>
     <string name="input_verify_code">请输入验证码</string>
     <string name="input_phone_verify_code">请输入手机验证码</string>
     <string name="verify_code">验证码</string>
@@ -363,6 +363,7 @@
     <string name="input_name">姓名</string>
     <string name="name_not_null">姓名不能为空</string>
     <string name="input_child_name">请输入您孩子的姓名</string>
+    <string name="child_name">孩子姓名</string>
     <string name="verify_child">验证孩子姓名</string>
     <string name="verify_child_again">请重新验证孩子姓名</string>
     <string name="input_email">邮箱</string>
