@@ -361,6 +361,7 @@
     <string name="userName_not_null">账号不能为空</string>
     <string name="password_not_null">密码不能为空</string>
     <string name="input_name">姓名</string>
+    <string name="outoftime">账号过期，请重新登陆</string>
     <string name="name_not_null">姓名不能为空</string>
     <string name="input_child_name">请输入您孩子的姓名</string>
     <string name="child_name">孩子姓名</string>
