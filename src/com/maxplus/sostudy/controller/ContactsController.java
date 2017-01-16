@@ -4,15 +4,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import java.util.ArrayList;
 import java.util.List;
-import com.maxplus.sostudy.activity.ContactsFragment;
+import com.maxplus.sostudy.activity.CourseFragment;
 import com.maxplus.sostudy.view.ContactsView;
 
 public class ContactsController implements OnClickListener {
 
 	private ContactsView mContactsView;
-	private ContactsFragment mContactsActivity;
+	private CourseFragment mContactsActivity;
 	
-	public ContactsController(ContactsView mContactsView, ContactsFragment context) {
+	public ContactsController(ContactsView mContactsView, CourseFragment context) {
 		this.mContactsView = mContactsView;
 		this.mContactsActivity = context;
 		initContacts();

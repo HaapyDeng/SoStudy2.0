@@ -19,7 +19,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
 import com.maxplus.sostudy.R;
-import com.maxplus.sostudy.activity.ContactsFragment;
+import com.maxplus.sostudy.activity.CourseFragment;
 import com.maxplus.sostudy.activity.ConversationListFragment;
 import com.maxplus.sostudy.activity.HomeFragment;
 import com.maxplus.sostudy.activity.MainActivity;
@@ -52,7 +52,7 @@ public class MainController implements OnClickListener, OnPageChangeListener {
         List<Fragment> fragments = new ArrayList<Fragment>();
         // init Fragment
         mConvListFragment = new ConversationListFragment();
-        ContactsFragment contactsActivity = new ContactsFragment();
+        CourseFragment contactsActivity = new CourseFragment();
         HomeFragment homeActivity = new HomeFragment();
         mMeActivity = new MeFragment();
         fragments.add(homeActivity);
