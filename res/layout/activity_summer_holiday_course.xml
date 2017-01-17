@@ -11,4 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.maxplus.sostudy.activity.SummerHolidayCourseActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="暂未开放，敬请期待！"
+        android:textColor="@color/jmui_jpush_blue"
+        android:textSize="25dp" />
+
+
 </RelativeLayout>

@@ -256,34 +256,18 @@
             android:name=".activity.ChooseSubjectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyleBottom" />
-        <activity android:name=".activity.WinterHolidayCourseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.SynchronizeCourseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.SummerHolidayCourseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.EverydayCourseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".activity.WinterHolidayCourseActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.SynchronizeCourseActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.SummerHolidayCourseActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.EverydayCourseActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

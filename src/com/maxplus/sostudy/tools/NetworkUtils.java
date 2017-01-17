@@ -169,8 +169,9 @@ public class NetworkUtils {
     public static String returnGetSchoolname() {
         return "/common/getschool";
     }
+
     //获取寒暑假课程列表
-    public static String returnHSCourseList(){
-        return "/api/mycourse/index";
+    public static String returnHSCourseList() {
+        return "/mycourse/index";
     }
 }
