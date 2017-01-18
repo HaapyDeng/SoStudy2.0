@@ -31,7 +31,6 @@ public class WinterHolidayCourseActivity extends Activity {
     private String[] coursesid = new String[]{};
     private String courseid, course;
     private GridView grid_course;
-    private BaseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class WinterHolidayCourseActivity extends Activity {
         setContentView(R.layout.activity_winter_holiday_course);
         initDate();
         grid_course = (GridView) findViewById(R.id.gridView);
-        adapter = new MyCourseGridAdapter();
+        MyCourseGridAdapter adapter = new MyCourseGridAdapter();
         grid_course.setAdapter(adapter);
         grid_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
