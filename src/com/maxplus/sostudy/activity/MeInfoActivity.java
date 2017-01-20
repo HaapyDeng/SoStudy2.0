@@ -21,6 +21,8 @@ import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cn.jpush.im.android.api.JMessageClient;
+
 public class MeInfoActivity extends BaseActivity {
 
     private ImageButton back_btn;
@@ -142,6 +144,14 @@ public class MeInfoActivity extends BaseActivity {
                                     email_phone.setText("手机号");
                                     break;
                             }
+                        } else if (status == 0) {
+                            Toast.makeText(MeInfoActivity.this, R.string.login_out_time, Toast.LENGTH_SHORT).show();
+                            JMessageClient.logout();
+                            Intent intent = new Intent();
+                            intent.setClass(MeInfoActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                            return;
                         } else {
                             Toast.makeText(MeInfoActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                         }

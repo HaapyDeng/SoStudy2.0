@@ -404,6 +404,7 @@
     <string name="change_password">修改密码</string>
     <string name="myinfo">我的信息</string>
     <string name="getinfo_fail">获取个人信息失败，请稍后重试!</string>
+    <string name="login_out_time">登录超时，请重新登录。</string>
     <string name="clear_chatinfo">清空聊天信息</string>
     <string name="clear_cache">清空缓存</string>
     <string name="cof_clear_cache">确认清空缓存？</string>
