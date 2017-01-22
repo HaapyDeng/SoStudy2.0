@@ -101,7 +101,7 @@ public class NetworkUtils {
 
     //服务器端主路径
     public static String returnUrl() {
-        String url = "http://101.201.197.73/api";
+        String url = "http://www.sostudy.cn:84/api";
         return url;
     }
 

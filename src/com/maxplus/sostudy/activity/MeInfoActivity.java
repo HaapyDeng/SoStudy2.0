@@ -60,13 +60,14 @@ public class MeInfoActivity extends BaseActivity {
             return;
         }
         param.put("token", token);
-        client.get(url, param, new JsonHttpResponseHandler() {
+        client.post(url, param, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 if (response != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.toString());
+                        Log.d("response.toString()==>>>", response.toString());
                         int status = jsonObject.getInt("status");
                         Log.d("status===>>>>>", "" + status);
                         if (status == 100) {
@@ -144,7 +145,7 @@ public class MeInfoActivity extends BaseActivity {
                                     email_phone.setText("手机号");
                                     break;
                             }
-                        } else if (status == 0) {
+                        } else if (status == 101) {
                             Toast.makeText(MeInfoActivity.this, R.string.login_out_time, Toast.LENGTH_SHORT).show();
                             JMessageClient.logout();
                             Intent intent = new Intent();
