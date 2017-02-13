@@ -67,7 +67,7 @@ public class BaseFragment extends Fragment {
             dialog.dismiss();
             Intent intent = new Intent();
             if (null != myInfo) {
-                intent.setClass(getActivity(), ReloginActivity.class);
+                intent.setClass(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 getActivity().finish();

@@ -11,10 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.maxplus.sostudy.activity.LoginActivity;
+
 import java.io.File;
+
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.event.LoginStateChangeEvent;
 import cn.jpush.im.android.api.model.UserInfo;
+
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.chatting.utils.FileHelper;
@@ -58,22 +62,23 @@ public class BaseActivity extends Activity {
         public void onClick(View v) {
             dialog.dismiss();
             Intent intent = new Intent();
-            if (null != myInfo) {
-                intent.setClass(BaseActivity.this, ReloginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                BaseActivity.this.finish();
-            } else {
-                Log.d(TAG, "user info is null! Jump to Login activity");
-                intent.setClass(BaseActivity.this, LoginActivity.class);
-                startActivity(intent);
-                BaseActivity.this.finish();
-            }
+//            if (null != myInfo) {
+//                intent.setClass(BaseActivity.this, LoginActivity.class);
+////                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//                BaseActivity.this.finish();
+//            } else {
+//                Log.d(TAG, "user info is null! Jump to Login activity");
+            intent.setClass(BaseActivity.this, LoginActivity.class);
+            startActivity(intent);
+            BaseActivity.this.finish();
         }
+//        }
     };
 
     /**
      * 接收登录状态相关事件:登出事件,修改密码事件及被删除事件
+     *
      * @param event 登录状态相关事件
      */
     public void onEventMainThread(LoginStateChangeEvent event) {
@@ -110,7 +115,7 @@ public class BaseActivity extends Activity {
                         dialog.dismiss();
                         Intent intent = new Intent();
                         intent.setClass(BaseActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         BaseActivity.this.finish();
                     }
@@ -127,7 +132,7 @@ public class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         JMessageClient.unRegisterEventReceiver(this);
-        if (dialog != null){
+        if (dialog != null) {
             dialog.dismiss();
         }
         super.onDestroy();

@@ -66,13 +66,15 @@ public class WinterHolidayCourseActivity extends Activity {
         }
         RequestParams rp = new RequestParams();
         rp.put("type", winterCourse);
-        rp.put("tock", token);
+        rp.put("token", token);
+        Log.d("token===>>>", token);
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(url, rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONObject object = response;
+                Log.d("response===>>>", response.toString());
                 int code;
                 try {
                     code = object.getInt("code");

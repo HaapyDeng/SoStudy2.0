@@ -1,7 +1,6 @@
 package com.maxplus.sostudy.tools;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -50,7 +49,11 @@ public class NetworkUtils {
         else
             return NetworkUtils.NOWIFI;
     }
-
+/***
+ * @param fj
+ * @author Administrator fdsfdsd
+ * @see dffjidh
+ */
     /**
      * 检测网络是否连接
      *
@@ -99,6 +102,7 @@ public class NetworkUtils {
         return true;
     }
 
+    //打你十点会说话会说话
     //服务器端主路径
     public static String returnUrl() {
         String url = "http://www.sostudy.cn:84/api";
@@ -175,3 +179,9 @@ public class NetworkUtils {
         return "/mycourse/index";
     }
 }
+/**
+ * 我是要干嘛呢？拘泥于现在？还是跳出去发展？
+ * message@发fdnjs@f @fdfh
+ *
+ *
+ */

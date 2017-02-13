@@ -64,6 +64,7 @@ public class MeInfoActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+                Log.d("response===", response.toString());
                 if (response != null) {
                     try {
                         JSONObject jsonObject = new JSONObject(response.toString());
@@ -169,6 +170,12 @@ public class MeInfoActivity extends BaseActivity {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
                 Toast.makeText(MeInfoActivity.this, R.string.getinfo_fail, Toast.LENGTH_LONG).show();
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.d("response===111", responseString);
             }
         });
     }
