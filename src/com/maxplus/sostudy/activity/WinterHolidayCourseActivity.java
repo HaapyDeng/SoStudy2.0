@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +33,19 @@ public class WinterHolidayCourseActivity extends Activity {
     private String[] coursesid = new String[]{};
     private String courseid, course;
     private GridView grid_course;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winter_holiday_course);
+        backButton = (ImageButton) findViewById(R.id.back_Button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         initDate();
         grid_course = (GridView) findViewById(R.id.gridView);
         MyCourseGridAdapter adapter = new MyCourseGridAdapter();
