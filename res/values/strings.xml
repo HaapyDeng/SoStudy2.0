@@ -375,6 +375,7 @@
     <string name="app_name">好学升</string>
     <string name="course">课程</string>
     <string name="winter_course">寒假作业</string>
+    <string name="quiz_list">测验列表</string>
     <string name="my_info">我的信息</string>
     <string name="choose_sssq">请选择学校所在的省市区！</string>
     <string name="choose_sschool">请选择学校！</string>

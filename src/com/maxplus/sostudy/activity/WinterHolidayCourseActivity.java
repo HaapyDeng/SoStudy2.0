@@ -127,7 +127,12 @@ public class WinterHolidayCourseActivity extends Activity {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view,
                                                     int position, long id) {
-                                
+                                courseid = coursesid[position];
+                                Intent intent = new Intent(WinterHolidayCourseActivity.this, QuizListActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("course", courseid);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
                             }
                         });
                     } else {
@@ -146,5 +151,9 @@ public class WinterHolidayCourseActivity extends Activity {
         });
     }
 
-
+    @Override
+    protected void onResume() {
+        initDate();
+        super.onResume();
+    }
 }

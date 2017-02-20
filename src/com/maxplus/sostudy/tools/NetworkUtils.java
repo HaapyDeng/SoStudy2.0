@@ -178,10 +178,9 @@ public class NetworkUtils {
     public static String returnHSCourseList() {
         return "/mycourse/index";
     }
+
+    //获取测验列表
+    public static String returnQuizList() {
+        return "/mycourse/quizlist";
+    }
 }
-/**
- * 我是要干嘛呢？拘泥于现在？还是跳出去发展？
- * message@发fdnjs@f @fdfh
- *
- *
- */

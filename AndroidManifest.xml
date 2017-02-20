@@ -258,16 +258,17 @@
             android:theme="@style/MyDialogStyleBottom" />
         <activity
             android:name=".activity.WinterHolidayCourseActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SynchronizeCourseActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SummerHolidayCourseActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EverydayCourseActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.QuizListActivity"></activity>
     </application>
 
 </manifest>
