@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,11 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WinterHolidayCourseActivity extends Activity {
     private String token;
@@ -40,6 +46,7 @@ public class WinterHolidayCourseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winter_holiday_course);
         backButton = (ImageButton) findViewById(R.id.back_Button);
+        grid_course = (GridView) findViewById(R.id.gridView);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,18 +54,24 @@ public class WinterHolidayCourseActivity extends Activity {
             }
         });
         initDate();
-        grid_course = (GridView) findViewById(R.id.gridView);
-        MyCourseGridAdapter adapter = new MyCourseGridAdapter();
-        grid_course.setAdapter(adapter);
-        grid_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-            }
-        });
+
+    }
+
+    public List<Map<String, Object>> getList(String[] courses, String[] coursesid) {
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map = null;
+        for (int i = 0; i < courses.length; i++) {
+            map = new HashMap<String, Object>();
+            map.put("course", courses[i]);
+            map.put("courseid", coursesid[i]);
+            list.add(map);
+        }
+        Log.d("this is getList", list.size() + "");
+        return list;
     }
 
     private void initDate() {
+
         String url = NetworkUtils.returnUrl() + NetworkUtils.returnHSCourseList();
         Log.d("url===>>>", url);
         SharedPreferences sp = getSharedPreferences("user", Activity.MODE_PRIVATE);
@@ -98,13 +111,25 @@ public class WinterHolidayCourseActivity extends Activity {
                         coursesid = new String[dataJsonArray.length()];
                         Log.d("dataLength==>>>>", "" + dataJsonArray.length());
                         for (int i = 0; i < dataJsonArray.length(); i++) {
-                            JSONObject jsonObjectSon = (JSONObject) dataJsonArray.opt(i);
+                            JSONObject jsonObjectSon = (JSONObject) dataJsonArray.getJSONObject(i);
                             course = jsonObjectSon.getString("fullname");
                             courses[i] = course;
                             courseid = jsonObjectSon.getString("id");
                             coursesid[i] = courseid;
                             Log.d("course==>>>", course + ";" + courseid);
                         }
+
+                        SimpleAdapter adapter = new SimpleAdapter(WinterHolidayCourseActivity.this, getList(courses, coursesid),
+                                R.layout.grid_course_my, new String[]{"course"},
+                                new int[]{R.id.tv_title});
+                        grid_course.setAdapter(adapter);
+                        grid_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view,
+                                                    int position, long id) {
+                                
+                            }
+                        });
                     } else {
                         Toast.makeText(WinterHolidayCourseActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
                         return;
@@ -121,30 +146,5 @@ public class WinterHolidayCourseActivity extends Activity {
         });
     }
 
-    //自定义寒假作业课程列表适配器
-    public class MyCourseGridAdapter extends BaseAdapter {
 
-        @Override
-        public int getCount() {
-            return courses.length;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = View.inflate(WinterHolidayCourseActivity.this, R.layout.grid_course_my, null);
-            TextView title = (TextView) view.findViewById(R.id.tv_title);
-            title.setText(courses[position]);
-            return view;
-        }
-    }
 }

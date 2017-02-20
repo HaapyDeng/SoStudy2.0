@@ -12,17 +12,15 @@
         android:layout_height="120dp"
         android:background="@drawable/textview_border"
         android:gravity="center"
-        android:maxEms="3"
-        android:scaleType="fitXY"
-        android:text="@string/course"
-        android:textColor="@color/black" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/textview_border"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:gravity="center"
         android:maxEms="3"
         android:text="@string/course"
