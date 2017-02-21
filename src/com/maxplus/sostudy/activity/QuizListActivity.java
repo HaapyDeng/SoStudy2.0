@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,19 +36,25 @@ public class QuizListActivity extends Activity {
     private ListView lv;
     private Myadapter adapter;
     List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_list);
-        lv = (ListView) findViewById(R.id.lv_list);
+        backButton = (ImageButton) findViewById(R.id.back_Button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         courseid = bundle.getString("course");
         Log.d("courseid===>>>", courseid);
         getDate(courseid);
-        adapter = new Myadapter();
-        lv.setAdapter(adapter);
+
     }
 
     private void getDate(String courseid) {
@@ -76,7 +83,7 @@ public class QuizListActivity extends Activity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONObject object = response;
-                Log.d("response===>>>", response.toString());
+                Log.d("QuizList,response===>>>", response.toString());
                 int code;
                 try {
                     code = object.getInt("code");
@@ -96,9 +103,12 @@ public class QuizListActivity extends Activity {
                             item.put("name", name);
                             data.add(item);
                         }
+                        adapter = new Myadapter();
+                        lv = (ListView) findViewById(R.id.lv_list);
+                        lv.setAdapter(adapter);
                     } else {
-                        Toast.makeText(QuizListActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
-                        return;
+                        Toast.makeText(QuizListActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -114,7 +124,7 @@ public class QuizListActivity extends Activity {
 
     class Myadapter extends BaseAdapter {
 
-        private LayoutInflater inflater;
+        private LayoutInflater inflater = LayoutInflater.from(QuizListActivity.this);
 
         @Override
         public int getCount() {
@@ -133,9 +143,23 @@ public class QuizListActivity extends Activity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = inflater.inflate(R.layout.quiz_list, null);
-            TextView name = (TextView) findViewById(R.id.name);
-            name.setText(data.get(i).get("name"));
+//            View v = null;
+            if (view != null) {
+                return view;
+            } else {
+                view = inflater.inflate(R.layout.quiz_list, null);
+            }
+            TextView tvname = (TextView) view.findViewById(R.id.name);
+            final String courseName = data.get(i).get("name");
+            final String courseId = data.get(i).get("id");
+            Log.d("a is:", courseName);
+            tvname.setText(courseName);
+            tvname.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("courseName+courseid==>>", courseName + "+" + courseId);
+                }
+            });
             return view;
         }
     }

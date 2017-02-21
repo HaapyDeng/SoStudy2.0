@@ -104,7 +104,7 @@ public class WinterHolidayCourseActivity extends Activity {
                     Log.d("code===>>>>", "" + code);
                     if (code == 1000) {
                         Toast.makeText(WinterHolidayCourseActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
-                        finish();
+                        return;
                     } else if (code == 0) {
                         JSONArray dataJsonArray = object.getJSONArray("data");
                         courses = new String[dataJsonArray.length()];
@@ -136,7 +136,8 @@ public class WinterHolidayCourseActivity extends Activity {
                             }
                         });
                     } else {
-                        Toast.makeText(WinterHolidayCourseActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(WinterHolidayCourseActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WinterHolidayCourseActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
                         return;
                     }
                 } catch (JSONException e) {
