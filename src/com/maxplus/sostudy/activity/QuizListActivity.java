@@ -53,11 +53,10 @@ public class QuizListActivity extends Activity {
         Bundle bundle = intent.getExtras();
         courseid = bundle.getString("course");
         Log.d("courseid===>>>", courseid);
-        getDate(courseid);
-
+        getDate();
     }
 
-    private void getDate(String courseid) {
+    private void getDate() {
         SharedPreferences sp = getSharedPreferences("user", Activity.MODE_PRIVATE);
         token = sp.getString("token", "");
         if (token.length() == 0) {
@@ -143,7 +142,6 @@ public class QuizListActivity extends Activity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-//            View v = null;
             if (view != null) {
                 return view;
             } else {
@@ -158,10 +156,14 @@ public class QuizListActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     Log.d("courseName+courseid==>>", courseName + "+" + courseId);
+                    Intent intent = new Intent(QuizListActivity.this, DoingExerciseActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("courseId", courseId);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             });
             return view;
         }
     }
-
 }

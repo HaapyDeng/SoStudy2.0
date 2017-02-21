@@ -268,7 +268,12 @@
         <activity
             android:name=".activity.EverydayCourseActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.QuizListActivity"></activity>
+        <activity
+            android:name=".activity.QuizListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DoingExerciseActivity"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

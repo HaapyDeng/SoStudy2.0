@@ -183,4 +183,9 @@ public class NetworkUtils {
     public static String returnQuizList() {
         return "/mycourse/quizlist";
     }
+
+    //获取答题题目
+    public static String returnQuestions() {
+        return "/write/index";
+    }
 }
