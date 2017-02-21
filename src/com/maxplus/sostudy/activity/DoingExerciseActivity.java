@@ -3,7 +3,6 @@ package com.maxplus.sostudy.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -80,6 +79,10 @@ public class DoingExerciseActivity extends Activity {
                 try {
                     code = object.getInt("code");
                     total = object.getInt("total");
+                    if (total == 0) {
+                        Toast.makeText(DoingExerciseActivity.this, R.string.no_course, Toast.LENGTH_LONG).show();
+                        finish();
+                    }
                     if (code == 0) {
                         JSONArray dataJsonArray = object.getJSONArray("subject");
                         for (int i = 0; i < dataJsonArray.length(); i++) {
@@ -101,6 +104,8 @@ public class DoingExerciseActivity extends Activity {
                         finish();
                     }
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
