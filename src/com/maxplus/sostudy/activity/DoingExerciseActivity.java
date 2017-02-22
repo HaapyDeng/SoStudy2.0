@@ -22,14 +22,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class DoingExerciseActivity extends Activity {
 
     private String courseId;
     private ImageButton backButton;
     private String token;
-    private String id, quesn, content, alternative;
-    private int success;
+    //    private String id, quesn, content, alternative, type;
+    private int[] success;
     private WebView webView;
+    private String[] id, quesn, content, alternative, type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,12 @@ public class DoingExerciseActivity extends Activity {
                 try {
                     code = object.getInt("code");
                     total = object.getInt("total");
+                    id = new String[total];
+                    alternative = new String[total];
+                    content = new String[total];
+                    quesn = new String[total];
+                    success = new int[total];
+                    type = new String[total];
                     if (total == 0) {
                         Toast.makeText(DoingExerciseActivity.this, R.string.no_course, Toast.LENGTH_LONG).show();
                         finish();
@@ -87,18 +96,22 @@ public class DoingExerciseActivity extends Activity {
                         JSONArray dataJsonArray = object.getJSONArray("subject");
                         for (int i = 0; i < dataJsonArray.length(); i++) {
                             JSONObject jsonObjectSon = (JSONObject) dataJsonArray.getJSONObject(i);
-                            id = jsonObjectSon.getString("id");
-                            alternative = ReplaceCharacter.Replace(ReplaceCharacter.addChar(jsonObjectSon.getString("alternative")));
-                            content = ReplaceCharacter.Replace(jsonObjectSon.getString("content"));
-                            quesn = jsonObjectSon.getString("quesn");
-                            success = jsonObjectSon.getInt("success");
-                            Log.d("content==>>>", content);
-                            Log.d("alternative==>>", alternative);
+                            id[i] = jsonObjectSon.getString("id");
+                            alternative[i] = ReplaceCharacter.Replace(ReplaceCharacter.addChar(jsonObjectSon.getString("alternative")));
+                            content[i] = ReplaceCharacter.Replace(jsonObjectSon.getString("content"));
+                            quesn[i] = jsonObjectSon.getString("quesn");
+                            success[i] = jsonObjectSon.getInt("success");
+                            type[i] = jsonObjectSon.getString("type");
+                            Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + alternative[i] + ":" + quesn[i] + ":" + success[i] + ":" + type[i]);
+                            Log.d("alternative==>>", alternative[i]);
                             webView = (WebView) findViewById(R.id.webview);
                             webView.getSettings().setJavaScriptEnabled(true);
                             webView.getSettings().setDefaultTextEncodingName("UTF -8");
-                            webView.loadDataWithBaseURL(null, content + alternative, "text/html", "utf-8", null);
+                            webView.loadDataWithBaseURL(null, content[i] + alternative[i], "text/html", "utf-8", null);
                         }
+                        Log.d("All info is==>>>", ">>>>>>" + id.length + ":" + content.length + ":" + alternative.length + ":"
+                                + quesn.length + ":" + success.length + ":" + type.length);
+                        doExercise(id, content, alternative, quesn, success, type);
                     } else {
                         Toast.makeText(DoingExerciseActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
                         finish();
@@ -109,6 +122,10 @@ public class DoingExerciseActivity extends Activity {
                     e.printStackTrace();
                 }
 
+            }
+
+            private void doExercise(String[] id, String[] content, String[] alternative, String[] quesn, int[] success, String[] type) {
+                
             }
 
             @Override
