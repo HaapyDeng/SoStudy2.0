@@ -125,7 +125,7 @@ public class DoingExerciseActivity extends Activity {
             }
 
             private void doExercise(String[] id, String[] content, String[] alternative, String[] quesn, int[] success, String[] type) {
-                
+
             }
 
             @Override
