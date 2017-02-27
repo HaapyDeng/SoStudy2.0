@@ -423,5 +423,7 @@
     <string name="choose_answer">请选择正确答案：</string>
     <string name="next_question">下一题</string>
     <string name="up_question">上一题</string>
+    <string name="first_question">已经是第一题</string>
+    <string name="submint_answer">提交答案</string>
 </resources>
 

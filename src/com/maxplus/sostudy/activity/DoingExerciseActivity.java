@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -14,25 +15,35 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.adapter.SubjectAdapter;
+import com.maxplus.sostudy.entity.SubjectBean;
 import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.ReplaceCharacter;
+import com.maxplus.sostudy.tools.ViewPagerScroller;
+import com.maxplus.sostudy.view.VoteSubmitViewPager;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoingExerciseActivity extends Activity {
 
+    SubjectAdapter pagerAdapter;
     private String courseId;
     private ImageButton backButton;
     private String token;
     //    private String id, quesn, content, alternative, type;
+    VoteSubmitViewPager viewPager;
     private int[] success;
     private WebView webView;
-    private String[] id, quesn, content, alternative, type;
+    private String[] id, quesn, content, alternative, type, back, thetotal, therightv;
+    List<SubjectBean> subjectItems = new ArrayList<SubjectBean>();
+    List<View> viewItems = new ArrayList<View>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +60,32 @@ public class DoingExerciseActivity extends Activity {
         Bundle bundle = intent.getExtras();
         courseId = bundle.getString("courseId");
         Log.d("courseid===>>>", courseId);
+        initViews();
         getData();
+    }
+
+    private void initViews() {
+        viewPager = (VoteSubmitViewPager) findViewById(R.id.vote_submit_viewpager);
+        initViewPagerScroll();
+    }
+
+    /**
+     * 设置ViewPager的滑动速度
+     */
+    private void initViewPagerScroll() {
+        try {
+            Field mScroller = null;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            ViewPagerScroller scroller = new ViewPagerScroller(viewPager.getContext());
+            mScroller.set(viewPager, scroller);
+        } catch (NoSuchFieldException e) {
+
+        } catch (IllegalArgumentException e) {
+
+        } catch (IllegalAccessException e) {
+
+        }
     }
 
     private void getData() {
@@ -102,16 +138,38 @@ public class DoingExerciseActivity extends Activity {
                             quesn[i] = jsonObjectSon.getString("quesn");
                             success[i] = jsonObjectSon.getInt("success");
                             type[i] = jsonObjectSon.getString("type");
+//                            back[i] = jsonObjectSon.getString("back");
+//                            thetotal[i] = jsonObjectSon.getString("thetotal");
+//                            therightv[i] = jsonObjectSon.getString("therightv");
                             Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + alternative[i] + ":" + quesn[i] + ":" + success[i] + ":" + type[i]);
                             Log.d("alternative==>>", alternative[i]);
-                            webView = (WebView) findViewById(R.id.webview);
-                            webView.getSettings().setJavaScriptEnabled(true);
-                            webView.getSettings().setDefaultTextEncodingName("UTF -8");
-                            webView.loadDataWithBaseURL(null, content[i] + alternative[i], "text/html", "utf-8", null);
+//                            webView = (WebView) findViewById(R.id.webview);
+//                            webView.getSettings().setJavaScriptEnabled(true);
+//                            webView.getSettings().setDefaultTextEncodingName("UTF -8");
+//                            webView.loadDataWithBaseURL(null, content[i] + alternative[i], "text/html", "utf-8", null);
+                            SubjectBean subject = new SubjectBean();
+                            subject.setId(id[i]);
+                            subject.setAlternative(alternative[i]);
+                            subject.setContent(content[i]);
+                            subject.setQuesn(quesn[i]);
+                            subject.setSuccess(success[i]);
+                            subject.setType(type[i]);
+//                            subject.setBack(back[i]);
+//                            subject.setThetotal(thetotal[i]);
+//                            subject.setTherightv(therightv[i]);
+                            subjectItems.add(subject);
                         }
+                        for (int i = 0; i < subjectItems.size(); i++) {
+                            viewItems.add(getLayoutInflater().inflate(R.layout.vote_submit_viewpager_item, null));
+                        }
+                        pagerAdapter = new SubjectAdapter(
+                                DoingExerciseActivity.this, viewItems,
+                                subjectItems);
+                        viewPager.setAdapter(pagerAdapter);
+                        viewPager.getParent()
+                                .requestDisallowInterceptTouchEvent(false);
                         Log.d("All info is==>>>", ">>>>>>" + id.length + ":" + content.length + ":" + alternative.length + ":"
                                 + quesn.length + ":" + success.length + ":" + type.length);
-                        doExercise(id, content, alternative, quesn, success, type);
                     } else {
                         Toast.makeText(DoingExerciseActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
                         finish();
@@ -124,14 +182,19 @@ public class DoingExerciseActivity extends Activity {
 
             }
 
-            private void doExercise(String[] id, String[] content, String[] alternative, String[] quesn, int[] success, String[] type) {
-
-            }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
     }
+
+    /**
+     * @param index
+     *            根据索引值切换页面
+     */
+    public void setCurrentView(int index) {
+        viewPager.setCurrentItem(index);
+    }
+
 }
