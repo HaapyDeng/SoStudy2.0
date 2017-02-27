@@ -60,6 +60,10 @@ public class SubjectAdapter extends PagerAdapter {
         holder.b = (RadioButton) convertView.findViewById(R.id.choose_B);
         holder.c = (RadioButton) convertView.findViewById(R.id.choose_C);
         holder.d = (RadioButton) convertView.findViewById(R.id.choose_D);
+        holder.a.setOnClickListener(new ChooseAnswerClickListener());
+        holder.b.setOnClickListener(new ChooseAnswerClickListener());
+        holder.c.setOnClickListener(new ChooseAnswerClickListener());
+        holder.d.setOnClickListener(new ChooseAnswerClickListener());
         holder.bottom_layout = (LinearLayout) convertView.findViewById(R.id.bottom_layout);
         holder.upLayout = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_upLayout);
         holder.nextLayout = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_nextLayout);
@@ -106,11 +110,7 @@ public class SubjectAdapter extends PagerAdapter {
                     if (mPosition == (viewItems.size())) {
                         Toast.makeText(mContext, R.string.submint_answer, Toast.LENGTH_SHORT).show();
                         return;
-                    }
-//                     else if ((mPosition - 1) == 0) {
-//                        mContext.setCurrentView(mPosition - 1);
-//                    }
-                    else {
+                    } else {
                         mContext.setCurrentView(mPosition);
                     }
                     break;
@@ -139,4 +139,21 @@ public class SubjectAdapter extends PagerAdapter {
         ImageView nextImage;
     }
 
+    private class ChooseAnswerClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.choose_A:
+                    break;
+                case R.id.choose_B:
+                    break;
+                case R.id.choose_C:
+                    break;
+                case R.id.choose_D:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
