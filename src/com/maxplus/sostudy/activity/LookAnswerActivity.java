@@ -3,6 +3,7 @@ package com.maxplus.sostudy.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,10 +15,11 @@ import java.util.ArrayList;
 public class LookAnswerActivity extends Activity {
 
     private ImageButton backButton;
-    private TextView yourAnswer, suecssAnswer;
+    private TextView yourAnswer, suecssAnswer, right_rate;
     private ArrayList answer1, sucess1;
-    ArrayList<String> answer = new ArrayList<>();
-    ArrayList<String> sucess = new ArrayList<>();
+    double errorAnswer = 0;
+    double rightAnswer = 0;
+    double rightRate = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,33 +34,42 @@ public class LookAnswerActivity extends Activity {
         });
         yourAnswer = (TextView) findViewById(R.id.your_answer);
         suecssAnswer = (TextView) findViewById(R.id.suecss_answer);
+        right_rate = (TextView) findViewById(R.id.right_rate);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         answer1 = bundle.getParcelableArrayList("answer");
         sucess1 = bundle.getParcelableArrayList("sucess");
         yourAnswer.setText(answer1.toString().replaceAll("\\]", "").replaceAll("\\[", ""));
-//        doSetSuecss(sucess1);
-//        suecssAnswer.setText(sucess1.toString());
         String aa = sucess1.toString().replaceAll("0", "A");
         String bb = aa.replaceAll("1", "B");
         String cc = bb.replaceAll("2", "C");
         String dd = cc.replaceAll("3", "D");
         suecssAnswer.setText(dd.replaceAll("\\]", "").replaceAll("\\[", ""));
+        doCompare(answer1.toString().replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim(),
+                dd.replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim());
+        rightRate = 100 * (rightAnswer / (rightAnswer + errorAnswer));
+        right_rate.setText("" + rightRate + "%");
     }
 
-    private void doSetSuecss(ArrayList sucess1) {
-        for (int i = 0; i < sucess1.size(); i++) {
-            if (sucess1.get(i).toString().equals("0")) {
-                sucess1.set(i, "A");
-            } else if (sucess1.get(i).toString().equals("1")) {
-                sucess1.set(i, "B");
-            } else if (sucess1.get(i).toString().equals("2")) {
-                sucess1.set(i, "C");
-            } else if (sucess1.get(i).toString().equals("3")) {
-                sucess1.set(i, "D");
+    private void doCompare(String answer, String sucess) {
+
+        for (int i = 0; i < answer.length(); i++) {
+            String a = String.valueOf(answer.charAt(i));
+            a.trim();
+            Log.d("a==>>", a);
+            if (String.valueOf(answer.charAt(i)).equals("A") && String.valueOf(sucess.charAt(i)).equals("A")) {
+                rightAnswer = rightAnswer + 1;
+            } else if (String.valueOf(answer.charAt(i)).equals("B") && String.valueOf(sucess.charAt(i)).equals("B")) {
+                rightAnswer = rightAnswer + 1;
+            } else if (String.valueOf(answer.charAt(i)).equals("C") && String.valueOf(sucess.charAt(i)).equals("C")) {
+                rightAnswer = rightAnswer + 1;
+            } else if (String.valueOf(answer.charAt(i)).equals("D") && String.valueOf(sucess.charAt(i)).equals("D")) {
+                rightAnswer = rightAnswer + 1;
+            } else {
+                errorAnswer = errorAnswer + 1;
             }
-            sucess1.add(i, sucess);
         }
+
     }
 
 }
