@@ -375,6 +375,7 @@
     <string name="app_name">好学升</string>
     <string name="course">课程</string>
     <string name="winter_course">寒假作业</string>
+    <string name="sync_course">同步练习</string>
     <string name="quiz_list">测验列表</string>
     <string name="my_info">我的信息</string>
     <string name="questions_list">开始答题</string>

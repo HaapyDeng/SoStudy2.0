@@ -188,4 +188,9 @@ public class NetworkUtils {
     public static String returnQuestions() {
         return "/write/index";
     }
+
+    //获取同步练习列表
+    public static String returnSyncList() {
+        return "/mycourse/practice";
+    }
 }
