@@ -140,19 +140,26 @@ public class QuizListActivity extends Activity {
             return i;
         }
 
+        private class ViewHolder {
+            private TextView tvname;
+        }
+
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            if (view != null) {
-                return view;
-            } else {
+            ViewHolder viewHolder = null;
+            if (view == null) {
                 view = inflater.inflate(R.layout.quiz_list, null);
+                viewHolder = new ViewHolder();
+                viewHolder.tvname = (TextView) view.findViewById(R.id.name);
+                view.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) view.getTag();
             }
-            TextView tvname = (TextView) view.findViewById(R.id.name);
             final String courseName = data.get(i).get("name");
             final String courseId = data.get(i).get("id");
             Log.d("a is:", courseName);
-            tvname.setText(courseName);
-            tvname.setOnClickListener(new View.OnClickListener() {
+            viewHolder.tvname.setText(courseName);
+            viewHolder.tvname.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.d("courseName+courseid==>>", courseName + "+" + courseId);
