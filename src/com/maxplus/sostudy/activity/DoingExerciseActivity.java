@@ -37,7 +37,6 @@ public class DoingExerciseActivity extends Activity {
     private String courseId;
     private ImageButton backButton;
     private String token;
-    //    private String id, quesn, content, alternative, type;
     VoteSubmitViewPager viewPager;
     private int[] success;
     private WebView webView;
@@ -152,7 +151,7 @@ public class DoingExerciseActivity extends Activity {
                             subject.setAlternative(alternative[i]);
                             subject.setContent(content[i]);
                             subject.setQuesn(quesn[i]);
-                            subject.setSuccess(success[i]);
+                            subject.setSuccess("" + success[i]);
                             subject.setType(type[i]);
 //                            subject.setBack(back[i]);
 //                            subject.setThetotal(thetotal[i]);
@@ -190,8 +189,7 @@ public class DoingExerciseActivity extends Activity {
     }
 
     /**
-     * @param index
-     *            根据索引值切换页面
+     * @param index 根据索引值切换页面
      */
     public void setCurrentView(int index) {
         viewPager.setCurrentItem(index);

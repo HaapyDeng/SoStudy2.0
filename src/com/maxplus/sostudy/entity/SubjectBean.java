@@ -18,7 +18,7 @@ public class SubjectBean {
     private String type;
 
     //题目的正确答案
-    private int success;
+    private String success;
 
     //题目的id
     private String id;
@@ -67,11 +67,11 @@ public class SubjectBean {
         this.type = type;
     }
 
-    public int getSuccess() {
+    public String getSuccess() {
         return success;
     }
 
-    public void setSuccess(int success) {
+    public void setSuccess(String success) {
         this.success = success;
     }
 

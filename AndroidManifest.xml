@@ -273,6 +273,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.DoingExerciseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.LookAnswerActivity"
             android:screenOrientation="landscape"></activity>
     </application>
 

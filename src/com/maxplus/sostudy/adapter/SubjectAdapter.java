@@ -1,10 +1,13 @@
 package com.maxplus.sostudy.adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -13,13 +16,16 @@ import android.widget.Toast;
 
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.DoingExerciseActivity;
+import com.maxplus.sostudy.activity.LookAnswerActivity;
 import com.maxplus.sostudy.entity.SubjectBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectAdapter extends PagerAdapter {
-    private int success;
     private String id, quesn, content, alternative, type, back, thetotal, therightv;
+    private ArrayList<String> answer = new ArrayList<>();
+    private ArrayList<String> sucess = new ArrayList<>();
     DoingExerciseActivity mContext;
     // 传递过来的页面view的集合
     List<View> viewItems;
@@ -60,20 +66,97 @@ public class SubjectAdapter extends PagerAdapter {
         holder.b = (RadioButton) convertView.findViewById(R.id.choose_B);
         holder.c = (RadioButton) convertView.findViewById(R.id.choose_C);
         holder.d = (RadioButton) convertView.findViewById(R.id.choose_D);
-        holder.a.setOnClickListener(new ChooseAnswerClickListener());
-        holder.b.setOnClickListener(new ChooseAnswerClickListener());
-        holder.c.setOnClickListener(new ChooseAnswerClickListener());
-        holder.d.setOnClickListener(new ChooseAnswerClickListener());
+        final SubjectBean subjectBean = new SubjectBean();
+        holder.a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (holder.a.isChecked() == true) {
+                    Log.d("answer==>>", "A");
+                    Log.d("postion==>>>", String.valueOf(position));
+                    Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                    Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                    if (answer.size() >= (dataItems.size())) {
+
+                        answer.set(position, "A");
+                    } else {
+                        answer.add(position, "A");
+                    }
+                }
+            }
+        });
+        holder.b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (holder.b.isChecked() == true) {
+                    Log.d("answer==>>", "B");
+                    Log.d("postion==>>>", String.valueOf(position));
+                    Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                    Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                    if (answer.size() >= (dataItems.size())) {
+                        answer.set(position, "B");
+                    } else {
+                        answer.add(position, "B");
+                    }
+                }
+            }
+        });
+        holder.c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (holder.c.isChecked() == true) {
+                    Log.d("answer==>>", "C");
+                    Log.d("postion==>>>", String.valueOf(position));
+                    Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                    Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                    if (answer.size() >= (dataItems.size())) {
+                        answer.set(position, "C");
+                    } else {
+                        answer.add(position, "C");
+                    }
+                }
+
+            }
+        });
+        holder.d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                                @Override
+                                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                                    if (holder.d.isChecked() == true) {
+                                                        Log.d("answer==>>", "D");
+                                                        Log.d("postion==>>>", String.valueOf(position));
+                                                        Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                                                        Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                                                        if (answer.size() >= (dataItems.size())) {
+                                                            answer.set(position, "D");
+                                                        } else {
+                                                            answer.add(position, "D");
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+        );
         holder.bottom_layout = (LinearLayout) convertView.findViewById(R.id.bottom_layout);
         holder.upLayout = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_upLayout);
         holder.nextLayout = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_nextLayout);
         holder.nextText = (TextView) convertView.findViewById(R.id.menu_bottom_nextTV);
         holder.nextImage = (ImageView) convertView.findViewById(R.id.menu_bottom_nextIV);
-        if (position == (viewItems.size() - 1)) {
+        if (position == (viewItems.size() - 1))
+
+        {
             holder.nextText.setText("提交");
+            holder.nextImage.setVisibility(View.GONE);
         }
-        holder.upLayout.setOnClickListener(new LinearOnClickListener((position - 1), false, position, holder));
-        holder.nextLayout.setOnClickListener(new LinearOnClickListener((position + 1), true, position, holder));
+
+        holder.upLayout.setOnClickListener(new
+
+                LinearOnClickListener((position - 1),
+
+                false, position, holder));
+        holder.nextLayout.setOnClickListener(new
+
+                LinearOnClickListener((position + 1),
+
+                true, position, holder));
         Log.d("postion is===>>>", String.valueOf(position));
         container.addView(viewItems.get(position));
         return viewItems.get(position);
@@ -107,9 +190,27 @@ public class SubjectAdapter extends PagerAdapter {
                     }
                     break;
                 case R.id.activity_prepare_test_nextLayout:
+                    if (answer.size() < mPosition) {
+                        Toast.makeText(mContext, R.string.no_choose_answer, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (mPosition == (viewItems.size())) {
                         Toast.makeText(mContext, R.string.submint_answer, Toast.LENGTH_SHORT).show();
-                        return;
+                        Log.d("List<String> answer==>>>", answer.toString());
+                        for (int i = 0; i < viewItems.size(); i++) {
+                            sucess.add(dataItems.get(i).getSuccess());
+                        }
+                        Log.d("sucess==>>>", String.valueOf(sucess));
+                        ArrayList bundlelist = new ArrayList();
+                        bundlelist.add(answer);
+                        ArrayList suceessList = new ArrayList();
+                        suceessList.add(sucess);
+                        Intent intent = new Intent(mContext, LookAnswerActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("answer", bundlelist);
+                        bundle.putParcelableArrayList("sucess", suceessList);
+                        intent.putExtras(bundle);
+                        mContext.startActivity(intent);
                     } else {
                         mContext.setCurrentView(mPosition);
                     }
@@ -139,21 +240,5 @@ public class SubjectAdapter extends PagerAdapter {
         ImageView nextImage;
     }
 
-    private class ChooseAnswerClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.choose_A:
-                    break;
-                case R.id.choose_B:
-                    break;
-                case R.id.choose_C:
-                    break;
-                case R.id.choose_D:
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+
 }
