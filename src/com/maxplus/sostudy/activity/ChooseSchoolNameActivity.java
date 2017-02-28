@@ -56,7 +56,7 @@ public class ChooseSchoolNameActivity extends Activity {
                 super.onSuccess(statusCode, headers, response);
                 Log.d("response==>>>", response.toString());
                 if (response.length() == 0) {
-                    Toast.makeText(ChooseSchoolNameActivity.this, R.string.no_school, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChooseSchoolNameActivity.this, R.string.no_school, Toast.LENGTH_LONG).show();
                     Intent intent2 = new Intent();
                     intent2.setClass(ChooseSchoolNameActivity.this, ChooseSchoolActivity.class);
                     startActivity(intent2);

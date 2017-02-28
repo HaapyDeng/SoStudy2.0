@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -54,6 +55,13 @@ public class ChooseSchoolQuXianActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
+                if (response.length() == 0) {
+                    Toast.makeText(ChooseSchoolQuXianActivity.this, R.string.no_school, Toast.LENGTH_LONG).show();
+                    Intent intent2 = new Intent();
+                    intent2.setClass(ChooseSchoolQuXianActivity.this, ChooseSchoolActivity.class);
+                    startActivity(intent2);
+                    finish();
+                }
                 quxianList = new String[response.length()];
                 quxianIdList = new int[response.length()];
                 JSONArray arr = response;

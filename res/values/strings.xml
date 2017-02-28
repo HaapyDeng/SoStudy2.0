@@ -430,6 +430,6 @@
     <string name="look_answer">答题详情</string>
     <string name="your_answer">你的答案是：</string>
     <string name="right_answer">标准答案是：</string>
-    <string name="no_school">此地区的学校未录入,请重新选择</string>
+    <string name="no_school">此地区未录入数据,请重新选择</string>
 </resources>
 

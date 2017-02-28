@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_choose_school"
+    android:id="@+id/ll_choose_grade"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -49,10 +49,10 @@
             android:id="@+id/tv_ok"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="#CCCCCC"
+            android:background="@drawable/btn_y_shape"
+            android:textColor="@color/white"
             android:gravity="center"
             android:text="确定"
-            android:textColor="@color/black"
             android:textSize="18dp" />
     </LinearLayout>
 </RelativeLayout>
