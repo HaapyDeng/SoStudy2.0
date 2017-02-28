@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -39,7 +40,7 @@ public class ChooseSchoolNameActivity extends Activity {
     }
 
     private void initDate() {
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         districtid = bundle.getString("districtid");
         schooltype = bundle.getInt("schooltype");
@@ -53,6 +54,14 @@ public class ChooseSchoolNameActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
+                Log.d("response==>>>", response.toString());
+                if (response.length() == 0) {
+                    Toast.makeText(ChooseSchoolNameActivity.this, R.string.no_school, Toast.LENGTH_SHORT).show();
+                    Intent intent2 = new Intent();
+                    intent2.setClass(ChooseSchoolNameActivity.this, ChooseSchoolActivity.class);
+                    startActivity(intent2);
+                    finish();
+                }
                 schoolList = new String[response.length()];
                 schoolIdList = new int[response.length()];
                 JSONArray arr = response;
