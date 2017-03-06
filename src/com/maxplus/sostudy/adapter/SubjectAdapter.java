@@ -197,8 +197,10 @@ public class SubjectAdapter extends PagerAdapter {
                     if (mPosition == (viewItems.size())) {
                         Toast.makeText(mContext, R.string.submint_answer, Toast.LENGTH_SHORT).show();
                         Log.d("List<String> answer==>>>", answer.toString());
-                        for (int i = 0; i < viewItems.size(); i++) {
-                            sucess.add(dataItems.get(i).getSuccess());
+                        if (sucess.size() == 0) {
+                            for (int i = 0; i < viewItems.size(); i++) {
+                                sucess.add(dataItems.get(i).getSuccess());
+                            }
                         }
                         Log.d("sucess==>>>", String.valueOf(sucess));
                         ArrayList bundlelist = new ArrayList();
