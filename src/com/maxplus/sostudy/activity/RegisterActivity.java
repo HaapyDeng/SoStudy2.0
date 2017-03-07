@@ -119,17 +119,17 @@ public class RegisterActivity extends FragmentActivity implements RadioGroup.OnC
 //            iv_regstudent.setBackgroundColor(getResources().getColor(R.color.get_verify_code));
             tv_regstudent.setTextColor(getResources().getColor(R.color.white));
 
-            tv_regteacher.setBackgroundColor(getResources().getColor(R.color.white));
+            tv_regteacher.setBackgroundDrawable(getResources().getDrawable(R.drawable.reg_radio_btn));
 //            iv_regteacher.setBackgroundColor(getResources().getColor(R.color.reg_teacher));
             tv_regteacher.setTextColor(getResources().getColor(R.color.reg_color_blue));
 
-            tv_regparent.setBackgroundColor(getResources().getColor(R.color.white));
+            tv_regparent.setBackgroundDrawable(getResources().getDrawable(R.drawable.reg_radio_btn));
 //            iv_regparent.setBackgroundColor(getResources().getColor(R.color.reg_parent));
             tv_regparent.setTextColor(getResources().getColor(R.color.reg_color_blue));
             mViewPager.setCurrentItem(0);
 
         } else if (checkedId == R.id.tv_regteacher) {
-            tv_regstudent.setBackgroundColor(getResources().getColor(R.color.white));
+            tv_regstudent.setBackgroundDrawable(getResources().getDrawable(R.drawable.reg_radio_btn));
 //            iv_regstudent.setBackgroundColor(getResources().getColor(R.color.get_verify_code));
             tv_regstudent.setTextColor(getResources().getColor(R.color.reg_color_blue));
 
@@ -137,16 +137,16 @@ public class RegisterActivity extends FragmentActivity implements RadioGroup.OnC
 //            iv_regteacher.setBackgroundColor(getResources().getColor(R.color.reg_teacher));
             tv_regteacher.setTextColor(getResources().getColor(R.color.white));
 
-            tv_regparent.setBackgroundColor(getResources().getColor(R.color.white));
+            tv_regparent.setBackgroundDrawable(getResources().getDrawable(R.drawable.reg_radio_btn));
 //            iv_regparent.setBackgroundColor(getResources().getColor(R.color.reg_parent));
             tv_regparent.setTextColor(getResources().getColor(R.color.reg_color_blue));
             mViewPager.setCurrentItem(1);
         } else if (checkedId == R.id.tv_regparent) {
-            tv_regstudent.setBackgroundColor(getResources().getColor(R.color.white));
+            tv_regstudent.setBackgroundDrawable(getResources().getDrawable(R.drawable.reg_radio_btn));
 //            iv_regstudent.setBackgroundColor(getResources().getColor(R.color.get_verify_code));
             tv_regstudent.setTextColor(getResources().getColor(R.color.reg_color_blue));
 
-            tv_regteacher.setBackgroundColor(getResources().getColor(R.color.white));
+            tv_regteacher.setBackgroundDrawable(getResources().getDrawable(R.drawable.reg_radio_btn));
 //            iv_regteacher.setBackgroundColor(getResources().getColor(R.color.reg_teacher));
             tv_regteacher.setTextColor(getResources().getColor(R.color.reg_color_blue));
 
