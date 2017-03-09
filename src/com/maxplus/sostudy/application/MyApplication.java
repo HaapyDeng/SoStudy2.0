@@ -8,6 +8,8 @@ import cn.jpush.im.android.api.JMessageClient;
 import com.maxplus.sostudy.receiver.NotificationClickEventReceiver;
 import com.maxplus.sostudy.chatting.utils.SharePreferenceManager;
 
+import org.litepal.LitePal;
+
 public class MyApplication extends Application {
 
     public static final int REQUEST_CODE_TAKE_PHOTO = 4;
@@ -49,6 +51,8 @@ public class MyApplication extends Application {
         Log.i("MyApplication===>>>", "init");
         //初始化JMessage-sdk
         JMessageClient.init(getApplicationContext());
+        //初始化课程答题数据库
+        LitePal.initialize(this);
         SharePreferenceManager.init(getApplicationContext(), JCHAT_CONFIGS);
         JPushInterface.setDebugMode(true);// 设置开启日志
         //设置Notification的模式

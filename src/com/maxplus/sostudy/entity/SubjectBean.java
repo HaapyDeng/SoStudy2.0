@@ -1,10 +1,12 @@
 package com.maxplus.sostudy.entity;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by Administrator on 2017/2/22.
  */
 
-public class SubjectBean {
+public class SubjectBean extends DataSupport{
     //题目的内容
     private String content;
 
@@ -34,6 +36,17 @@ public class SubjectBean {
 
     //题目的回答正确数
     private String therightv;
+
+    //題目正確與否
+    private String yorn;
+
+    public String getYorn() {
+        return yorn;
+    }
+
+    public void setYorn(String yorn) {
+        this.yorn = yorn;
+    }
 
     public String getContent() {
         return content;
