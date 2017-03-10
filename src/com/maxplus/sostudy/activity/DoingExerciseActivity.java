@@ -137,25 +137,18 @@ public class DoingExerciseActivity extends Activity {
                             quesn[i] = jsonObjectSon.getString("quesn");
                             success[i] = jsonObjectSon.getInt("success");
                             type[i] = jsonObjectSon.getString("type");
-//                            back[i] = jsonObjectSon.getString("back");
-//                            thetotal[i] = jsonObjectSon.getString("thetotal");
-//                            therightv[i] = jsonObjectSon.getString("therightv");
-                            Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + alternative[i] + ":" + quesn[i] + ":" + success[i] + ":" + type[i]);
+                            Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + alternative[i] + ":" + quesn[i] + ":"
+                                    + success[i] + ":" + type[i]);
                             Log.d("alternative==>>", alternative[i]);
-//                            webView = (WebView) findViewById(R.id.webview);
-//                            webView.getSettings().setJavaScriptEnabled(true);
-//                            webView.getSettings().setDefaultTextEncodingName("UTF -8");
-//                            webView.loadDataWithBaseURL(null, content[i] + alternative[i], "text/html", "utf-8", null);
                             SubjectBean subject = new SubjectBean();
-                            subject.setId(id[i]);
-                            subject.setAlternative(alternative[i]);
-                            subject.setContent(content[i]);
-                            subject.setQuesn(quesn[i]);
-                            subject.setSuccess("" + success[i]);
-                            subject.setType(type[i]);
-//                            subject.setBack(back[i]);
-//                            subject.setThetotal(thetotal[i]);
-//                            subject.setTherightv(therightv[i]);
+                            subject.setId(id[i]);//题目id
+                            subject.setAlternative(alternative[i]);//题目选项内容
+                            subject.setContent(content[i]);//题目标题
+                            subject.setQuesn(quesn[i]);//题目排序
+                            subject.setSuccess("" + success[i]);//题目正确答案
+                            subject.setType(type[i]);//题目类型
+                            subject.setPapersid(courseId);//试卷id
+                            subject.save();//保存数据到litepal数据库
                             subjectItems.add(subject);
                         }
                         for (int i = 0; i < subjectItems.size(); i++) {

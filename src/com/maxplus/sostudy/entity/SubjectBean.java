@@ -6,7 +6,11 @@ import org.litepal.crud.DataSupport;
  * Created by Administrator on 2017/2/22.
  */
 
-public class SubjectBean extends DataSupport{
+public class SubjectBean extends DataSupport {
+
+    //试卷的id
+    private String papersid;
+
     //题目的内容
     private String content;
 
@@ -28,17 +32,27 @@ public class SubjectBean extends DataSupport{
     //题目的答案
     private String answer;
 
-    //下拉选择条目
-    private String back;
-
-    //题目的回答总数
-    private String thetotal;
-
-    //题目的回答正确数
-    private String therightv;
-
-    //題目正確與否
+    //題目正确与否
     private String yorn;
+
+
+    public String getPapersid() {
+        return papersid;
+    }
+
+    public void setPapersid(String papersid) {
+        this.papersid = papersid;
+    }
+
+//    //下拉选择条目
+//    private String back;
+
+//    //题目的回答总数
+//    private String thetotal;
+//
+//    //题目的回答正确数
+//    private String therightv;
+
 
     public String getYorn() {
         return yorn;
@@ -104,28 +118,29 @@ public class SubjectBean extends DataSupport{
         this.answer = answer;
     }
 
-    public String getBack() {
-        return back;
-    }
+//    public String getBack() {
+//        return back;
+//    }
+//
+//    public void setBack(String back) {
+//        this.back = back;
+//    }
 
-    public void setBack(String back) {
-        this.back = back;
-    }
+//    public String getThetotal() {
+//        return thetotal;
+//    }
+//
+//    public void setThetotal(String thetotal) {
+//        this.thetotal = thetotal;
+//    }
+//
+//    public String getTherightv() {
+//        return therightv;
+//    }
+//
+//    public void setTherightv(String therightv) {
+//        this.therightv = therightv;
+//    }
 
-    public String getThetotal() {
-        return thetotal;
-    }
-
-    public void setThetotal(String thetotal) {
-        this.thetotal = thetotal;
-    }
-
-    public String getTherightv() {
-        return therightv;
-    }
-
-    public void setTherightv(String therightv) {
-        this.therightv = therightv;
-    }
-
+    //jisusocaoshi mai hot nisjniuh one more line nishia but no songe nbad  +sdghh h@jhsd gytg-*(hsadgvmisjjijshi
 }

@@ -19,6 +19,8 @@ import com.maxplus.sostudy.activity.DoingExerciseActivity;
 import com.maxplus.sostudy.activity.LookAnswerActivity;
 import com.maxplus.sostudy.entity.SubjectBean;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 
