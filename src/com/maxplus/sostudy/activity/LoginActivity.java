@@ -183,8 +183,10 @@ public class LoginActivity extends Activity implements OnClickListener {
     private void startJmlogin(final String userName, final String password) {
 
         JMessageClient.login(userName, password, new BasicCallback() {
+
             @Override
             public void gotResult(int i, String s) {
+                Log.d("JMessageClient is :", i + "+" + s);
                 if (i == 0) {
                     setAlias(userName);
                     Intent intent3 = new Intent();

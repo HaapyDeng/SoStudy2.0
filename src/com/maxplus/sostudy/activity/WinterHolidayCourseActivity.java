@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class WinterHolidayCourseActivity extends Activity {
     private String token;
-    private int winterCourse = 2;
+    private int winterCourse = 1;
     private String[] courses = new String[]{};
     private String[] coursesid = new String[]{};
     private String courseid, course;
@@ -83,10 +83,12 @@ public class WinterHolidayCourseActivity extends Activity {
             Toast.makeText(this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
             return;
         }
+        int sub = 0;
         RequestParams rp = new RequestParams();
         rp.put("type", winterCourse);
         rp.put("token", token);
-        Log.d("token===>>>", token);
+        rp.put("sub", sub);
+        Log.d("type+token+sub===>>>", winterCourse + "+" + token + "+" + sub);
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(url, rp, new JsonHttpResponseHandler() {
             @Override
@@ -102,13 +104,14 @@ public class WinterHolidayCourseActivity extends Activity {
                         Toast.makeText(WinterHolidayCourseActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
                         return;
                     } else if (code == 0) {
-                        JSONArray dataJsonArray = object.getJSONArray("data");
+                        JSONArray dataJsonArray = object.optJSONArray("data");
+                        Log.d("dataJsonArray==》》", dataJsonArray.toString());
                         courses = new String[dataJsonArray.length()];
                         coursesid = new String[dataJsonArray.length()];
                         Log.d("dataLength==>>>>", "" + dataJsonArray.length());
                         for (int i = 0; i < dataJsonArray.length(); i++) {
                             JSONObject jsonObjectSon = (JSONObject) dataJsonArray.getJSONObject(i);
-                            course = jsonObjectSon.getString("fullname");
+                            course = jsonObjectSon.getString("coursename");
                             courses[i] = course;
                             courseid = jsonObjectSon.getString("id");
                             coursesid[i] = courseid;
@@ -124,7 +127,7 @@ public class WinterHolidayCourseActivity extends Activity {
                             public void onItemClick(AdapterView<?> parent, View view,
                                                     int position, long id) {
                                 courseid = coursesid[position];
-                                Intent intent = new Intent(WinterHolidayCourseActivity.this, QuizListActivity.class);
+                                Intent intent = new Intent(WinterHolidayCourseActivity.this, CourseVersionActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("course", courseid);
                                 intent.putExtras(bundle);
@@ -144,6 +147,7 @@ public class WinterHolidayCourseActivity extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+                Log.d("ERROR:", errorResponse.toString());
             }
         });
     }

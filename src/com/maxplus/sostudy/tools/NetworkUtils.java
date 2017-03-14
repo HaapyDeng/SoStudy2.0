@@ -102,11 +102,12 @@ public class NetworkUtils {
         return true;
     }
 
-    //打你十点会说话会说话
     //服务器端主路径
     public static String returnUrl() {
-        String url = "http://www.sostudy.cn:84/api";
+//        String url = "http://www.sostudy.cn:84/api";
+        String url = "http://192.168.1.21/api";
         return url;
+
     }
 
     //登录接口
@@ -144,7 +145,7 @@ public class NetworkUtils {
         return "/api/check-child";
     }
 
-    //验证孩子姓名接口
+    //获取个人详细信息
     public static String returnUserInfoApi() {
         return "/my/userinfo";
     }
@@ -179,6 +180,10 @@ public class NetworkUtils {
         return "/mycourse/index";
     }
 
+    //获取课程版本列表
+    public static String returnCourseVsionList(){
+        return "/mycourse/index";
+    }
     //获取测验列表
     public static String returnQuizList() {
         return "/mycourse/quizlist";
