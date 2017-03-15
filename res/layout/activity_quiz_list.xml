@@ -32,11 +32,12 @@
             android:textSize="@dimen/text_large_size" />
     </RelativeLayout>
 
-    <ListView
+    <ExpandableListView
+
         android:id="@+id/lv_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </ListView>
+    </ExpandableListView>
 
 </LinearLayout>

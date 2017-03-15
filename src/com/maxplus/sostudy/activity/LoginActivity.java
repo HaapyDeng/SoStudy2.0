@@ -186,7 +186,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
             @Override
             public void gotResult(int i, String s) {
-                Log.d("JMessageClient is :", i + "+" + s);
+                Log.d("JMessageClient is ", i + "+" + s);
                 if (i == 0) {
                     setAlias(userName);
                     Intent intent3 = new Intent();
