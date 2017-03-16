@@ -60,6 +60,16 @@
         <!--android:visibility="visible" />-->
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/no_question"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_question"
+        android:textColor="@color/jmui_jpush_blue"
+        android:textSize="25dp"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/vote_submit_relative"
         android:layout_width="fill_parent"

@@ -8,9 +8,12 @@ public class Item {
     private String iId;
     private String iName;
 
-        public Item(String iName, String iId) {
+    public Item(String iName, String iId) {
         this.iId = iId;
         this.iName = iName;
+    }
+
+    public Item() {
     }
 
     public String getiId() {

@@ -73,6 +73,12 @@ public class QuizListActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        getDate();
+        super.onResume();
+    }
+
     private void getDate() {
         SharedPreferences sp = getSharedPreferences("user", Activity.MODE_PRIVATE);
         token = sp.getString("token", "");
@@ -113,17 +119,18 @@ public class QuizListActivity extends Activity {
                     } else if (code == 0) {
                         gData = new ArrayList<Group>();
                         iData = new ArrayList<ArrayList<Item>>();
-                        lData = new ArrayList<Item>();
                         JSONArray dataJsonArray = object.getJSONArray("data");
                         Log.d("dataJsonArray==>>", dataJsonArray.toString());
                         Log.d("dataJsonArraylength==>>", "" + dataJsonArray.length());
                         String id, name, sid, sname;
-                        for (int i = 0; i < 2; i++) {
+                        for (int i = 0; i < dataJsonArray.length(); i++) {
                             JSONObject jsonObject = (JSONObject) dataJsonArray.getJSONObject(i);
                             Log.d("jsonObject==..", jsonObject.toString());
                             id = jsonObject.getString("id");
                             name = jsonObject.getString("name");
+
                             if (jsonObject.has("sequence") == true) {
+                                lData = new ArrayList<Item>();
                                 JSONArray sequence = jsonObject.getJSONArray("sequence");
                                 for (int j = 0; j < sequence.length(); j++) {
                                     JSONObject jsonsequence = (JSONObject) sequence.getJSONObject(j);
@@ -134,6 +141,10 @@ public class QuizListActivity extends Activity {
                                 }
                                 iData.add(lData);
                                 Log.d("iData==>>>", iData.toString());
+                            } else {
+                                lData = new ArrayList<Item>();
+                                lData.add(new Item("n", "n"));
+                                iData.add(lData);
                             }
                             gData.add(new Group(name, id));
                             Log.d("gData==>>>", gData.toString());
@@ -147,10 +158,14 @@ public class QuizListActivity extends Activity {
                         exlist_text.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                             @Override
                             public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
-                                Log.d("iData==>>", "" + iData.size() + ":" + groupPosition);
-                                if (iData.size() == groupPosition) {
-                                    String courseId = gData.get(groupPosition).getgId();
-                                    Toast.makeText(mContext, "你点击了：" + gData.get(groupPosition).getgId(), Toast.LENGTH_SHORT).show();
+                                if (iData.get(groupPosition).get(0).getiId().equals("n")) {
+                                    String courseId;
+                                    courseId = gData.get(groupPosition).getgId();
+                                    Intent i = new Intent(mContext, DoingExerciseActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("id", courseId);
+                                    i.putExtras(bundle);
+                                    startActivity(i);
                                     return true;
                                 } else {
                                     return false;
@@ -161,14 +176,16 @@ public class QuizListActivity extends Activity {
                         exlist_text.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                             @Override
                             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                                Toast.makeText(mContext, "你点击了：" + iData.get(groupPosition).get(childPosition).getiId(), Toast.LENGTH_SHORT).show();
+                                String courseId;
+                                courseId = iData.get(groupPosition).get(childPosition).getiId();
+                                Intent ii = new Intent(mContext, DoingExerciseActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("id", courseId);
+                                ii.putExtras(bundle);
+                                startActivity(ii);
                                 return true;
                             }
                         });
-//                        Log.d("data==>", data.toString());
-//                        adapter = new Myadapter();
-//                        lv = (ListView) findViewById(R.id.lv_list);
-//                        lv.setAdapter(adapter);
                     } else {
                         mLoadingDialog.dismiss();
                         Toast.makeText(QuizListActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
@@ -187,53 +204,4 @@ public class QuizListActivity extends Activity {
             }
         });
     }
-/**
- class Myadapter extends BaseAdapter {
-
- private LayoutInflater inflater = LayoutInflater.from(QuizListActivity.this);
-
- @Override public int getCount() {
- return data.size();
- }
-
- @Override public Object getItem(int i) {
- return i;
- }
-
- @Override public long getItemId(int i) {
- return i;
- }
-
- private class ViewHolder {
- private TextView tvname;
- }
-
- @Override public View getView(int i, View view, ViewGroup viewGroup) {
- ViewHolder viewHolder = null;
- if (view == null) {
- view = inflater.inflate(R.layout.quiz_list, null);
- viewHolder = new ViewHolder();
- viewHolder.tvname = (TextView) view.findViewById(R.id.name);
- view.setTag(viewHolder);
- } else {
- viewHolder = (ViewHolder) view.getTag();
- }
- final String courseName = data.get(i).get("name");
- final String courseId = data.get(i).get("id");
- Log.d("a is:", courseName);
- viewHolder.tvname.setText(courseName);
- viewHolder.tvname.setOnClickListener(new View.OnClickListener() {
- @Override public void onClick(View view) {
- Log.d("courseName+courseid==>>", courseName + "+" + courseId);
- Intent intent = new Intent(QuizListActivity.this, DoingExerciseActivity.class);
- Bundle bundle = new Bundle();
- bundle.putString("courseId", courseId);
- intent.putExtras(bundle);
- startActivity(intent);
- }
- });
- return view;
- }
- }
- */
 }

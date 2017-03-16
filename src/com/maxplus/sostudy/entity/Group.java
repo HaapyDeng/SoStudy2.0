@@ -20,6 +20,9 @@ public class Group {
         this.gId = gId;
     }
 
+    public Group() {
+    }
+
     public String getgName() {
         return gName;
     }

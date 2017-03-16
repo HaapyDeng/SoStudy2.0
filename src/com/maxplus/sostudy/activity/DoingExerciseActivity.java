@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -38,11 +39,12 @@ public class DoingExerciseActivity extends Activity {
     private ImageButton backButton;
     private String token;
     VoteSubmitViewPager viewPager;
-    private int[] success;
+    private String[] success;
     private WebView webView;
     private String[] id, quesn, content, alternative, type, back, thetotal, therightv;
     List<SubjectBean> subjectItems = new ArrayList<SubjectBean>();
     List<View> viewItems = new ArrayList<View>();
+    private TextView no_question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class DoingExerciseActivity extends Activity {
         });
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        courseId = bundle.getString("courseId");
+        courseId = bundle.getString("id");
         Log.d("courseid===>>>", courseId);
         initViews();
         getData();
@@ -112,7 +114,7 @@ public class DoingExerciseActivity extends Activity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONObject object = response;
-                Log.d("QuizList,response===>>>", response.toString());
+                Log.d("QuizList===response===>>>", response.toString());
                 int code, total;
                 try {
                     code = object.getInt("code");
@@ -121,21 +123,25 @@ public class DoingExerciseActivity extends Activity {
                     alternative = new String[total];
                     content = new String[total];
                     quesn = new String[total];
-                    success = new int[total];
+                    success = new String[total];
                     type = new String[total];
                     if (total == 0) {
-                        Toast.makeText(DoingExerciseActivity.this, R.string.no_course, Toast.LENGTH_LONG).show();
-                        finish();
+                        no_question = (TextView) findViewById(R.id.no_question);
+                        no_question.setVisibility(View.VISIBLE);
+                        return;
                     }
                     if (code == 0) {
+                        Log.d("code==0", "start!!!");
                         JSONArray dataJsonArray = object.getJSONArray("subject");
                         for (int i = 0; i < dataJsonArray.length(); i++) {
                             JSONObject jsonObjectSon = (JSONObject) dataJsonArray.getJSONObject(i);
                             id[i] = jsonObjectSon.getString("id");
-                            alternative[i] = ReplaceCharacter.Replace(ReplaceCharacter.addChar(jsonObjectSon.getString("alternative")));
-                            content[i] = ReplaceCharacter.Replace(jsonObjectSon.getString("content"));
-                            quesn[i] = jsonObjectSon.getString("quesn");
-                            success[i] = jsonObjectSon.getInt("success");
+//                            alternative[i] = ReplaceCharacter.Replace(ReplaceCharacter.addChar(jsonObjectSon.getString("alternative")));
+                            alternative[i] = jsonObjectSon.getString("alternative");
+//                            content[i] = ReplaceCharacter.Replace(jsonObjectSon.getString("content"));
+                            content[i] = jsonObjectSon.getString("content");
+//                            quesn[i] = jsonObjectSon.getString("quesn");
+                            success[i] = jsonObjectSon.getString("success");
                             type[i] = jsonObjectSon.getString("type");
                             Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + alternative[i] + ":" + quesn[i] + ":"
                                     + success[i] + ":" + type[i]);
@@ -144,8 +150,8 @@ public class DoingExerciseActivity extends Activity {
                             subject.setId(id[i]);//题目id
                             subject.setAlternative(alternative[i]);//题目选项内容
                             subject.setContent(content[i]);//题目标题
-                            subject.setQuesn(quesn[i]);//题目排序
-                            subject.setSuccess("" + success[i]);//题目正确答案
+//                            subject.setQuesn(quesn[i]);//题目排序
+                            subject.setSuccess(success[i]);//题目正确答案
                             subject.setType(type[i]);//题目类型
                             subject.setPapersid(courseId);//试卷id
                             subject.save();//保存数据到litepal数据库

@@ -279,7 +279,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.CourseVersionActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
