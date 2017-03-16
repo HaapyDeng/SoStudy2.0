@@ -413,6 +413,7 @@
     <string name="clear_cache">清空缓存</string>
     <string name="cof_clear_cache">确认清空缓存？</string>
     <string name="null_info">无</string>
+    <string name="logout_cofirm">确认退出程序么？</string>
     <string name="f_choose_ssq">请先选择学校所在的省市区</string>
     <string name="f_choose_type">请先选择学校的类型</string>
     <string name="school_null">对不起还不支持该地区学校，请重新选择学校所在区域！</string>

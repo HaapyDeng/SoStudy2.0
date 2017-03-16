@@ -1,6 +1,9 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,6 +12,11 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
@@ -185,5 +193,39 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
+//点击返回键弹出确定窗口 选择退出
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        Button cancel, commit;
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN
+                && event.getRepeatCount() == 0) {
+//具体的操作代码
+            final Dialog dialog = new Dialog(MainActivity.this, R.style.jmui_default_dialog_style);
+            View v = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_logout, null);
+            dialog.setContentView(v);
+            dialog.getWindow().setLayout((int) (0.8 * 720), WindowManager.LayoutParams.WRAP_CONTENT);
+            dialog.show();
+            cancel = (Button) v.findViewById(R.id.cache_cancel_btn);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+            commit = (Button) v.findViewById(R.id.cache_commit_btn);
+            commit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //IM和app的退出
+                    JMessageClient.logout();
+                    finish();
+                    dialog.cancel();
+                }
+            });
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }

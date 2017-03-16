@@ -140,8 +140,10 @@ public class QuizListActivity extends Activity {
                         exlist_text.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                             @Override
                             public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
-                                Log.d("groupPosition==>>", "" + groupPosition);
-                                if (1 == 1) {
+                                Log.d("iData==>>", "" + iData.size() + ":" + groupPosition);
+                                if (iData.size() == groupPosition) {
+                                    String courseId = gData.get(groupPosition).getgId();
+                                    Toast.makeText(mContext, "你点击了：" + gData.get(groupPosition).getgId(), Toast.LENGTH_SHORT).show();
                                     return true;
                                 } else {
                                     return false;
