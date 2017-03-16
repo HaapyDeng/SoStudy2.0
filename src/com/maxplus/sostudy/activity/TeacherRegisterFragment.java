@@ -27,6 +27,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.tools.NetworkUtils;
 
 import org.apache.http.Header;
@@ -559,6 +560,9 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
         teacherParams.put("password", password);
         Log.d("userinfo==>>>", "" + usertype + "," + schoolName + "," + tgrade + "," + tsubject
                 + "," + userName + "," + realName + "," + phone + "," + password);
+        final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(getActivity(),
+                null);
+        mLoadingDialog.show();
         teacherClient.post(tRegistUrl, teacherParams, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -566,6 +570,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                 try {
                     int json = (int) response.get("status");
                     if (json == 1) {
+                        mLoadingDialog.dismiss();
                         Toast.makeText(getActivity(), R.string.regist_success, Toast.LENGTH_LONG).show();
                         Log.d("response==>>>>", response.toString());
 //                        SharedPreferences sp = getSharedPreferences()  ;

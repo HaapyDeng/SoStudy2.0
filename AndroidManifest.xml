@@ -214,7 +214,7 @@
             android:name=".activity.GuideActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.ForgetPassword"
+            android:name=".activity.ForgetPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RegisterActivity"

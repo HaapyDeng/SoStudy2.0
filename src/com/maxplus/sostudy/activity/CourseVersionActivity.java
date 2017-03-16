@@ -1,6 +1,7 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +18,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.tools.NetworkUtils;
 
 import org.apache.http.Header;
@@ -91,6 +93,9 @@ public class CourseVersionActivity extends Activity {
         rp.put("token", token);
         rp.put("sub", id);
         Log.d("type+token+sub===>>>", winterCourse + "+" + token + "+" + id);
+        final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(CourseVersionActivity.this,
+                null);
+        mLoadingDialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(url, rp, new JsonHttpResponseHandler() {
             @Override
@@ -115,7 +120,7 @@ public class CourseVersionActivity extends Activity {
                             coursesid[i] = courseid;
                             Log.d("course==>>>", course + ";" + courseid);
                         }
-
+                        mLoadingDialog.dismiss();
                         SimpleAdapter adapter = new SimpleAdapter(CourseVersionActivity.this, getList(courses, coursesid),
                                 R.layout.grid_course_my, new String[]{"course"},
                                 new int[]{R.id.tv_title});
@@ -133,11 +138,13 @@ public class CourseVersionActivity extends Activity {
                             }
                         });
                     } else {
+                        mLoadingDialog.dismiss();
 //                        Toast.makeText(WinterHolidayCourseActivity.this, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
                         Toast.makeText(CourseVersionActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
                         return;
                     }
                 } catch (JSONException e) {
+                    mLoadingDialog.dismiss();
                     e.printStackTrace();
                 }
 
@@ -146,6 +153,7 @@ public class CourseVersionActivity extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                mLoadingDialog.dismiss();
             }
         });
     }

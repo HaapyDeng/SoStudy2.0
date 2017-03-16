@@ -2,7 +2,6 @@ package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,14 +10,11 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
@@ -27,14 +23,11 @@ import com.maxplus.sostudy.tools.ClearEditText;
 import com.maxplus.sostudy.tools.NetworkUtils;
 
 import org.apache.http.Header;
-import org.apache.http.StatusLine;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Set;
 
-import cn.jpush.android.JPushConstants;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.jpush.im.android.api.JMessageClient;
@@ -81,7 +74,7 @@ public class LoginActivity extends Activity implements OnClickListener {
                 break;
             case R.id.forg_password:
                 Intent intent2 = new Intent();
-                intent2.setClass(this, ForgetPassword.class);
+                intent2.setClass(this, ForgetPasswordActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.btn_login:

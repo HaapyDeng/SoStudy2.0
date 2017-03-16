@@ -1,6 +1,7 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
@@ -22,15 +22,14 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.tools.NetworkUtils;
 
 import org.apache.http.Header;
-import org.apache.http.client.HttpResponseException;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForgetPassword extends Activity implements OnClickListener {
+public class ForgetPasswordActivity extends Activity implements OnClickListener {
     private String newPassword, verifyCode;
     private String phoneNum, getRaelCode;
     EditText et_phoneNum, et_newPassword, et_verifyCode;
@@ -120,9 +119,9 @@ public class ForgetPassword extends Activity implements OnClickListener {
                                     Log.d("code===>>>>>>", "" + getRaelCode);
                                     timer.start();
                                 } else if (status == 0) {
-                                    Toast.makeText(ForgetPassword.this, response.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ForgetPasswordActivity.this, response.getString("errorInfo"), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(ForgetPassword.this, R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ForgetPasswordActivity.this, R.string.get_code_fail, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -132,11 +131,11 @@ public class ForgetPassword extends Activity implements OnClickListener {
                         @Override
                         public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                             super.onFailure(statusCode, headers, responseString, throwable);
-                            Toast.makeText(ForgetPassword.this, R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgetPasswordActivity.this, R.string.get_code_fail, Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
-                    Toast.makeText(ForgetPassword.this, R.string.input_right_phone_email_number, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgetPasswordActivity.this, R.string.input_right_phone_email_number, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 break;
@@ -146,15 +145,15 @@ public class ForgetPassword extends Activity implements OnClickListener {
                 et_newPassword = (EditText) findViewById(R.id.et_newPassword);
                 newPassword = et_newPassword.getText().toString();
                 if (verifyCode.length() == 0) {
-                    Toast.makeText(ForgetPassword.this, R.string.input_verifyCode, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgetPasswordActivity.this, R.string.input_verifyCode, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (newPassword.length() < 8) {
-                    Toast.makeText(ForgetPassword.this, R.string.input_new_password, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgetPasswordActivity.this, R.string.input_new_password, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (!verifyCode.equals(getRaelCode)) {
-                    Toast.makeText(ForgetPassword.this, R.string.input_error_code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgetPasswordActivity.this, R.string.input_error_code, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 if (!NetworkUtils.checkNetWork(this)) {
@@ -171,6 +170,9 @@ public class ForgetPassword extends Activity implements OnClickListener {
                 } else {
                     params.put("email", phoneNum);
                 }
+                final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(ForgetPasswordActivity.this,
+                        null);
+                mLoadingDialog.show();
                 client.post(url, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -182,15 +184,16 @@ public class ForgetPassword extends Activity implements OnClickListener {
                             Log.d("status==>>>>>", "" + status);
                             Log.d("response===>>>>>>", "" + response);
                             if (status == 1) {
-                                Toast.makeText(ForgetPassword.this, R.string.fix_password_success, Toast.LENGTH_SHORT).show();
+                                mLoadingDialog.dismiss();
+                                Toast.makeText(ForgetPasswordActivity.this, R.string.fix_password_success, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent();
-                                intent.setClass(ForgetPassword.this, LoginActivity.class);
+                                intent.setClass(ForgetPasswordActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else if (status == 0) {
-                                Toast.makeText(ForgetPassword.this, response.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgetPasswordActivity.this, response.getString("errorInfo"), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(ForgetPassword.this, R.string.get_code_fail, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ForgetPasswordActivity.this, R.string.get_code_fail, Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -202,7 +205,7 @@ public class ForgetPassword extends Activity implements OnClickListener {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
                         Log.d("statusCode==>>>>", "" + statusCode + "," + headers + "," + throwable + "," + errorResponse.toString());
                         try {
-                            Toast.makeText(ForgetPassword.this, errorResponse.getString("errorInfo"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgetPasswordActivity.this, errorResponse.getString("errorInfo"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

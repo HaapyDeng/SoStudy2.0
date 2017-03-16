@@ -1,5 +1,6 @@
 package com.maxplus.sostudy.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
 
@@ -330,6 +332,10 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
         rparams.put("password", password);
         Log.d("userinfo==>>>", "" + i + "," + schoolName + "," + gradename + "," + classname
                 + "," + username + "," + realname + "," + email + "," + password);
+
+        final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(getActivity(),
+                null);
+        mLoadingDialog.show();
         registClient.post(registUrl, rparams, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -337,6 +343,7 @@ public class StudentRegistFragment extends Fragment implements View.OnClickListe
                 try {
                     int json = (int) response.get("status");
                     if (json == 1) {
+                        mLoadingDialog.dismiss();
                         Toast.makeText(getActivity(), R.string.regist_success, Toast.LENGTH_LONG).show();
                         Log.d("response==>>>>", response.toString());
 //                        SharedPreferences sp = getSharedPreferences()  ;

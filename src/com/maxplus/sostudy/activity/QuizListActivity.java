@@ -1,6 +1,7 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.adapter.MyBaseExpandableListAdapter;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.entity.Group;
 import com.maxplus.sostudy.entity.Item;
 import com.maxplus.sostudy.tools.NetworkUtils;
@@ -91,6 +93,9 @@ public class QuizListActivity extends Activity {
         rp.put("token", token);
         rp.put("id", courseid);
         rp.put("type", "holiday");
+        final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(QuizListActivity.this,
+                null);
+        mLoadingDialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(url, rp, new JsonHttpResponseHandler() {
             @Override
@@ -102,6 +107,7 @@ public class QuizListActivity extends Activity {
                 try {
                     code = object.getInt("code");
                     if (code == 1000) {
+                        mLoadingDialog.dismiss();
                         Toast.makeText(QuizListActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
                         finish();
                     } else if (code == 0) {
@@ -132,6 +138,7 @@ public class QuizListActivity extends Activity {
                             gData.add(new Group(name, id));
                             Log.d("gData==>>>", gData.toString());
                         }
+                        mLoadingDialog.dismiss();
                         exlist_text = (ExpandableListView) findViewById(R.id.lv_list);
                         exlist_text.setGroupIndicator(null);
                         myAdapter = new MyBaseExpandableListAdapter(gData, iData, mContext);
@@ -163,10 +170,12 @@ public class QuizListActivity extends Activity {
 //                        lv = (ListView) findViewById(R.id.lv_list);
 //                        lv.setAdapter(adapter);
                     } else {
+                        mLoadingDialog.dismiss();
                         Toast.makeText(QuizListActivity.this, object.getString("msg"), Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 } catch (JSONException e) {
+                    mLoadingDialog.dismiss();
                     e.printStackTrace();
                 }
             }
@@ -174,6 +183,7 @@ public class QuizListActivity extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                mLoadingDialog.dismiss();
             }
         });
     }

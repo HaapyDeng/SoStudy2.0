@@ -1,5 +1,6 @@
 package com.maxplus.sostudy.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -23,6 +24,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.RadioButtonAlertDialog;
 
@@ -303,6 +305,9 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
         pRegistParam.put("password", ppassword);
         Log.d("pRegistParam==>>", type + "," + pschoolName + "," + pgrade + "," + pclass + "," + puser + "," + childUid + ","
                 + pphone + "," + ppassword);
+        final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(getActivity(),
+                null);
+        mLoadingDialog.show();
         pRegistClient.post(pRegistUrl, pRegistParam, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -310,6 +315,7 @@ public class ParentRegisterFragment extends Fragment implements View.OnClickList
                 try {
                     int json = (int) response.get("status");
                     if (json == 1) {
+                        mLoadingDialog.dismiss();
                         Toast.makeText(getActivity(), R.string.regist_success, Toast.LENGTH_LONG).show();
                         Log.d("response==>>>>", response.toString());
 //                        SharedPreferences sp = getSharedPreferences()  ;
