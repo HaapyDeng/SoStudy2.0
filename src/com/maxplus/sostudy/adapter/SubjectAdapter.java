@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -62,8 +63,13 @@ public class SubjectAdapter extends PagerAdapter {
         alternative = dataItems.get(position).getAlternative();
         holder.webview = (WebView) convertView.findViewById(R.id.webview);
         holder.webview.getSettings().setJavaScriptEnabled(true);
+        holder.webview.getSettings().setBlockNetworkImage(false);
         holder.webview.getSettings().setDefaultTextEncodingName("UTF -8");
-        holder.webview.loadDataWithBaseURL(null, content + alternative, "text/html", "utf-8", null);
+        holder.webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        //让缩放显示的最值百分比
+//        holder.webview.setInitialScale(50);
+        holder.webview.loadDataWithBaseURL(null, "jiushahsahhsdsffds<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfdgfdgdfg<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfd", "text/html", "utf-8", null);
+//        holder.webview.loadUrl("http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg");
         holder.a = (RadioButton) convertView.findViewById(R.id.choose_A);
         holder.b = (RadioButton) convertView.findViewById(R.id.choose_B);
         holder.c = (RadioButton) convertView.findViewById(R.id.choose_C);

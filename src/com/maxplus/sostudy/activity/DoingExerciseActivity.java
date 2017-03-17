@@ -1,6 +1,7 @@
 package com.maxplus.sostudy.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.adapter.SubjectAdapter;
+import com.maxplus.sostudy.chatting.utils.DialogCreator;
 import com.maxplus.sostudy.entity.SubjectBean;
 import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.ReplaceCharacter;
@@ -108,6 +110,9 @@ public class DoingExerciseActivity extends Activity {
         RequestParams rp = new RequestParams();
         rp.put("token", token);
         rp.put("id", courseId);
+        final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(DoingExerciseActivity.this,
+                null);
+        mLoadingDialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
         client.post(url, rp, new JsonHttpResponseHandler() {
             @Override
@@ -126,6 +131,7 @@ public class DoingExerciseActivity extends Activity {
                     success = new String[total];
                     type = new String[total];
                     if (total == 0) {
+                        mLoadingDialog.dismiss();
                         no_question = (TextView) findViewById(R.id.no_question);
                         no_question.setVisibility(View.VISIBLE);
                         return;
@@ -166,9 +172,11 @@ public class DoingExerciseActivity extends Activity {
                         viewPager.setAdapter(pagerAdapter);
                         viewPager.getParent()
                                 .requestDisallowInterceptTouchEvent(false);
+                        mLoadingDialog.dismiss();
                         Log.d("All info is==>>>", ">>>>>>" + id.length + ":" + content.length + ":" + alternative.length + ":"
                                 + quesn.length + ":" + success.length + ":" + type.length);
                     } else {
+                        mLoadingDialog.dismiss();
                         Toast.makeText(DoingExerciseActivity.this, object.getString("msg"), Toast.LENGTH_LONG).show();
                         finish();
                     }
