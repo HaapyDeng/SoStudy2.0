@@ -19,6 +19,7 @@ import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.DoingExerciseActivity;
 import com.maxplus.sostudy.activity.LookAnswerActivity;
 import com.maxplus.sostudy.entity.SubjectBean;
+import com.maxplus.sostudy.tools.ReplaceCharacter;
 
 import org.litepal.LitePal;
 
@@ -68,7 +69,10 @@ public class SubjectAdapter extends PagerAdapter {
         holder.webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         //让缩放显示的最值百分比
 //        holder.webview.setInitialScale(50);
-        holder.webview.loadDataWithBaseURL(null, "jiushahsahhsdsffds<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfdgfdgdfg<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfd", "text/html", "utf-8", null);
+        Log.d("content==>>", ReplaceCharacter.deleteChar(content));
+        holder.webview.loadDataWithBaseURL(null, ReplaceCharacter.deleteChar(content) + alternative, "text/html", "utf-8", null);
+
+//        holder.webview.loadDataWithBaseURL(null, "jiushahsahhsdsffds<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfdgfdgdfg<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfd", "text/html", "utf-8", null);
 //        holder.webview.loadUrl("http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg");
         holder.a = (RadioButton) convertView.findViewById(R.id.choose_A);
         holder.b = (RadioButton) convertView.findViewById(R.id.choose_B);

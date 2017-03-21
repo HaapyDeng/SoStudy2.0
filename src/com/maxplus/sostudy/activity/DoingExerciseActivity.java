@@ -123,7 +123,8 @@ public class DoingExerciseActivity extends Activity {
                 int code, total;
                 try {
                     code = object.getInt("code");
-                    total = object.getInt("total");
+                    JSONArray dataJsonArray = object.getJSONArray("subject");
+                    total = dataJsonArray.length();
                     id = new String[total];
                     alternative = new String[total];
                     content = new String[total];
@@ -138,7 +139,6 @@ public class DoingExerciseActivity extends Activity {
                     }
                     if (code == 0) {
                         Log.d("code==0", "start!!!");
-                        JSONArray dataJsonArray = object.getJSONArray("subject");
                         for (int i = 0; i < dataJsonArray.length(); i++) {
                             JSONObject jsonObjectSon = (JSONObject) dataJsonArray.getJSONObject(i);
                             id[i] = jsonObjectSon.getString("id");
@@ -160,7 +160,7 @@ public class DoingExerciseActivity extends Activity {
                             subject.setSuccess(success[i]);//题目正确答案
                             subject.setType(type[i]);//题目类型
                             subject.setPapersid(courseId);//试卷id
-                            subject.save();//保存数据到litepal数据库
+//                            subject.save();//保存数据到litepal数据库
                             subjectItems.add(subject);
                         }
                         for (int i = 0; i < subjectItems.size(); i++) {

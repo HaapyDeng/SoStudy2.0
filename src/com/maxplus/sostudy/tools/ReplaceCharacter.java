@@ -35,4 +35,10 @@ public class ReplaceCharacter {
         data = data.replaceFirst("</p>,<p>", "</p><p>(D)");
         return data;
     }
+
+    //删除答题内容的‘\’标签
+    public static String deleteChar(String data) {
+        data = data.replaceAll("\\\\", "");
+        return data;
+    }
 }
