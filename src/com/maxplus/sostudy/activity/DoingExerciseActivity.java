@@ -43,7 +43,8 @@ public class DoingExerciseActivity extends Activity {
     VoteSubmitViewPager viewPager;
     private String[] success;
     private WebView webView;
-    private String[] id, quesn, content, alternative, type, back, thetotal, therightv;
+    private JSONArray[] alternative;
+    private String[] id, quesn, content, type, back, thetotal, therightv;
     List<SubjectBean> subjectItems = new ArrayList<SubjectBean>();
     List<View> viewItems = new ArrayList<View>();
     private TextView no_question;
@@ -126,7 +127,7 @@ public class DoingExerciseActivity extends Activity {
                     JSONArray dataJsonArray = object.getJSONArray("subject");
                     total = dataJsonArray.length();
                     id = new String[total];
-                    alternative = new String[total];
+                    alternative = new JSONArray[total];
                     content = new String[total];
                     quesn = new String[total];
                     success = new String[total];
@@ -143,15 +144,21 @@ public class DoingExerciseActivity extends Activity {
                             JSONObject jsonObjectSon = (JSONObject) dataJsonArray.getJSONObject(i);
                             id[i] = jsonObjectSon.getString("id");
 //                            alternative[i] = ReplaceCharacter.Replace(ReplaceCharacter.addChar(jsonObjectSon.getString("alternative")));
-                            alternative[i] = jsonObjectSon.getString("alternative");
+//                            alternative[i] = jsonObjectSon.getJSONArray("alternative");
+//                            alternative[i] = (JSONArray) ReplaceCharacter.deleteChar(jsonObjectSon.getString("alternative"));
+                            String va = ReplaceCharacter.deleteChar(jsonObjectSon.getString("alternative").toString());
+                            Log.d("va==>>>", va);
+                            JSONArray value = new JSONArray(va);
+                            Log.d("value==>>>", value.toString());
+                            alternative[i] = value;
 //                            content[i] = ReplaceCharacter.Replace(jsonObjectSon.getString("content"));
                             content[i] = jsonObjectSon.getString("content");
 //                            quesn[i] = jsonObjectSon.getString("quesn");
                             success[i] = jsonObjectSon.getString("success");
                             type[i] = jsonObjectSon.getString("type");
-                            Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + alternative[i] + ":" + quesn[i] + ":"
+                            Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + va + ":" + quesn[i] + ":"
                                     + success[i] + ":" + type[i]);
-                            Log.d("alternative==>>", alternative[i]);
+                            Log.d("alternative==>>", alternative[i].toString());
                             SubjectBean subject = new SubjectBean();
                             subject.setId(id[i]);//题目id
                             subject.setAlternative(alternative[i]);//题目选项内容

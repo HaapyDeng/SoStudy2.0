@@ -21,15 +21,20 @@ import com.maxplus.sostudy.activity.LookAnswerActivity;
 import com.maxplus.sostudy.entity.SubjectBean;
 import com.maxplus.sostudy.tools.ReplaceCharacter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectAdapter extends PagerAdapter {
-    private String id, quesn, content, alternative, type, back, thetotal, therightv;
+    private String id, quesn, content, type, back, thetotal, therightv;
     private ArrayList<String> answer = new ArrayList<>();
     private ArrayList<String> sucess = new ArrayList<>();
+    private JSONArray alternative;
+    private String option, text;
     DoingExerciseActivity mContext;
     // 传递过来的页面view的集合
     List<View> viewItems;
@@ -67,17 +72,76 @@ public class SubjectAdapter extends PagerAdapter {
         holder.webview.getSettings().setBlockNetworkImage(false);
         holder.webview.getSettings().setDefaultTextEncodingName("UTF -8");
         holder.webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        holder.webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         //让缩放显示的最值百分比
-//        holder.webview.setInitialScale(50);
+        //        holder.webview.setInitialScale(50);
         Log.d("content==>>", ReplaceCharacter.deleteChar(content));
-        holder.webview.loadDataWithBaseURL(null, ReplaceCharacter.deleteChar(content) + alternative, "text/html", "utf-8", null);
+        holder.webview.loadDataWithBaseURL(null, ReplaceCharacter.deleteChar(content), "text/html", "utf-8", null);
+        //添加选项内容
+        holder.webviewA = (WebView) convertView.findViewById(R.id.webview_a);
+        holder.webviewA.getSettings().setJavaScriptEnabled(true);
+        holder.webviewA.getSettings().setBlockNetworkImage(false);
+        holder.webviewA.getSettings().setDefaultTextEncodingName("UTF -8");
+        holder.webviewA.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        holder.webviewA.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-//        holder.webview.loadDataWithBaseURL(null, "jiushahsahhsdsffds<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfdgfdgdfg<img src='http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg' class='imgSmall'>efddfd", "text/html", "utf-8", null);
-//        holder.webview.loadUrl("http://img0.imgtn.bdimg.com/it/u=2620947518,865405288&fm=23&gp=0.jpg");
+        holder.webviewB = (WebView) convertView.findViewById(R.id.webview_b);
+        holder.webviewB.getSettings().setJavaScriptEnabled(true);
+        holder.webviewB.getSettings().setBlockNetworkImage(false);
+        holder.webviewB.getSettings().setDefaultTextEncodingName("UTF -8");
+        holder.webviewB.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        holder.webviewB.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+        holder.webviewC = (WebView) convertView.findViewById(R.id.webview_c);
+        holder.webviewC.getSettings().setJavaScriptEnabled(true);
+        holder.webviewC.getSettings().setBlockNetworkImage(false);
+        holder.webviewC.getSettings().setDefaultTextEncodingName("UTF -8");
+        holder.webviewC.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        holder.webviewC.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
+        holder.webviewD = (WebView) convertView.findViewById(R.id.webview_d);
+        holder.webviewD.getSettings().setJavaScriptEnabled(true);
+        holder.webviewD.getSettings().setBlockNetworkImage(false);
+        holder.webviewD.getSettings().setDefaultTextEncodingName("UTF -8");
+        holder.webviewD.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+        holder.webviewE = (WebView) convertView.findViewById(R.id.webview_e);
+        holder.webviewE.getSettings().setJavaScriptEnabled(true);
+        holder.webviewE.getSettings().setBlockNetworkImage(false);
+        holder.webviewE.getSettings().setDefaultTextEncodingName("UTF -8");
+        holder.webviewE.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+
+        for (int i = 0; i < alternative.length(); i++) {
+            try {
+                JSONObject temp = (JSONObject) alternative.get(i);
+                option = temp.getString("option");
+                text = temp.getString("text");
+                if (i == 0) {
+                    holder.webviewA.loadDataWithBaseURL(null, option + ". " + text, "text/html", "utf-8", null);
+                } else if (i == 1) {
+                    holder.webviewB.loadDataWithBaseURL(null, option + ". " + text, "text/html", "utf-8", null);
+                } else if (i == 2) {
+                    holder.webviewC.loadDataWithBaseURL(null, option + ". " + text, "text/html", "utf-8", null);
+                } else if (i == 3) {
+                    holder.webviewD.loadDataWithBaseURL(null, option + ". " + text, "text/html", "utf-8", null);
+                } else if (i == 4) {
+                    holder.webviewE.setVisibility(View.VISIBLE);
+                    holder.webviewE.loadDataWithBaseURL(null, text + ". " + option, "text/html", "utf-8", null);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.d("alternative===>>", alternative.toString() + "\n" + option);
+
         holder.a = (RadioButton) convertView.findViewById(R.id.choose_A);
         holder.b = (RadioButton) convertView.findViewById(R.id.choose_B);
         holder.c = (RadioButton) convertView.findViewById(R.id.choose_C);
         holder.d = (RadioButton) convertView.findViewById(R.id.choose_D);
+        if (alternative.length() == 3) {
+            holder.d.setVisibility(View.GONE);
+        }
         final SubjectBean subjectBean = new SubjectBean();
         holder.a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -247,7 +311,7 @@ public class SubjectAdapter extends PagerAdapter {
 
 
     public class ViewHolder {
-        WebView webview;
+        WebView webview, webviewA, webviewB, webviewC, webviewD, webviewE;
         RadioButton a, b, c, d;
         LinearLayout bottom_layout, upLayout, nextLayout;
         TextView nextText;

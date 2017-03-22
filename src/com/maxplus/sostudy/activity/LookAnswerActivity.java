@@ -40,13 +40,9 @@ public class LookAnswerActivity extends Activity {
         answer1 = bundle.getParcelableArrayList("answer");
         sucess1 = bundle.getParcelableArrayList("sucess");
         yourAnswer.setText(answer1.toString().replaceAll("\\]", "").replaceAll("\\[", ""));
-        String aa = sucess1.toString().replaceAll("0", "A");
-        String bb = aa.replaceAll("1", "B");
-        String cc = bb.replaceAll("2", "C");
-        String dd = cc.replaceAll("3", "D");
-        suecssAnswer.setText(dd.replaceAll("\\]", "").replaceAll("\\[", ""));
+        suecssAnswer.setText(sucess1.toString().replaceAll("\\[\"", "").replaceAll("\",\"", "").replaceAll("\"]", "").replaceAll("\\]", "").replaceAll("\\[", ""));
         doCompare(answer1.toString().replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim(),
-                dd.replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim());
+                sucess1.toString().replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim());
         rightRate = 100 * (rightAnswer / (rightAnswer + errorAnswer));
         right_rate.setText("" + rightRate + "%");
     }

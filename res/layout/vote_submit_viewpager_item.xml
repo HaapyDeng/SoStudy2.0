@@ -19,20 +19,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></WebView>
 
-            <TextView
+
+            <WebView
+                android:id="@+id/webview_a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:text="@string/choose_answer"
-                android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:paddingLeft="20dp"></WebView>
+
+
+            <WebView
+                android:id="@+id/webview_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"></WebView>
+
+
+            <WebView
+                android:id="@+id/webview_c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"></WebView>
+
+
+            <WebView
+                android:id="@+id/webview_d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"></WebView>
+
+            <WebView
+                android:id="@+id/webview_e"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:visibility="gone"></WebView>
 
             <RadioGroup
-                android:id="@+id/rg_choose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp">
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/choose_A"
@@ -70,6 +95,7 @@
                     android:textColor="@color/black"
                     android:textSize="20dp" />
             </RadioGroup>
+
 
             <LinearLayout
                 android:id="@+id/bottom_layout"

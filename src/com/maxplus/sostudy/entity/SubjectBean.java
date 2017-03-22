@@ -1,5 +1,6 @@
 package com.maxplus.sostudy.entity;
 
+import org.json.JSONArray;
 import org.litepal.crud.DataSupport;
 
 /**
@@ -15,7 +16,7 @@ public class SubjectBean extends DataSupport {
     private String content;
 
     //题目的选项
-    private String alternative;
+    private JSONArray alternative;
 
     // 小题排序
     private String quesn;
@@ -70,11 +71,11 @@ public class SubjectBean extends DataSupport {
         this.content = content;
     }
 
-    public String getAlternative() {
+    public JSONArray getAlternative() {
         return alternative;
     }
 
-    public void setAlternative(String alternative) {
+    public void setAlternative(JSONArray alternative) {
         this.alternative = alternative;
     }
 
