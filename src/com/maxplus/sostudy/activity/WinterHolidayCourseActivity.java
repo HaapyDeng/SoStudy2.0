@@ -136,6 +136,7 @@ public class WinterHolidayCourseActivity extends Activity {
                                 courseid = coursesid[position];
                                 Intent intent = new Intent(WinterHolidayCourseActivity.this, CourseVersionActivity.class);
                                 Bundle bundle = new Bundle();
+                                bundle.putInt("version", winterCourse);
                                 bundle.putString("course", courseid);
                                 intent.putExtras(bundle);
                                 startActivity(intent);

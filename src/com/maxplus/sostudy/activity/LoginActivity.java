@@ -134,7 +134,7 @@ public class LoginActivity extends Activity implements OnClickListener {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                 try {
-                    Log.d("status=====>", "" + json.getInt("status"));
+                    Log.d("status=====>", json.toString());
                     if (json.getInt("status") == 1) {
                         token = json.getString("tock");
                         Log.d("token==>>>>", token);

@@ -35,7 +35,7 @@ public class CourseVersionActivity extends Activity {
     private ImageButton backButton;
     private GridView grid_course;
     private String token, id;
-    private int winterCourse = 1;
+    private int versionCourse = 0;
     private String[] courses = new String[]{};
     private String[] coursesid = new String[]{};
     private String courseid, course;
@@ -47,6 +47,7 @@ public class CourseVersionActivity extends Activity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         id = bundle.getString("course");
+        versionCourse = bundle.getInt("version");
         Log.d("courseid===>>>", id);
         backButton = (ImageButton) findViewById(R.id.back_Button);
         grid_course = (GridView) findViewById(R.id.gridView);
@@ -89,10 +90,10 @@ public class CourseVersionActivity extends Activity {
             return;
         }
         RequestParams rp = new RequestParams();
-        rp.put("type", winterCourse);
+        rp.put("type", versionCourse);
         rp.put("token", token);
         rp.put("sub", id);
-        Log.d("type+token+sub===>>>", winterCourse + "+" + token + "+" + id);
+        Log.d("type+token+sub===>>>", versionCourse + "+" + token + "+" + id);
         final Dialog mLoadingDialog = DialogCreator.createLoadingDialog(CourseVersionActivity.this,
                 null);
         mLoadingDialog.show();
