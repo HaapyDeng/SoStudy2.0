@@ -154,7 +154,7 @@ public class DoingExerciseActivity extends Activity {
 //                            content[i] = ReplaceCharacter.Replace(jsonObjectSon.getString("content"));
                             content[i] = jsonObjectSon.getString("content");
 //                            quesn[i] = jsonObjectSon.getString("quesn");
-                            success[i] = jsonObjectSon.getString("success");
+                            success[i] = jsonObjectSon.getString("success").replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll("\"", "").trim();
                             type[i] = jsonObjectSon.getString("type");
                             Log.d("All info is==>>>", i + "--->" + id[i] + ":" + content[i] + ":" + va + ":" + quesn[i] + ":"
                                     + success[i] + ":" + type[i]);

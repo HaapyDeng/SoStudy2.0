@@ -41,25 +41,17 @@ public class LookAnswerActivity extends Activity {
         sucess1 = bundle.getParcelableArrayList("sucess");
         yourAnswer.setText(answer1.toString().replaceAll("\\]", "").replaceAll("\\[", ""));
         suecssAnswer.setText(sucess1.toString().replaceAll("\\[\"", "").replaceAll("\",\"", "").replaceAll("\"]", "").replaceAll("\\]", "").replaceAll("\\[", ""));
-        doCompare(answer1.toString().replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim(),
-                sucess1.toString().replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim());
+        doCompare(answer1, sucess1);
         rightRate = 100 * (rightAnswer / (rightAnswer + errorAnswer));
         right_rate.setText("" + rightRate + "%");
     }
 
-    private void doCompare(String answer, String sucess) {
-
-        for (int i = 0; i < answer.length(); i++) {
-            String a = String.valueOf(answer.charAt(i));
-            a.trim();
-            Log.d("a==>>", a);
-            if (String.valueOf(answer.charAt(i)).equals("A") && String.valueOf(sucess.charAt(i)).equals("A")) {
-                rightAnswer = rightAnswer + 1;
-            } else if (String.valueOf(answer.charAt(i)).equals("B") && String.valueOf(sucess.charAt(i)).equals("B")) {
-                rightAnswer = rightAnswer + 1;
-            } else if (String.valueOf(answer.charAt(i)).equals("C") && String.valueOf(sucess.charAt(i)).equals("C")) {
-                rightAnswer = rightAnswer + 1;
-            } else if (String.valueOf(answer.charAt(i)).equals("D") && String.valueOf(sucess.charAt(i)).equals("D")) {
+    private void doCompare(ArrayList answer, ArrayList sucess) {
+        String[] answerArray = answer.toString().replaceAll("\\]", "").replaceAll("\\[", "").split(",");
+        String[] sucessArray = sucess.toString().replaceAll("\\]", "").replaceAll("\\[", "").split(",");
+        Log.d("answer+sucess==>>>", answerArray.toString() + ":" + sucessArray.toString());
+        for (int i = 0; i < answerArray.length; i++) {
+            if (answerArray[i].equals(sucessArray[i])) {
                 rightAnswer = rightAnswer + 1;
             } else {
                 errorAnswer = errorAnswer + 1;
@@ -69,3 +61,9 @@ public class LookAnswerActivity extends Activity {
     }
 
 }
+
+//}
+/**
+ * answer1.toString().replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim(),
+ * sucess1.toString().replaceAll("\\]", "").replaceAll("\\[", "").replaceAll(",", "").replaceAll(" ", "").trim());
+ */

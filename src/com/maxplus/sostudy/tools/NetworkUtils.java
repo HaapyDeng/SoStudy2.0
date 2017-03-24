@@ -104,8 +104,8 @@ public class NetworkUtils {
 
     //服务器端主路径
     public static String returnUrl() {
-//        String url = "http://www.sostudy.cn:84/api";
-        String url = "http://192.168.1.21/api";
+        String url = "http://www.sostudy.cn:84/api";
+//        String url = "http://192.168.1.21/api";
         return url;
 
     }
@@ -181,9 +181,10 @@ public class NetworkUtils {
     }
 
     //获取课程版本列表
-    public static String returnCourseVsionList(){
+    public static String returnCourseVsionList() {
         return "/mycourse/index";
     }
+
     //获取测验列表
     public static String returnQuizList() {
         return "/mycourse/quizlist";

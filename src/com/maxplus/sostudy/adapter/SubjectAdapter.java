@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import java.util.List;
 public class SubjectAdapter extends PagerAdapter {
     private String id, quesn, content, type, back, thetotal, therightv;
     private ArrayList<String> answer = new ArrayList<>();
+    private String ckAnswer = "";
     private ArrayList<String> sucess = new ArrayList<>();
     private JSONArray alternative;
     private String option, text;
@@ -60,13 +63,15 @@ public class SubjectAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, final int position) {
+    public Object instantiateItem(final ViewGroup container, final int position) {
         Log.d("===>>>>", "instantiateItem is run");
         final ViewHolder holder = new ViewHolder();
         convertView = viewItems.get(position);
 //        SubjectBean subjectBean = new SubjectBean();
         content = dataItems.get(position).getContent();
         alternative = dataItems.get(position).getAlternative();
+        holder.rgLayout = (RadioGroup) convertView.findViewById(R.id.rg_rb);
+        holder.ckLayout = (LinearLayout) convertView.findViewById(R.id.ck_ll);
         holder.webview = (WebView) convertView.findViewById(R.id.webview);
         holder.webview.getSettings().setJavaScriptEnabled(true);
         holder.webview.getSettings().setBlockNetworkImage(false);
@@ -134,83 +139,190 @@ public class SubjectAdapter extends PagerAdapter {
             }
         }
         Log.d("alternative===>>", alternative.toString() + "\n" + option);
+        /**
+         判断题目是单选还是多选
+         type =3为单选
+         type = 4为多选
+         */
+        SubjectBean subjectBean = new SubjectBean();
+        type = dataItems.get(position).getType();
+        if (type.equals("3")) {
+            holder.ckLayout.setVisibility(View.GONE);
+            //单选操作
+            holder.a = (RadioButton) convertView.findViewById(R.id.choose_A);
+            holder.b = (RadioButton) convertView.findViewById(R.id.choose_B);
+            holder.c = (RadioButton) convertView.findViewById(R.id.choose_C);
+            holder.d = (RadioButton) convertView.findViewById(R.id.choose_D);
+            if (alternative.length() <= 3) {
+                holder.d.setVisibility(View.GONE);
+            }
+            holder.a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (holder.a.isChecked() == true) {
+                        Log.d("answer==>>", "A");
+                        Log.d("postion==>>>", String.valueOf(position));
+                        Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                        Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                        if (answer.size() >= (dataItems.size())) {
 
-        holder.a = (RadioButton) convertView.findViewById(R.id.choose_A);
-        holder.b = (RadioButton) convertView.findViewById(R.id.choose_B);
-        holder.c = (RadioButton) convertView.findViewById(R.id.choose_C);
-        holder.d = (RadioButton) convertView.findViewById(R.id.choose_D);
-        if (alternative.length() == 3) {
-            holder.d.setVisibility(View.GONE);
-        }
-        final SubjectBean subjectBean = new SubjectBean();
-        holder.a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (holder.a.isChecked() == true) {
-                    Log.d("answer==>>", "A");
-                    Log.d("postion==>>>", String.valueOf(position));
-                    Log.d("answer.size()==>>>", String.valueOf(answer.size()));
-                    Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
-                    if (answer.size() >= (dataItems.size())) {
-
-                        answer.set(position, "A");
-                    } else {
-                        answer.add(position, "A");
+                            answer.set(position, "A");
+                        } else {
+                            answer.add(position, "A");
+                        }
                     }
                 }
-            }
-        });
-        holder.b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (holder.b.isChecked() == true) {
-                    Log.d("answer==>>", "B");
-                    Log.d("postion==>>>", String.valueOf(position));
-                    Log.d("answer.size()==>>>", String.valueOf(answer.size()));
-                    Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
-                    if (answer.size() >= (dataItems.size())) {
-                        answer.set(position, "B");
-                    } else {
-                        answer.add(position, "B");
+            });
+            holder.b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (holder.b.isChecked() == true) {
+                        Log.d("answer==>>", "B");
+                        Log.d("postion==>>>", String.valueOf(position));
+                        Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                        Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                        if (answer.size() >= (dataItems.size())) {
+                            answer.set(position, "B");
+                        } else {
+                            answer.add(position, "B");
+                        }
                     }
                 }
-            }
-        });
-        holder.c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (holder.c.isChecked() == true) {
-                    Log.d("answer==>>", "C");
-                    Log.d("postion==>>>", String.valueOf(position));
-                    Log.d("answer.size()==>>>", String.valueOf(answer.size()));
-                    Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
-                    if (answer.size() >= (dataItems.size())) {
-                        answer.set(position, "C");
-                    } else {
-                        answer.add(position, "C");
+            });
+            holder.c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (holder.c.isChecked() == true) {
+                        Log.d("answer==>>", "C");
+                        Log.d("postion==>>>", String.valueOf(position));
+                        Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                        Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                        if (answer.size() >= (dataItems.size())) {
+                            answer.set(position, "C");
+                        } else {
+                            answer.add(position, "C");
+                        }
                     }
-                }
 
-            }
-        });
-        holder.d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                @Override
-                                                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                                                    if (holder.d.isChecked() == true) {
-                                                        Log.d("answer==>>", "D");
-                                                        Log.d("postion==>>>", String.valueOf(position));
-                                                        Log.d("answer.size()==>>>", String.valueOf(answer.size()));
-                                                        Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
-                                                        if (answer.size() >= (dataItems.size())) {
-                                                            answer.set(position, "D");
-                                                        } else {
-                                                            answer.add(position, "D");
+                }
+            });
+            holder.d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                                    @Override
+                                                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                                        if (holder.d.isChecked() == true) {
+                                                            Log.d("answer==>>", "D");
+                                                            Log.d("postion==>>>", String.valueOf(position));
+                                                            Log.d("answer.size()==>>>", String.valueOf(answer.size()));
+                                                            Log.d("dataItems.size()==>>>", String.valueOf(dataItems.size()));
+                                                            if (answer.size() >= (dataItems.size())) {
+                                                                answer.set(position, "D");
+                                                            } else {
+                                                                answer.add(position, "D");
+                                                            }
                                                         }
                                                     }
                                                 }
-                                            }
 
-        );
+            );
+        } else if (type.equals("4")) {
+            holder.rgLayout.setVisibility(View.GONE);
+            holder.ckLayout.setVisibility(View.VISIBLE);
+
+            //多选操作
+            holder.ck_a = (CheckBox) convertView.findViewById(R.id.ck_A);
+            holder.ck_b = (CheckBox) convertView.findViewById(R.id.ck_B);
+            holder.ck_c = (CheckBox) convertView.findViewById(R.id.ck_C);
+            holder.ck_d = (CheckBox) convertView.findViewById(R.id.ck_D);
+            if (alternative.length() <= 3) {
+                holder.ck_d.setVisibility(View.GONE);
+            }
+            holder.ck_a.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (holder.ck_a.isChecked()) {
+                        ckAnswer = "A" + ckAnswer;
+                        if (answer.size() >= (dataItems.size())) {
+                            answer.set(position, ckAnswer);
+                        } else {
+                            answer.add(position, ckAnswer);
+                        }
+                    } else {
+                        ckAnswer = ckAnswer.replace("A", "");
+                        answer.set(position, ckAnswer);
+                    }
+                }
+            });
+            holder.ck_b.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (holder.ck_b.isChecked()) {
+                        if (ckAnswer.contains("A") && !ckAnswer.contains("C") && !ckAnswer.contains("D")) {
+                            ckAnswer = ckAnswer + "B";
+                        } else if (ckAnswer.contains("A") && (ckAnswer.contains("C") || ckAnswer.contains("D"))) {
+                            StringBuilder sb = new StringBuilder(ckAnswer);
+                            ckAnswer = sb.insert(1, "B").toString();
+                        } else {
+                            ckAnswer = "B" + ckAnswer;
+                        }
+                        if (answer.size() >= (dataItems.size())) {
+                            answer.set(position, ckAnswer);
+                        } else {
+                            answer.add(position, ckAnswer);
+                        }
+                    } else {
+                        ckAnswer = ckAnswer.replace("B", "");
+                        answer.set(position, ckAnswer);
+                    }
+                }
+            });
+            holder.ck_c.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (holder.ck_c.isChecked()) {
+                        if ((ckAnswer.contains("B") || ckAnswer.contains("A")) && !ckAnswer.contains("D")) {
+                            ckAnswer = ckAnswer + "C";
+                        } else if (ckAnswer.contains("A") && ckAnswer.contains("B") && ckAnswer.contains("D")) {
+                            StringBuilder sb = new StringBuilder(ckAnswer);
+                            ckAnswer = sb.insert(2, "C").toString();
+                        } else if (ckAnswer.contains("A") && !ckAnswer.contains("B") && ckAnswer.contains("D")) {
+                            StringBuilder sb = new StringBuilder(ckAnswer);
+                            ckAnswer = sb.insert(1, "C").toString();
+                        } else if (!ckAnswer.contains("A") && ckAnswer.contains("B") && ckAnswer.contains("D")) {
+                            StringBuilder sb = new StringBuilder(ckAnswer);
+                            ckAnswer = sb.insert(1, "C").toString();
+                        } else if (!ckAnswer.contains("A") && !ckAnswer.contains("B")) {
+                            ckAnswer = "C" + ckAnswer;
+                        }
+                        if (answer.size() >= (dataItems.size())) {
+                            answer.set(position, ckAnswer);
+                        } else {
+                            answer.add(position, ckAnswer);
+                        }
+                    } else {
+                        ckAnswer = ckAnswer.replace("C", "");
+                        answer.set(position, ckAnswer);
+                    }
+                }
+            });
+            holder.ck_d.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (holder.ck_d.isChecked()) {
+                        ckAnswer = ckAnswer + "D";
+                        if (answer.size() >= (dataItems.size())) {
+                            answer.set(position, ckAnswer);
+                        } else {
+                            answer.add(position, ckAnswer);
+                        }
+                    } else {
+                        ckAnswer = ckAnswer.replace("D", "");
+                        answer.set(position, ckAnswer);
+                    }
+                }
+            });
+        }
+
+
         holder.bottom_layout = (LinearLayout) convertView.findViewById(R.id.bottom_layout);
         holder.upLayout = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_upLayout);
         holder.nextLayout = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_nextLayout);
@@ -266,10 +378,17 @@ public class SubjectAdapter extends PagerAdapter {
                     }
                     break;
                 case R.id.activity_prepare_test_nextLayout:
+                    Log.d("answer.toString==>>>", answer.toString());
+                    for (int i = 0; i < answer.size(); i++) {
+                        if (answer.get(i).equals("")) {
+                            answer.remove(i);
+                        }
+                    }
                     if (answer.size() < mPosition) {
                         Toast.makeText(mContext, R.string.no_choose_answer, Toast.LENGTH_SHORT).show();
                         return;
                     }
+
                     if (mPosition == (viewItems.size())) {
                         Toast.makeText(mContext, R.string.submint_answer, Toast.LENGTH_SHORT).show();
                         Log.d("List<String> answer==>>>", answer.toString());
@@ -313,7 +432,9 @@ public class SubjectAdapter extends PagerAdapter {
     public class ViewHolder {
         WebView webview, webviewA, webviewB, webviewC, webviewD, webviewE;
         RadioButton a, b, c, d;
-        LinearLayout bottom_layout, upLayout, nextLayout;
+        RadioGroup rgLayout;
+        CheckBox ck_a, ck_b, ck_c, ck_d;
+        LinearLayout bottom_layout, upLayout, nextLayout, ckLayout;
         TextView nextText;
         ImageView nextImage;
     }
