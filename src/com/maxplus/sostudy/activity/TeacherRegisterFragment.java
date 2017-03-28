@@ -496,7 +496,7 @@ public class TeacherRegisterFragment extends Fragment implements View.OnClickLis
                 phoneCode = ett_phoneCode.getText().toString().trim();
                 ett_password = (EditText) mRootView.findViewById(R.id.ett_input_new_password);
                 password = ett_password.getText().toString().trim();
-                if (tschool == null || tschool == "") {
+                if (schoolName == null || schoolName == "") {
                     Toast.makeText(getActivity(), R.string.school_not_null, Toast.LENGTH_SHORT).show();
                     break;
                 }

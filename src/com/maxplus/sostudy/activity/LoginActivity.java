@@ -136,16 +136,24 @@ public class LoginActivity extends Activity implements OnClickListener {
                 try {
                     Log.d("status=====>", json.toString());
                     if (json.getInt("status") == 1) {
-                        token = json.getString("tock");
-                        Log.d("token==>>>>", token);
-                        SharedPreferences mySharedPreferences = getSharedPreferences("user",
-                                Activity.MODE_PRIVATE);
-                        SharedPreferences.Editor edit = mySharedPreferences.edit();
-                        edit.putString("token", token);
-                        edit.putString("username", userName);
-                        edit.putString("password", password);
-                        edit.commit();
-                        startJmlogin(userName, password);
+                        String usertype = json.getString("usertype");
+                        if (usertype.equals("学生")) {
+                            token = json.getString("tock");
+                            Log.d("token==>>>>", token);
+                            SharedPreferences mySharedPreferences = getSharedPreferences("user",
+                                    Activity.MODE_PRIVATE);
+                            SharedPreferences.Editor edit = mySharedPreferences.edit();
+                            edit.putString("token", token);
+                            edit.putString("username", userName);
+                            edit.putString("password", password);
+                            edit.commit();
+                            startJmlogin(userName, password);
+                        } else {
+                            Toast.makeText(LoginActivity.this, R.string.not_open, Toast.LENGTH_LONG).show();
+                            mLoadingDialog.dismiss();
+                            return;
+                        }
+
                     } else if (json.getInt("status") == 0) {
                         Log.d("errorInfo==>>>>>", json.getString("errorInfo"));
                         mLoadingDialog.dismiss();

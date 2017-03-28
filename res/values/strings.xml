@@ -8,7 +8,8 @@
     <string name="register">注册</string>
     <string name="registering_hint">注册中</string>
     <string name="register_failed_toast">注册失败</string>
-    <string name="login_failed_toast">登录失败</string>
+    <string name="login_failed_toast">登录失败,请稍后再试...</string>
+    <string name="not_open">老师端和家长端暂未开放，请用学生账号登录，谢谢</string>
     <string name="login_hint">登录中</string>
     <string name="user_not_exist_toast">该用户不存在</string>
     <string name="jmui_user_already_exist_toast">该用户已存在</string>
