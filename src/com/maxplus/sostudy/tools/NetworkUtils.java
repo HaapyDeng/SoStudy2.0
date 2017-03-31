@@ -199,4 +199,9 @@ public class NetworkUtils {
     public static String returnSyncList() {
         return "/mycourse/practice";
     }
+
+    //保存答案
+    public static String returnSaveAnswer() {
+        return "/write/set-api-answer";
+    }
 }

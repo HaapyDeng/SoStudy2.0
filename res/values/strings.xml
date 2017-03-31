@@ -429,13 +429,15 @@
     <string name="next_question">下一题</string>
     <string name="up_question">上一题</string>
     <string name="first_question">已经是第一题</string>
-    <string name="submint_answer">提交答案</string>
+    <string name="submint_answer">提交答案,请继续到电脑端答其它题型</string>
     <string name="no_choose_answer">还未选择答案，请选择</string>
+    <string name="save_fail">答案保存失败请稍后重试！</string>
     <string name="look_answer">答题详情</string>
     <string name="your_answer">你的答案是：</string>
     <string name="right_answer">标准答案是：</string>
     <string name="no_school">此地区未录入数据,请重新选择</string>
     <string name="rigtht_rate">你答题的正确率为：</string>
     <string name="no_question">暂无题目</string>
+    <string name="commit_answer">提交</string>
 </resources>
 

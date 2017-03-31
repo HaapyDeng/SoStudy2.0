@@ -1,6 +1,8 @@
 package com.maxplus.sostudy.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -17,12 +19,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.activity.DoingExerciseActivity;
 import com.maxplus.sostudy.activity.LookAnswerActivity;
 import com.maxplus.sostudy.entity.SubjectBean;
+import com.maxplus.sostudy.tools.NetworkUtils;
 import com.maxplus.sostudy.tools.ReplaceCharacter;
 
+import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -331,7 +338,7 @@ public class SubjectAdapter extends PagerAdapter {
         if (position == (viewItems.size() - 1))
 
         {
-            holder.nextText.setText("提交");
+            holder.nextText.setText(R.string.commit_answer);
             holder.nextImage.setVisibility(View.GONE);
         }
 
@@ -390,6 +397,7 @@ public class SubjectAdapter extends PagerAdapter {
                     }
 
                     if (mPosition == (viewItems.size())) {
+                        Log.d("mPosition==>>>>", "" + mPosition);
                         Toast.makeText(mContext, R.string.submint_answer, Toast.LENGTH_SHORT).show();
                         Log.d("List<String> answer==>>>", answer.toString());
                         if (sucess.size() == 0) {
@@ -398,6 +406,8 @@ public class SubjectAdapter extends PagerAdapter {
                             }
                         }
                         Log.d("sucess==>>>", String.valueOf(sucess));
+                        Log.d("answer+id===:::>>>", answer.get(mPosition - 1) + "+" + dataItems.get(mPosition - 1).getId());
+                        doSaveAnswer(answer.get(mPosition - 1), Integer.parseInt(dataItems.get(mPosition - 1).getId()));
                         ArrayList bundlelist = new ArrayList();
                         bundlelist.add(answer);
                         ArrayList suceessList = new ArrayList();
@@ -409,11 +419,58 @@ public class SubjectAdapter extends PagerAdapter {
                         intent.putExtras(bundle);
                         mContext.startActivity(intent);
                     } else {
+                        Log.d("mPosition==>>>>", "" + mPosition);
+                        Log.d("answer+id===:::>>>", answer.get(mPosition - 1) + "+" + dataItems.get(mPosition - 1).getId());
+                        doSaveAnswer(answer.get(mPosition - 1), Integer.parseInt(dataItems.get(mPosition - 1).getId()));
                         mContext.setCurrentView(mPosition);
                     }
                     break;
             }
         }
+    }
+
+    //保存答案
+    private void doSaveAnswer(String answer, int courseId) {
+        if (!NetworkUtils.checkNetWork(mContext)) {
+            Toast.makeText(mContext, R.string.isNotNetWork, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String url = NetworkUtils.returnUrl() + NetworkUtils.returnSaveAnswer();
+        int setdate = 0;
+        SharedPreferences mySharedPreferences = mContext.getSharedPreferences("user",
+                Activity.MODE_PRIVATE);
+        String token = mySharedPreferences.getString("token", "");
+        RequestParams rep = new RequestParams();
+        rep.put("setdate", setdate);
+        rep.put("answer", answer);
+        rep.put("questions", courseId);
+        rep.put("token", token);
+        Log.d("ll==<>>>", url + "+" + setdate + "+" + answer + "+" + courseId);
+        Log.d("ll:>>>>", token);
+//        rep.put("atime", 0);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(url, rep, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Log.d("code==>>>", "" + response.getInt("code"));
+                    if (response.getInt("code") == 0) {
+//                        Toast.makeText(mContext, "baocunchenggong", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(mContext, R.string.save_fail, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
     }
 
     @Override
