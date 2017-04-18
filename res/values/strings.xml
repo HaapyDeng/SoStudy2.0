@@ -439,5 +439,7 @@
     <string name="rigtht_rate">你答题的正确率为：</string>
     <string name="no_question">暂无题目</string>
     <string name="commit_answer">提交</string>
+    <string name="look_info">查看解析</string>
+    <string name="re_answer">重新答题</string>
 </resources>
 

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.maxplus.sostudy.R;
 import com.maxplus.sostudy.application.MyApplication;
 import com.maxplus.sostudy.chatting.utils.DialogCreator;
+import com.maxplus.sostudy.tools.DataCleanManager;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -35,6 +36,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
     private Dialog mDialog;
     private LinearLayout tv_clear2;
     private Button cancel, commit;
+    private String cacheSize;
     public static final String TARGET_ID = "targetId";
     public static final String GROUP_ID = "groupId";
 
@@ -53,6 +55,12 @@ public class SetActivity extends Activity implements View.OnClickListener {
         tv_clear2 = (LinearLayout) findViewById(R.id.tv_clear2);
         tv_clear2.setOnClickListener(this);
         tv_cahe = (TextView) findViewById(R.id.tv_cahe);
+        try {
+            cacheSize = DataCleanManager.getTotalCacheSize(SetActivity.this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tv_cahe.setText(cacheSize);
         tv_loginOut = (TextView) findViewById(R.id.tv_loginOut);
         tv_loginOut.setOnClickListener(this);
     }
@@ -122,7 +130,8 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 commit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        tv_cahe.setText("0M");
+                        DataCleanManager.cleanInternalCache(SetActivity.this);
+                        tv_cahe.setText("0K");
                         dialog.cancel();
                     }
                 });
